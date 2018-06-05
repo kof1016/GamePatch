@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="StateMachine">
+      <UniqueIdentifier>{a8dc112c-f3c1-47a4-b36f-362c30b14460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Remote">
+      <UniqueIdentifier>{24654fbb-e8e1-41a6-9ecd-987b99994103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Remote\Curl">
+      <UniqueIdentifier>{18e6f488-2fd8-416c-9001-6d4276e0b2e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MD5">
+      <UniqueIdentifier>{137b4a58-00c7-448d-a7c8-74d5e46c01ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataDefine">
+      <UniqueIdentifier>{acd9c90d-b235-4999-9c39-efb7ee94a0c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Remote\Receive">
+      <UniqueIdentifier>{7f13c31b-cd60-4efc-9b73-49ba8b0b31ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Remote\Downloadable">
+      <UniqueIdentifier>{0cdfc199-ed9e-455a-9ea6-82a211df53cf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StateMachine.h">
+      <Filter>StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
+      <Filter>StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="CurlHttp.h">
+      <Filter>Remote\Curl</Filter>
+    </ClInclude>
+    <ClInclude Include="CurlProgresser.h">
+      <Filter>Remote\Curl</Filter>
+    </ClInclude>
+    <ClInclude Include="CurlDataWriter.h">
+      <Filter>Remote\Curl</Filter>
+    </ClInclude>
+    <ClInclude Include="CurlDebug.h">
+      <Filter>Remote\Curl</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>MD5</Filter>
+    </ClInclude>
+    <ClInclude Include="DataDefine.h">
+      <Filter>DataDefine</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadLocalVersionFile.h" />
+    <ClInclude Include="IReadable.h" />
+    <ClInclude Include="Reader.h" />
+    <ClInclude Include="HttpDownloadTask.h">
+      <Filter>Remote</Filter>
+    </ClInclude>
+    <ClInclude Include="ReceiveDone.h">
+      <Filter>Remote\Receive</Filter>
+    </ClInclude>
+    <ClInclude Include="ReceiverFacade.h">
+      <Filter>Remote\Receive</Filter>
+    </ClInclude>
+    <ClInclude Include="IDownloadable.h">
+      <Filter>Remote\Downloadable</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpDownload.h">
+      <Filter>Remote\Downloadable</Filter>
+    </ClInclude>
+    <ClInclude Include="ReceiveWriteData.h">
+      <Filter>Remote\Receive</Filter>
+    </ClInclude>
+    <ClInclude Include="ReceiveProgress.h">
+      <Filter>Remote\Receive</Filter>
+    </ClInclude>
+    <ClInclude Include="FileTool.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="CurlProgresser.cpp">
+      <Filter>Remote\Curl</Filter>
+    </ClCompile>
+    <ClCompile Include="CurlHttp.cpp">
+      <Filter>Remote\Curl</Filter>
+    </ClCompile>
+    <ClCompile Include="CurlDataWriter.cpp">
+      <Filter>Remote\Curl</Filter>
+    </ClCompile>
+    <ClCompile Include="CurlDebug.cpp">
+      <Filter>Remote\Curl</Filter>
+    </ClCompile>
+    <ClCompile Include="md5.cpp">
+      <Filter>MD5</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadLocalVersionFile.cpp" />
+    <ClCompile Include="Reader.cpp" />
+    <ClCompile Include="HttpDownloadTask.cpp">
+      <Filter>Remote</Filter>
+    </ClCompile>
+    <ClCompile Include="ReceiveDone.cpp">
+      <Filter>Remote\Receive</Filter>
+    </ClCompile>
+    <ClCompile Include="ReceiverFacade.cpp">
+      <Filter>Remote\Receive</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpDownload.cpp">
+      <Filter>Remote\Downloadable</Filter>
+    </ClCompile>
+    <ClCompile Include="ReceiveWriteData.cpp">
+      <Filter>Remote\Receive</Filter>
+    </ClCompile>
+    <ClCompile Include="ReceiveProgress.cpp">
+      <Filter>Remote\Receive</Filter>
+    </ClCompile>
+    <ClCompile Include="FileTool.cpp" />
+  </ItemGroup>
+</Project>
