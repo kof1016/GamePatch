@@ -18,7 +18,7 @@ namespace Utility
 
 		if (_Have)
 		{
-			callback(_Result);
+			_OnDownloadDone(_Result);
 		}
 	}
 

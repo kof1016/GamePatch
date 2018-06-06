@@ -8,21 +8,19 @@ namespace Utility
 	{
 		_ReceiverFacade = receiver_facade;
 
-		_CurlHttp.bindWriteData
+		_CurlHttp.BindWriteData
 		(
-			[&](char* buffer, size_t size, size_t nmemb)-> size_t
+			[&](char* buffer, size_t nmemb)
 			{
-				auto r = _ReceiverFacade->InvokeWriteData(buffer, size, nmemb);
-				return r;
+				_ReceiverFacade->InvokeWriteData(buffer, nmemb);
 			}
 		);
 
-		_CurlHttp.bindProgress
+		_CurlHttp.BindProgress
 		(
-			[=](int total_size, int downloaded_size)-> int
+			[=](int total_size, int downloaded_size)
 			{
-				auto r = _ReceiverFacade->InvokeProgress(total_size, downloaded_size);
-				return r;
+				_ReceiverFacade->InvokeProgress(total_size, downloaded_size);
 			}
 		);
 	}
@@ -66,7 +64,7 @@ namespace Utility
 	{
 		_OnDownloadDone = callback;
 
-		_CurlHttp.bindReceiveDone
+		_CurlHttp.BindReceiveDone
 		(
 			[&](bool result)
 			{

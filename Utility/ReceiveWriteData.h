@@ -10,10 +10,9 @@ namespace Utility
 	public:
 		ReceiveWriteData();
 		~ReceiveWriteData();
-		size_t Bind2(DataDefine::OnWriteData callback);
 
-		size_t Bind(DataDefine::OnWriteData&& callback);
-		size_t Invoke(char* buffer, size_t size, size_t nmemb);
+		void Bind(DataDefine::OnWriteData&& callback);
+		void Invoke(char* buffer, size_t total);
 	private:
 		DataDefine::OnWriteData _OnWriteData;
 		

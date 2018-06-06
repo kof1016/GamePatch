@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../curl/curl.h"
-#include "CurlDataWriter.h"
-#include "CurlProgresser.h"
+#include "CurlWriteDataAdapter.h"
+#include "CurlProgressAdapter.h"
 #include "CurlDebug.h"
 
 namespace Utility
@@ -17,10 +17,10 @@ namespace Utility
 
 		void Downloading(DataDefine::CurlInitData&& data);
 
-		void bindWriteData(DataDefine::OnWriteData&& callback);
-		void bindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback);
+		void BindWriteData(DataDefine::OnWriteData&& callback);
+		void BindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback);
 
-		void bindProgress(DataDefine::OnProgresser&& callback);
+		void BindProgress(DataDefine::OnProgress&& callback);
 
 	private:
 		void _SetUrl(std::string&& url);
@@ -33,8 +33,8 @@ namespace Utility
 		void _Perform();
 		void _CheckResult(bool enable) const;
 
-		CurlDataWriter _DataWrite;
-		CurlProgresser _Progresser;
+		CurlWriteDataAdapter _CurlWriteDataAdapter;
+		CurlProgressAdapter _CurlProgressAdapter;
 		CurlDebug _CurlDebug;
 
 		CURL* _pCurl{nullptr};

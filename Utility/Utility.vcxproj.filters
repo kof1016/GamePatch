@@ -33,12 +33,6 @@
     <ClInclude Include="CurlHttp.h">
       <Filter>Remote\Curl</Filter>
     </ClInclude>
-    <ClInclude Include="CurlProgresser.h">
-      <Filter>Remote\Curl</Filter>
-    </ClInclude>
-    <ClInclude Include="CurlDataWriter.h">
-      <Filter>Remote\Curl</Filter>
-    </ClInclude>
     <ClInclude Include="CurlDebug.h">
       <Filter>Remote\Curl</Filter>
     </ClInclude>
@@ -73,18 +67,18 @@
       <Filter>Remote\Receive</Filter>
     </ClInclude>
     <ClInclude Include="FileTool.h" />
+    <ClInclude Include="CurlWriteDataAdapter.h">
+      <Filter>Remote\Curl</Filter>
+    </ClInclude>
+    <ClInclude Include="CurlProgressAdapter.h">
+      <Filter>Remote\Curl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
       <Filter>StateMachine</Filter>
     </ClCompile>
-    <ClCompile Include="CurlProgresser.cpp">
-      <Filter>Remote\Curl</Filter>
-    </ClCompile>
     <ClCompile Include="CurlHttp.cpp">
-      <Filter>Remote\Curl</Filter>
-    </ClCompile>
-    <ClCompile Include="CurlDataWriter.cpp">
       <Filter>Remote\Curl</Filter>
     </ClCompile>
     <ClCompile Include="CurlDebug.cpp">
@@ -114,5 +108,11 @@
       <Filter>Remote\Receive</Filter>
     </ClCompile>
     <ClCompile Include="FileTool.cpp" />
+    <ClCompile Include="CurlWriteDataAdapter.cpp">
+      <Filter>Remote\Curl</Filter>
+    </ClCompile>
+    <ClCompile Include="CurlProgressAdapter.cpp">
+      <Filter>Remote\Curl</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

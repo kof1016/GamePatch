@@ -166,9 +166,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CurlDebug.h" />
-    <ClInclude Include="CurlProgresser.h" />
+    <ClInclude Include="CurlProgressAdapter.h" />
     <ClInclude Include="DataDefine.h" />
-    <ClInclude Include="CurlDataWriter.h" />
+    <ClInclude Include="CurlWriteDataAdapter.h" />
     <ClInclude Include="CurlHttp.h" />
     <ClInclude Include="FileTool.h" />
     <ClInclude Include="HttpDownloadTask.h" />
@@ -186,9 +186,9 @@
     <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CurlDataWriter.cpp" />
+    <ClCompile Include="CurlWriteDataAdapter.cpp" />
     <ClCompile Include="CurlDebug.cpp" />
-    <ClCompile Include="CurlProgresser.cpp" />
+    <ClCompile Include="CurlProgressAdapter.cpp" />
     <ClCompile Include="CurlHttp.cpp" />
     <ClCompile Include="FileTool.cpp" />
     <ClCompile Include="HttpDownload.cpp" />

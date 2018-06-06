@@ -26,14 +26,14 @@ namespace Utility
 		ReceiverFacade();
 		~ReceiverFacade();
 
-		void bindReceiverDone(DataDefine::OnReceiveDownloadDone&& callback);
+		void BindReceiverDone(DataDefine::OnReceiveDownloadDone&& callback);
 		void InvokeDownloadDone(bool result);
 
-		size_t bindWriteData(DataDefine::OnWriteData&& callback);
-		size_t InvokeWriteData(char* buffer, size_t size, size_t nmemb);
+		void BindWriteData(DataDefine::OnWriteData&& callback);
+		void InvokeWriteData(char* buffer, size_t total);
 
-		void bindProgresser(DataDefine::OnProgresser&& callback);
-		int InvokeProgress(int total_size, int downloaded_size);
+		void BindProgress(DataDefine::OnProgress&& callback);
+		void InvokeProgress(int total_size, int downloaded_size);
 
 	private:
 		ReceiveDone _ReceiveDone;

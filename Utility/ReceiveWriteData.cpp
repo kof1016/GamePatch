@@ -12,45 +12,28 @@ namespace Utility
 	{
 	}
 
-	size_t ReceiveWriteData::Bind2(DataDefine::OnWriteData callback)
+	void ReceiveWriteData::Bind(DataDefine::OnWriteData&& callback)
 	{
 		_OnWriteData = callback;
 
 		if (!_Temp.empty())
 		{
-			return _OnWriteData(_Temp.data(), 1, _Temp.size());
+			_OnWriteData(_Temp.data(), _Temp.size());
 		}
-
-		return 0;
 	}
 
-	size_t ReceiveWriteData::Bind(DataDefine::OnWriteData&& callback)
-	{
-		_OnWriteData = callback;
-
-		if (!_Temp.empty())
-		{
-			return _OnWriteData(_Temp.data(), 1, _Temp.size());
-		}
-
-		return 0;
-	}
-
-	size_t ReceiveWriteData::Invoke(char* buffer, size_t size, size_t nmemb)
+	void ReceiveWriteData::Invoke(char* buffer, size_t total)
 	{
 		_Temp.clear();
-		auto value{0};
 
 		if (!_OnWriteData)
 		{
-			_Temp.insert(_Temp.end(), buffer, buffer+nmemb);
+			_Temp.insert(_Temp.end(), buffer, buffer + total);
 
-			value = nmemb;
 		}
 		else
 		{
-			value = _OnWriteData(buffer, size, nmemb);
+			_OnWriteData(buffer, total);
 		}
-		return value;
 	}
 }

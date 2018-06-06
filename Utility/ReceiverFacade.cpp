@@ -10,7 +10,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiverFacade::bindReceiverDone(DataDefine::OnReceiveDownloadDone&& callback)
+	void ReceiverFacade::BindReceiverDone(DataDefine::OnReceiveDownloadDone&& callback)
 	{
 		_ReceiveDone.Bind(std::move(callback));
 	}
@@ -20,23 +20,23 @@ namespace Utility
 		_ReceiveDone.Invoke(result);
 	}
 
-	size_t ReceiverFacade::bindWriteData(DataDefine::OnWriteData&& callback)
+	void ReceiverFacade::BindWriteData(DataDefine::OnWriteData&& callback)
 	{
-		return _ReceiveWriteData.Bind(std::move(callback));
+		_ReceiveWriteData.Bind(std::move(callback));
 	}
 
-	size_t ReceiverFacade::InvokeWriteData(char* buffer, size_t size, size_t nmemb)
+	void ReceiverFacade::InvokeWriteData(char* buffer, size_t total)
 	{
-		return _ReceiveWriteData.Invoke(buffer, size, nmemb);
+		_ReceiveWriteData.Invoke(buffer, total);
 	}
 
-	void ReceiverFacade::bindProgresser(DataDefine::OnProgresser&& callback)
+	void ReceiverFacade::BindProgress(DataDefine::OnProgress&& callback)
 	{
 		_ReceiveProgress.Bind(std::move(callback));
 	}
 
-	int ReceiverFacade::InvokeProgress(int total_size, int downloaded_size)
+	void ReceiverFacade::InvokeProgress(int total_size, int downloaded_size)
 	{
-		return _ReceiveProgress.Invoke(total_size, downloaded_size);
+		_ReceiveProgress.Invoke(total_size, downloaded_size);
 	}
 }

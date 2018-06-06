@@ -3,15 +3,15 @@
 
 namespace Utility
 {
-	class CurlDataWriter final
+	class CurlWriteDataAdapter final
 	{
 	public:
-		CurlDataWriter();
-		~CurlDataWriter();
+		CurlWriteDataAdapter();
+		~CurlWriteDataAdapter();
 
 		static size_t WriteFunction(char* buffer, size_t size, size_t nmemb, void* userdata);
 
-		size_t WriteData(char* buffer, size_t size, size_t nmemb) const;
+		void WriteData(char* buffer, size_t nmemb) const;
 
 		void bindCallback(DataDefine::OnWriteData&& callback);
 

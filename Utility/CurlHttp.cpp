@@ -72,19 +72,19 @@ namespace Utility
 		_CheckResult(data.CheckResult);
 	}
 
-	void CurlHttp::bindWriteData(DataDefine::OnWriteData&& callback)
+	void CurlHttp::BindWriteData(DataDefine::OnWriteData&& callback)
 	{
-		_DataWrite.bindCallback(std::move(callback));
+		_CurlWriteDataAdapter.bindCallback(std::move(callback));
 	}
 
-	void CurlHttp::bindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback)
+	void CurlHttp::BindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback)
 	{
 		_OnReceiveDone = callback;
 	}
 
-	void CurlHttp::bindProgress(DataDefine::OnProgresser&& callback)
+	void CurlHttp::BindProgress(DataDefine::OnProgress&& callback)
 	{
-		_Progresser.bindCallback(std::move(callback));
+		_CurlProgressAdapter.Bind(std::move(callback));
 	}
 
 	void CurlHttp::_SetUrl(std::string&& url)
@@ -125,8 +125,8 @@ namespace Utility
 		{
 			return;
 		}
-		curl_easy_setopt(_pCurl, CURLOPT_WRITEFUNCTION, &CurlDataWriter::WriteFunction);
-		curl_easy_setopt(_pCurl, CURLOPT_WRITEDATA, &_DataWrite);
+		curl_easy_setopt(_pCurl, CURLOPT_WRITEFUNCTION, &CurlWriteDataAdapter::WriteFunction);
+		curl_easy_setopt(_pCurl, CURLOPT_WRITEDATA, &_CurlWriteDataAdapter);
 	}
 
 	void CurlHttp::_DownloadProgress(bool enable)
@@ -137,9 +137,9 @@ namespace Utility
 		}
 		//download progress trigger by second
 		curl_easy_setopt(_pCurl, CURLOPT_NOPROGRESS, 0L);
-		//curl_easy_setopt(_pCurl, CURLOPT_PROGRESSFUNCTION, &CurlProgresser::ProgressFunction);
-		curl_easy_setopt(_pCurl, CURLOPT_XFERINFOFUNCTION, &CurlProgresser::ProgressFunction);
-		curl_easy_setopt(_pCurl, CURLOPT_PROGRESSDATA, &_Progresser);
+		//curl_easy_setopt(_pCurl, CURLOPT_PROGRESSFUNCTION, &CurlProgressAdapter::ProgressFunction);
+		curl_easy_setopt(_pCurl, CURLOPT_XFERINFOFUNCTION, &CurlProgressAdapter::ProgressFunction);
+		curl_easy_setopt(_pCurl, CURLOPT_PROGRESSDATA, &_CurlProgressAdapter);
 	}
 
 	void CurlHttp::_Debug(bool enable)

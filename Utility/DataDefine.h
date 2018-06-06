@@ -16,7 +16,7 @@ namespace DataDefine
 		bool CheckResult{true};
 	};
 
-	typedef std::function<size_t(char* buffer, size_t size, size_t nmemb)> OnWriteData;
-	typedef std::function<int(int total_size, int downloaded_size)> OnProgresser;
+	typedef std::function<void(char* buffer, size_t total)> OnWriteData;
+	typedef std::function<void(int total_size, int downloaded_size)> OnProgress;
 	typedef std::function<void(bool result)> OnReceiveDownloadDone;
 }

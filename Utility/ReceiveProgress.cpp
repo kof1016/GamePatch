@@ -4,7 +4,7 @@ namespace Utility
 {
 	ReceiveProgress::ReceiveProgress()
 	{
-		_OnProgresser =
+		_OnProgress =
 			[=](int total, int downloaded)
 			{
 				return 0;
@@ -15,13 +15,21 @@ namespace Utility
 	{
 	}
 
-	void ReceiveProgress::Bind(DataDefine::OnProgresser&& callback)
+	void ReceiveProgress::Bind(DataDefine::OnProgress&& callback)
 	{
-		_OnProgresser = callback;
+		_OnProgress = callback;
+		
+		if(_Have)
+		{
+			_OnProgress(_Total, _Downloaded);
+		}
 	}
 
-	int ReceiveProgress::Invoke(int total_size, int downloaded_size)
+	void ReceiveProgress::Invoke(int total_size, int downloaded_size)
 	{
-		return _OnProgresser(total_size, downloaded_size);
+		_Total = total_size;
+		_Downloaded = downloaded_size;
+		_Have = true;
+		_OnProgress(total_size, downloaded_size);
 	}
 }

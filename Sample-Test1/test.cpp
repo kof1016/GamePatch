@@ -4,10 +4,8 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "../Utility/StateMachine.h"
 #include "../curl/curl.h"
 #include "../Utility/IDownloadable.h"
-#include "../Utility/CurlHttp.h"
 #include <thread>
 #include <mutex>
 #include "../Utility/md5.h"
@@ -65,7 +63,7 @@ int n = 0;
 
 TEST_CASE("MD5_C_Style", "[Utility]")
 {
-	std::FILE* fp = std::fopen("dummy.txt", "rb");
+	std::FILE* fp = std::fopen("dummy.txt", "w");
 	assert(fp);
 
 	std::fseek(fp, 0, SEEK_END); // seek to end
@@ -87,11 +85,7 @@ TEST_CASE("MD5_C_Style", "[Utility]")
 
 	std::string a = "327c478cce88005e6ad0d5ad10811b11";
 
-	//auto result = std::strcmp(a.c_str(), strMd5.c_str());
-
-	auto aa = a.compare(strMd5);
-
-	//auto r = a == strMd5;
+	a.compare(strMd5);
 
 	std::cout << strMd5 << std::endl;
 }
@@ -185,15 +179,15 @@ public:
 	}
 
 
-	void ReceiveData(char* data, int length)
+	void ReceiveData(char* data, int total)
 	{
-		_DownloadedSize += length;
+		_DownloadedSize += total;
 		if (_DownloadedSize >= _FileSize)
 		{
 			_ReceiverFacade->InvokeDownloadDone(true);
 		}
 
-		_ReceiverFacade->InvokeWriteData(data, 1, length);
+		_ReceiverFacade->InvokeWriteData(data, total);
 		_ReceiverFacade->InvokeProgress(_FileSize, _DownloadedSize);
 	}
 
@@ -213,26 +207,24 @@ SCENARIO("fake download", "[test-1]")
 	//act
 	auto facade = download.Start("");
 
-	facade->bindWriteData
+	facade->BindWriteData
 	(
-		[&](char* buffer, size_t size, size_t nmemb)-> size_t
+		[&](char* buffer, size_t total)
 		{
-			return nmemb;
 		}
 	);
 
-	facade->bindProgresser
+	facade->BindProgress
 	(
-		[=](int total, int downloaded)-> int
+		[=](int total, int downloaded)
 		{
 			const auto percent = downloaded * 100.0 / total;
 			std::cout << "fake percent=" << percent << "%" << "\r";
-			return 0;
 		}
 	);
 
 	bool done = false;
-	facade->bindReceiverDone
+	facade->BindReceiverDone
 	(
 		[&](bool result)
 		{
@@ -275,7 +267,7 @@ SCENARIO("fake download", "[test-1]")
 //
 // 					FILE* fp = std::fopen(filename.c_str(), "w");
 //
-// 					receiver.bindWriteData
+// 					receiver.BindWriteData
 // 					(
 // 						[&](char* buffer, size_t size, size_t nmemb)-> size_t
 // 						{
@@ -283,7 +275,7 @@ SCENARIO("fake download", "[test-1]")
 // 						}
 // 					);
 //
-// 					receiver.bindProgresser
+// 					receiver.BindProgress
 // 					(
 // 						[=](int total, int downloaded)-> int
 // 						{
@@ -295,7 +287,7 @@ SCENARIO("fake download", "[test-1]")
 //
 //
 // 					bool done = false;
-// 					receiver.bindReceiverDone
+// 					receiver.BindReceiverDone
 // 					(
 // 						[&](bool result)
 // 						{
@@ -337,16 +329,15 @@ SCENARIO("fake download break", "[test-1]")
 
 			AND_WHEN("write data to local file")
 			{
-				facade->bindWriteData
+				facade->BindWriteData
 				(
-					[&](char* buffer, size_t size, size_t nmemb)-> size_t
+					[&](char* buffer, size_t total)
 					{
-						localFile.push_back(*buffer);
-						return nmemb;
+						localFile.assign(buffer, buffer + total);
 					}
 				);
 
-				facade->bindProgresser
+				facade->BindProgress
 				(
 					[=](int total, int downloaded)-> int
 					{
@@ -356,7 +347,7 @@ SCENARIO("fake download break", "[test-1]")
 					}
 				);
 
-				facade->bindReceiverDone
+				facade->BindReceiverDone
 				(
 					[&](bool result)
 					{
@@ -391,37 +382,36 @@ SCENARIO("fake resume download", "[test-1]")
 {
 	GIVEN("i restart download")
 	{
-		std::vector<char> sourceFile = {'1', '2', '3', '4', '5'};
-		std::vector<char> localFile = {'1'};
-		std::vector<char> leftoverFile = { '2', '3', '4', '5' };
-
+		std::vector<char> source = {'1', '2', '3', '4', '5'};
+		std::vector<char> target = {'1'};
+		std::vector<char> leftover = {'2', '3', '4', '5'};
 		bool done = false;
+
 		WHEN("i open local unifish file")
 		{
 			AND_WHEN("i start here keep on download to file end")
 			{
-				FakeDonwload download(sourceFile.size(), localFile.size());
+				FakeDonwload download(source.size(), target.size());
 				auto facade = download.Start("");
-				facade->bindWriteData
+				
+				facade->BindWriteData
 				(
-					[&](char* buffer, size_t size, size_t nmemb)-> size_t
+					[&](char* buffer, size_t total)
 					{
-						localFile.push_back(*buffer);
-						return nmemb;
+						target.insert(target.end(), buffer, buffer + total);
 					}
 				);
 
-				facade->bindProgresser
+				facade->BindProgress
 				(
-					[=](int total, int downloaded)-> int
+					[=](int total, int downloaded)
 					{
 						const auto percent = downloaded * 100.0 / total;
 						std::cout << "fake percent=" << percent << "%" << "\r";
-						return 0;
 					}
 				);
 
-				facade->bindReceiverDone
+				facade->BindReceiverDone
 				(
 					[&](bool result)
 					{
@@ -431,12 +421,9 @@ SCENARIO("fake resume download", "[test-1]")
 
 				THEN("i get complete file")
 				{
-					download.ReceiveData(leftoverFile.data(), 1);
-					download.ReceiveData(leftoverFile.data(), 1);
-					download.ReceiveData(leftoverFile.data(), 1);
-					download.ReceiveData(leftoverFile.data(), 1);
+					download.ReceiveData(leftover.data(), 4);
 
-					REQUIRE(localFile.size() == sourceFile.size());
+					REQUIRE(target.size() == source.size());
 
 					REQUIRE(done);
 				}
@@ -463,27 +450,25 @@ TEST_CASE("download one file", "[test-1]")
 
 	auto facade = download.Start(url);
 
-	facade->bindWriteData
+	facade->BindWriteData
 	(
-		[&](char* buffer, size_t size, size_t nmemb)-> size_t
+		[&](char* buffer, size_t nmemb)
 		{
-			auto r = fwrite(buffer, size, nmemb, fp);
-			return r;
+			fwrite(buffer, 1, nmemb, fp);
 		}
 	);
 
-	facade->bindProgresser
+	facade->BindProgress
 	(
-		[=](int total, int downloaded)-> int
+		[=](int total, int downloaded)
 		{
 			const auto percent = downloaded * 100.0 / total;
 			std::cout << "percent=" << percent << "\r";
-			return 0;
 		}
 	);
 
 	bool done = false;
-	facade->bindReceiverDone
+	facade->BindReceiverDone
 	(
 		[&](bool result)
 		{
@@ -502,30 +487,43 @@ TEST_CASE("download one file", "[test-1]")
 
 TEST_CASE("ReceiveProgress before bind", "[curl]")
 {
-	auto test = Utility::ReceiveProgress();
+	//arrange
+	int total, downloaded;
 
-	test.Bind([=](int total, int downloaded)-> int
+	//act
+	auto test = Utility::ReceiveProgress();
+	test.Bind([&](int t, int d)
 	{
-		return 0;
+		total = t;
+		downloaded = d;
 	});
 
-	auto r = test.Invoke(1, 1);
+	test.Invoke(2, 1);
 
-	REQUIRE(r == 0);
+	//assert
+	REQUIRE(total == 2);
+	REQUIRE(downloaded == 1);
 }
 
 TEST_CASE("ReceiveProgress before invoke", "[curl]")
 {
+	//arrange
+	int total, downloaded;
+
+	//act
 	auto test = Utility::ReceiveProgress();
 
-	auto r = test.Invoke(1, 1); //true 
+	test.Invoke(2, 1); //true 
 
-	test.Bind([=](int total, int downloaded)-> int
+	test.Bind([&](int t, int d)
 	{
-		return 0;
+		total = t;
+		downloaded = d;
 	});
 
-	REQUIRE(r == 0);
+	//assert
+	REQUIRE(total == 2);
+	REQUIRE(downloaded == 1);
 }
 
 TEST_CASE("ReceiveDone before bind", "[curl]")
@@ -560,47 +558,46 @@ TEST_CASE("ReceiveDone before invoke", "[curl]")
 
 TEST_CASE("ReceiveWriteData before bind", "[curl]")
 {
+	//arrange
+	char source[]{'1', '2', '3', '\0'};
+	std::vector<char> target;
+
+	//act
 	auto test = Utility::ReceiveWriteData();
-
-	FILE* fp = std::fopen("testfile2.txt", "w");
-
-	char buffer[]{'1', '2', '3', '\0'};
-
-	auto write_count = test.Bind
+	test.Bind
 	(
-		[&](char* b, size_t size, size_t nmemb)-> size_t
+		[&](char* buffer, size_t total)
 		{
-			return fwrite(b, size, nmemb, fp);
+			target.assign(buffer, buffer + total);
 		}
 	);
 
-	REQUIRE(write_count == 0);
+	test.Invoke(source, sizeof(source));
 
-	write_count = test.Invoke(buffer, 1, sizeof(buffer));
-	REQUIRE(write_count == 4);
-
-	fclose(fp);
+	// assert
+	REQUIRE(target.size() == 4);
 }
 
 TEST_CASE("ReceiveWriteData before invoke", "[curl]")
 {
+	//arrange
+	char source[]{ '1', '2', '3', '\0' };
+	std::vector<char> target;
+
+	//act
 	auto test = Utility::ReceiveWriteData();
-	FILE* fp = std::fopen("testfile3.txt", "w");
-	char buffer[]{'1', '2', '3', '4', '5', '\0'};
+	test.Invoke(source, sizeof(source)); //true 
 
-	auto write_count = test.Invoke(buffer, 1, sizeof(buffer)); //true 
-
-	REQUIRE(write_count == 6);
-
-	write_count = test.Bind
+	test.Bind
 	(
-		[&](char* b, size_t size, size_t nmemb)-> size_t
+		[&](char* buffer, size_t total)
 		{
-			return fwrite(b, size, nmemb, fp);
+			target.assign(buffer, buffer + total);
 		}
 	);
-
-	REQUIRE(write_count == 6);
+	
+	// assert
+	REQUIRE(target.size() == 4);
 }
 
 
