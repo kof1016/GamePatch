@@ -239,74 +239,69 @@ SCENARIO("fake download", "[test-1]")
 }
 
 
-// SCENARIO("download muti file", "[test-1]")
-// {
-// 	GIVEN("i have url list")
-// 	{
-// 		std::vector<std::tuple<std::string, std::string>> urls;
-//
-// 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file0.txt");
-// 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file1.txt");
-// 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file2.txt");
-// 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file3.txt");
-// 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file4.txt");
-// 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file5.txt");
-//
-// 		WHEN("i ready download")
-// 		{
-// 			Utility::HttpDownload download; //user
-//
-// 			THEN("i receive file in disk")
-// 			{
-// 				for (auto&& tuple : urls)
-// 				{
-// 					const auto url = std::get<0>(tuple);
-// 					auto filename = std::get<1>(tuple);
-//
-// 					auto& receiver = download.Start(url);
-//
-// 					FILE* fp = std::fopen(filename.c_str(), "w");
-//
-// 					receiver.BindWriteData
-// 					(
-// 						[&](char* buffer, size_t size, size_t nmemb)-> size_t
-// 						{
-// 							return fwrite(buffer, size, nmemb, fp);
-// 						}
-// 					);
-//
-// 					receiver.BindProgress
-// 					(
-// 						[=](int total, int downloaded)-> int
-// 						{
-// 							const auto percent = downloaded * 100.0 / total;
-// 							//std::cout << "percent=" << percent << "\r";
-// 							return 0;
-// 						}
-// 					);
-//
-//
-// 					bool done = false;
-// 					receiver.BindReceiverDone
-// 					(
-// 						[&](bool result)
-// 						{
-// 							fclose(fp);
-// 							done = result;
-// 							//std::cout << std::endl;
-// 						}
-// 					);
-//
-// 					while (!done)
-// 					{
-// 					}
-//
-// 					REQUIRE(done == true);
-// 				}
-// 			}
-// 		}
-// 	}
-// }
+ SCENARIO("download muti file", "[test-1]")
+ {
+ 	GIVEN("i have url list")
+ 	{
+ 		std::vector<std::tuple<std::string, std::string>> urls;
+
+ 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file0.txt");
+ 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file1.txt");
+
+ 		WHEN("i ready download")
+ 		{
+ 			Utility::HttpDownload download; //user
+
+ 			THEN("i receive file in disk")
+ 			{
+ 				for (auto&& tuple : urls)
+ 				{
+ 					const auto url = std::get<0>(tuple);
+ 					auto filename = std::get<1>(tuple);
+
+ 					auto receiver = download.Start(url);
+
+					auto fp = fopen(filename.c_str(), "w");
+
+ 					receiver->BindWriteData
+ 					(
+ 						[&](char* buffer, size_t nmemb)
+ 						{
+ 							fwrite(buffer, 1, nmemb, fp);
+ 						}
+ 					);
+
+ 					receiver->BindProgress
+ 					(
+ 						[=](int total, int downloaded)
+ 						{
+							const auto percent = downloaded * 100.0 / total;
+							std::cout << "percent=" << percent << "%" << "\r";
+ 						}
+ 					);
+
+
+ 					bool done = false;
+ 					receiver->BindReceiverDone
+ 					(
+ 						[&](bool result)
+ 						{
+ 							fclose(fp);
+ 							done = result;
+ 							//std::cout << std::endl;
+ 						}
+ 					);
+
+ 					while (!done)
+ 					{
+ 					}
+
+ 					REQUIRE(done == true);
+ 				}
+ 			}
+ 		}
+ 	}
+ }
 
 /*
 Feature: resume download

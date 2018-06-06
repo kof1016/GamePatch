@@ -23,7 +23,7 @@ namespace Utility
 		_OnProgress(total_size, downloaded_size);
 	}
 
-	int CurlProgressAdapter::ProgressFunction(void* buffer, curl_off_t t, curl_off_t d, curl_off_t ultotal, curl_off_t ulnow)
+	int CurlProgressAdapter::CurlCallback(void* buffer, curl_off_t t, curl_off_t d, curl_off_t ultotal, curl_off_t ulnow)
 	{
 		const auto adapter = reinterpret_cast<CurlProgressAdapter*>(buffer);
 		adapter->Invoke(int(t), int(d));

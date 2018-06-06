@@ -9,11 +9,10 @@ namespace Utility
 		CurlWriteDataAdapter();
 		~CurlWriteDataAdapter();
 
-		static size_t WriteFunction(char* buffer, size_t size, size_t nmemb, void* userdata);
+		static size_t CurlCallback(char* buffer, size_t size, size_t nmemb, void* userdata);
 
-		void WriteData(char* buffer, size_t nmemb) const;
-
-		void bindCallback(DataDefine::OnWriteData&& callback);
+		void Bind(DataDefine::OnWriteData&& callback);
+		void Invoke(char* buffer, size_t nmemb) const;
 
 	private:
 		DataDefine::OnWriteData _OnWriteData;
