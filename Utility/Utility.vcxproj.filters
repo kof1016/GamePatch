@@ -22,6 +22,9 @@
     <Filter Include="Remote\Downloadable">
       <UniqueIdentifier>{0cdfc199-ed9e-455a-9ea6-82a211df53cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataParser">
+      <UniqueIdentifier>{cf3363da-e7dd-4607-ad94-a2cb0c04f95f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StateMachine.h">
@@ -67,11 +70,17 @@
       <Filter>Remote\Receive</Filter>
     </ClInclude>
     <ClInclude Include="FileTool.h" />
-    <ClInclude Include="CurlWriteDataAdapter.h">
+    <ClInclude Include="ProgressAdapter.h">
       <Filter>Remote\Curl</Filter>
     </ClInclude>
-    <ClInclude Include="CurlProgressAdapter.h">
+    <ClInclude Include="WriteDataAdapter.h">
       <Filter>Remote\Curl</Filter>
+    </ClInclude>
+    <ClInclude Include="IParser.h">
+      <Filter>DataParser</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigParser.h">
+      <Filter>DataParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,11 +117,14 @@
       <Filter>Remote\Receive</Filter>
     </ClCompile>
     <ClCompile Include="FileTool.cpp" />
-    <ClCompile Include="CurlWriteDataAdapter.cpp">
+    <ClCompile Include="ProgressAdapter.cpp">
       <Filter>Remote\Curl</Filter>
     </ClCompile>
-    <ClCompile Include="CurlProgressAdapter.cpp">
+    <ClCompile Include="WriteDataAdapter.cpp">
       <Filter>Remote\Curl</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigParser.cpp">
+      <Filter>DataParser</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

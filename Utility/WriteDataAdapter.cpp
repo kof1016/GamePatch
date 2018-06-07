@@ -1,28 +1,28 @@
-#include "CurlWriteDataAdapter.h"
+#include "WriteDataAdapter.h"
 
 namespace Utility
 {
-	CurlWriteDataAdapter::CurlWriteDataAdapter()
+	WriteDataAdapter::WriteDataAdapter()
 	{
 	}
 
-	CurlWriteDataAdapter::~CurlWriteDataAdapter()
+	WriteDataAdapter::~WriteDataAdapter()
 	{
 	}
 
-	void CurlWriteDataAdapter::Bind(DataDefine::OnWriteData&& callback)
+	void WriteDataAdapter::Bind(DataDefine::OnWriteData&& callback)
 	{
 		_OnWriteData = callback;
 	}
 
-	void CurlWriteDataAdapter::Invoke(char* buffer, size_t nmemb) const
+	void WriteDataAdapter::Invoke(char* buffer, size_t nmemb) const
 	{
  		_OnWriteData(buffer, nmemb);
 	}
 
-	size_t CurlWriteDataAdapter::CurlCallback(char* buffer, size_t size, size_t nmemb, void* userdata)
+	size_t WriteDataAdapter::CurlCallback(char* buffer, size_t size, size_t nmemb, void* userdata)
 	{
-		const auto adapter = reinterpret_cast<CurlWriteDataAdapter*>(userdata);
+		const auto adapter = reinterpret_cast<WriteDataAdapter*>(userdata);
 		adapter->Invoke(buffer, nmemb);
 		
 		return nmemb;

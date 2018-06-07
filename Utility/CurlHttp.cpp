@@ -125,7 +125,7 @@ namespace Utility
 		{
 			return;
 		}
-		curl_easy_setopt(_pCurl, CURLOPT_WRITEFUNCTION, &CurlWriteDataAdapter::CurlCallback);
+		curl_easy_setopt(_pCurl, CURLOPT_WRITEFUNCTION, &WriteDataAdapter::CurlCallback);
 		curl_easy_setopt(_pCurl, CURLOPT_WRITEDATA, &_CurlWriteDataAdapter);
 	}
 
@@ -137,8 +137,8 @@ namespace Utility
 		}
 		//download progress trigger by second
 		curl_easy_setopt(_pCurl, CURLOPT_NOPROGRESS, 0L);
-		//curl_easy_setopt(_pCurl, CURLOPT_PROGRESSFUNCTION, &CurlProgressAdapter::CurlCallback);
-		curl_easy_setopt(_pCurl, CURLOPT_XFERINFOFUNCTION, &CurlProgressAdapter::CurlCallback);
+		//curl_easy_setopt(_pCurl, CURLOPT_PROGRESSFUNCTION, &ProgressAdapter::CurlCallback);
+		curl_easy_setopt(_pCurl, CURLOPT_XFERINFOFUNCTION, &ProgressAdapter::CurlCallback);
 		curl_easy_setopt(_pCurl, CURLOPT_PROGRESSDATA, &_CurlProgressAdapter);
 	}
 

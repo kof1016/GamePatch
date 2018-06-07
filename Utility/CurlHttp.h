@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../curl/curl.h"
-#include "CurlWriteDataAdapter.h"
-#include "CurlProgressAdapter.h"
+#include "WriteDataAdapter.h"
+#include "ProgressAdapter.h"
 #include "CurlDebug.h"
 
 namespace Utility
@@ -33,8 +33,8 @@ namespace Utility
 		void _Perform();
 		void _CheckResult(bool enable) const;
 
-		CurlWriteDataAdapter _CurlWriteDataAdapter;
-		CurlProgressAdapter _CurlProgressAdapter;
+		WriteDataAdapter _CurlWriteDataAdapter;
+		ProgressAdapter _CurlProgressAdapter;
 		CurlDebug _CurlDebug;
 
 		CURL* _pCurl{nullptr};

@@ -3,11 +3,11 @@
 
 namespace Utility
 {
-	class CurlWriteDataAdapter final
+	class WriteDataAdapter final
 	{
 	public:
-		CurlWriteDataAdapter();
-		~CurlWriteDataAdapter();
+		WriteDataAdapter();
+		~WriteDataAdapter();
 
 		static size_t CurlCallback(char* buffer, size_t size, size_t nmemb, void* userdata);
 

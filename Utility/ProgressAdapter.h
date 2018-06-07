@@ -3,11 +3,11 @@
 #include "../curl/curl.h"
 namespace Utility
 {
-	class CurlProgressAdapter final
+	class ProgressAdapter final
 	{
 	public:
-		CurlProgressAdapter();
-		~CurlProgressAdapter();
+		ProgressAdapter();
+		~ProgressAdapter();
 
 		static int CurlCallback(void* buffer, curl_off_t t, curl_off_t d, curl_off_t ultotal, curl_off_t ulnow);
 

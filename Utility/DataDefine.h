@@ -16,6 +16,24 @@ namespace DataDefine
 		bool CheckResult{true};
 	};
 
+	struct FileListData
+	{
+		struct Content
+		{
+			Content(const std::string& path, const char* buffer)
+			{
+				Path = path;
+				memcpy(MD5, buffer, 32);
+			}
+			std::string Path{};
+			char MD5[32]{};
+
+		};
+		int Version{0};
+		std::vector<Content> _Contents;
+	};
+
+
 	typedef std::function<void(char* buffer, size_t total)> OnWriteData;
 	typedef std::function<void(int total_size, int downloaded_size)> OnProgress;
 	typedef std::function<void(bool result)> OnReceiveDownloadDone;

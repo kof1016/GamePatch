@@ -12,6 +12,7 @@
 #include "../Utility/HttpDownload.h"
 #include <future>
 #include "../Utility/FileTool.h"
+#include "../Utility/ConfigParser.h"
 
 
 std::mutex gMutex;
@@ -116,6 +117,8 @@ TEST_CASE("MD5-2", "[Utility]")
 	const auto strmd5 = md5.hexdigest();
 
 	auto oldmd5 = "9d5826b31abc288c9587276fc74d98a1";
+
+	auto oldmd = "buildversion=1\r\nactions/1.png|123\r\n";
 
 	std::ofstream outfile("md5list.txt", std::ofstream::out | std::ofstream::app); //write mode | write data from eof 
 
@@ -239,69 +242,69 @@ SCENARIO("fake download", "[test-1]")
 }
 
 
- SCENARIO("download muti file", "[test-1]")
- {
- 	GIVEN("i have url list")
- 	{
- 		std::vector<std::tuple<std::string, std::string>> urls;
+SCENARIO("download muti file", "[test-1]")
+{
+	GIVEN("i have url list")
+	{
+		std::vector<std::tuple<std::string, std::string>> urls;
 
- 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file0.txt");
- 		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file1.txt");
+		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file0.txt");
+		urls.emplace_back("http://tpdb.speed2.hinet.net/test_040m.zip", "file1.txt");
 
- 		WHEN("i ready download")
- 		{
- 			Utility::HttpDownload download; //user
+		WHEN("i ready download")
+		{
+			Utility::HttpDownload download; //user
 
- 			THEN("i receive file in disk")
- 			{
- 				for (auto&& tuple : urls)
- 				{
- 					const auto url = std::get<0>(tuple);
- 					auto filename = std::get<1>(tuple);
+			THEN("i receive file in disk")
+			{
+				for (auto&& tuple : urls)
+				{
+					const auto url = std::get<0>(tuple);
+					auto filename = std::get<1>(tuple);
 
- 					auto receiver = download.Start(url);
+					auto receiver = download.Start(url);
 
 					auto fp = fopen(filename.c_str(), "w");
 
- 					receiver->BindWriteData
- 					(
- 						[&](char* buffer, size_t nmemb)
- 						{
- 							fwrite(buffer, 1, nmemb, fp);
- 						}
- 					);
+					receiver->BindWriteData
+					(
+						[&](char* buffer, size_t nmemb)
+						{
+							fwrite(buffer, 1, nmemb, fp);
+						}
+					);
 
- 					receiver->BindProgress
- 					(
- 						[=](int total, int downloaded)
- 						{
+					receiver->BindProgress
+					(
+						[=](int total, int downloaded)
+						{
 							const auto percent = downloaded * 100.0 / total;
 							std::cout << "percent=" << percent << "%" << "\r";
- 						}
- 					);
+						}
+					);
 
 
- 					bool done = false;
- 					receiver->BindReceiverDone
- 					(
- 						[&](bool result)
- 						{
- 							fclose(fp);
- 							done = result;
- 							//std::cout << std::endl;
- 						}
- 					);
+					bool done = false;
+					receiver->BindReceiverDone
+					(
+						[&](bool result)
+						{
+							fclose(fp);
+							done = result;
+							//std::cout << std::endl;
+						}
+					);
 
- 					while (!done)
- 					{
- 					}
+					while (!done)
+					{
+					}
 
- 					REQUIRE(done == true);
- 				}
- 			}
- 		}
- 	}
- }
+					REQUIRE(done == true);
+				}
+			}
+		}
+	}
+}
 
 /*
 Feature: resume download
@@ -388,7 +391,7 @@ SCENARIO("fake resume download", "[test-1]")
 			{
 				FakeDonwload download(source.size(), target.size());
 				auto facade = download.Start("");
-				
+
 				facade->BindWriteData
 				(
 					[&](char* buffer, size_t total)
@@ -436,7 +439,6 @@ TEST_CASE("download one file", "[test-1]")
 	//std::string url = "https://dl.google.com/dl/android/studio/install/3.0.1.0/android-studio-ide-171.4443003-windows.exe";
 	std::string filename = "testfile1.txt";
 	FILE* fp = std::fopen(filename.c_str(), "w");
-
 
 	//act
 	Utility::HttpDownload download; //user
@@ -576,7 +578,7 @@ TEST_CASE("ReceiveWriteData before bind", "[curl]")
 TEST_CASE("ReceiveWriteData before invoke", "[curl]")
 {
 	//arrange
-	char source[]{ '1', '2', '3', '\0' };
+	char source[]{'1', '2', '3', '\0'};
 	std::vector<char> target;
 
 	//act
@@ -590,9 +592,29 @@ TEST_CASE("ReceiveWriteData before invoke", "[curl]")
 			target.assign(buffer, buffer + total);
 		}
 	);
-	
+
 	// assert
 	REQUIRE(target.size() == 4);
+}
+
+TEST_CASE("config parser", "[curl]")
+{
+	//arrange
+	// const std::string data =
+	// 	"buildversion=1\r\nactions / 1.png | 9e107d9d372bb6826bd81d3542a419d6\r\n";
+
+	const std::string data =
+		"buildversion=1"
+		"actions/1.png|9e107d9d372bb6826bd81d3542a419d6";
+
+	//actions/1.png|9e107d9d372bb6826bd81d3542a419d6
+	//act
+	Utility::ConfigParser parser;
+	
+	parser.Load(data);
+
+	// assert
+	//REQUIRE(target.size() == 4);
 }
 
 
