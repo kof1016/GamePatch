@@ -9,8 +9,9 @@ namespace Utility
 		ConfigParser();
 		virtual ~ConfigParser();
 		DataDefine::FileListData Load(const std::string& data) override;
+		void _Debug();
 	private:
-		void _ParserVersion(const std::string& data);
+		std::string _ParserVersion(const std::string& data);
 		void _ParserFilePath(const std::string& data);
 		void _ParserMd5(const std::string& data);
 

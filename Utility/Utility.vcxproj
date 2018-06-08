@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="ConfigParser.h" />
     <ClInclude Include="CurlDebug.h" />
+    <ClInclude Include="FileListMaker.h" />
     <ClInclude Include="IParser.h" />
     <ClInclude Include="ProgressAdapter.h" />
     <ClInclude Include="DataDefine.h" />
@@ -189,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConfigParser.cpp" />
+    <ClCompile Include="FileListMaker.cpp" />
     <ClCompile Include="WriteDataAdapter.cpp" />
     <ClCompile Include="CurlDebug.cpp" />
     <ClCompile Include="ProgressAdapter.cpp" />

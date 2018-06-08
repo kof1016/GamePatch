@@ -20,17 +20,17 @@ namespace DataDefine
 	{
 		struct Content
 		{
-			Content(const std::string& path, const char* buffer)
+			Content(const std::string& path, const std::string& md5)
 			{
 				Path = path;
-				memcpy(MD5, buffer, 32);
+				MD5 = md5;
 			}
 			std::string Path{};
-			char MD5[32]{};
+			std::string MD5{};
 
 		};
 		int Version{0};
-		std::vector<Content> _Contents;
+		std::vector<Content> Contents;
 	};
 
 

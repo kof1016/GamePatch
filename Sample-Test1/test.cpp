@@ -13,6 +13,7 @@
 #include <future>
 #include "../Utility/FileTool.h"
 #include "../Utility/ConfigParser.h"
+#include "../Utility/FileListMaker.h"
 
 
 std::mutex gMutex;
@@ -61,6 +62,13 @@ int n = 0;
 //auto t233 = std::thread(f1,n); // t4 is now running f2(). t3 is no longer a thread
 //}
 
+TEST_CASE("FileListMaker test", "[file]")
+{
+	const std::string path{ "resources" };
+	const int version = 1;
+	
+	Utility::FileListMaker maker(path, version);
+}
 
 TEST_CASE("MD5_C_Style", "[Utility]")
 {
@@ -94,7 +102,7 @@ TEST_CASE("MD5_C_Style", "[Utility]")
 
 TEST_CASE("MD5-2", "[Utility]")
 {
-	std::ifstream infile("testfile.txt", std::ios::in | std::ios::ate); //read mode | read to end
+	std::ifstream infile(R"(..\resources\1.txt)", std::ios::in | std::ios::ate); //read mode | read to end
 
 	if (!infile.is_open())
 	{
@@ -597,25 +605,24 @@ TEST_CASE("ReceiveWriteData before invoke", "[curl]")
 	REQUIRE(target.size() == 4);
 }
 
-TEST_CASE("config parser", "[curl]")
+TEST_CASE("config parser", "[file]")
 {
 	//arrange
-	// const std::string data =
-	// 	"buildversion=1\r\nactions / 1.png | 9e107d9d372bb6826bd81d3542a419d6\r\n";
-
 	const std::string data =
 		"buildversion=1"
 		"actions/1.png|9e107d9d372bb6826bd81d3542a419d6";
-
-	//actions/1.png|9e107d9d372bb6826bd81d3542a419d6
 	//act
 	Utility::ConfigParser parser;
 	
-	parser.Load(data);
+	auto filelist = parser.Load(data);
 
 	// assert
-	//REQUIRE(target.size() == 4);
+	REQUIRE(filelist.Version == 1);
+	REQUIRE(filelist.Contents[0].Path == "actions/1.png");
+	REQUIRE(filelist.Contents[0].MD5 == "9e107d9d372bb6826bd81d3542a419d6");
 }
+
+
 
 
 bool is_prime(int x)
@@ -648,6 +655,8 @@ void sleep(int milisec)
 {
 	std::this_thread::sleep_for(std::chrono::milliseconds(milisec));
 }
+
+
 
 TEST_CASE("async", "[curl]")
 {

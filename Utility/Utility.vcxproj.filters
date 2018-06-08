@@ -82,6 +82,7 @@
     <ClInclude Include="ConfigParser.h">
       <Filter>DataParser</Filter>
     </ClInclude>
+    <ClInclude Include="FileListMaker.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
@@ -126,5 +127,6 @@
     <ClCompile Include="ConfigParser.cpp">
       <Filter>DataParser</Filter>
     </ClCompile>
+    <ClCompile Include="FileListMaker.cpp" />
   </ItemGroup>
 </Project>
