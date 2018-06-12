@@ -17,6 +17,16 @@ namespace State
 		std::function<void()> OnDone;
 
 	};
+
+	// class CheckFilelistState : public Utility::IState
+	// {
+	// public:
+	// 	CheckFilelistState();
+	// 	~CheckFilelistState() override;
+	// 	void Enter() override;
+	// 	void Leave() override;
+	// 	void Update() override;
+	// };
 }
 
 

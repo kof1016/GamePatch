@@ -1,6 +1,5 @@
 #include "StateMachine.h"
 
-
 namespace Utility
 {
 	StateMachine::StateMachine()
@@ -9,14 +8,15 @@ namespace Utility
 
 	StateMachine::~StateMachine()
 	{
+		std::queue<std::shared_ptr<Utility::IState>> empty;
+		std::swap(empty, _StandBys);
+
+		_CurrentState->Leave();
+		_CurrentState = nullptr;
 	}
 
-	IState* StateMachine::CurrentState() const
-	{
-		return _CurrentState;
-	}
 
-	void StateMachine::Push(IState* new_state)
+	void StateMachine::Push(std::shared_ptr<Utility::IState> new_state)
 	{
 		_StandBys.emplace(new_state);
 	}
@@ -59,29 +59,5 @@ namespace Utility
 		{
 			_CurrentState->Update();
 		}
-	}
-
-	void StateMachine::Termination()
-	{
-		_Clear(_StandBys);
-
-		if (_CurrentState == nullptr)
-		{
-			return;
-		}
-
-		_CurrentState->Leave();
-		_CurrentState = nullptr;
-	}
-
-	void StateMachine::_Clear(std::queue<IState*>& q) const
-	{
-		std::queue<IState*> empty;
-		std::swap(empty, q);
-	}
-
-	void StateMachine::Empty()
-	{
-		//Push(new EmptyStage());
 	}
 }

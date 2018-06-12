@@ -10075,6 +10075,7 @@ namespace Catch {
             std::size_t penultimateColons = className.rfind( "::", lastColons-1 );
             if( penultimateColons == std::string::npos )
                 penultimateColons = 1;
+
             className = className.substr( penultimateColons, lastColons-penultimateColons );
         }
         return className;

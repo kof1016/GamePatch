@@ -4,6 +4,7 @@ namespace Utility
 	class IState
 	{
 	public:
+		IState() = default;
 		virtual ~IState() = default;
 		virtual void Enter() =0;
 

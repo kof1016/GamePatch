@@ -8,7 +8,7 @@ namespace Utility
 	public:
 		FileListMaker() = default;
 		FileListMaker(const std::string& path, int version);
-		~FileListMaker();
+		~FileListMaker() = default;
 
 	private:
 		void _GetAllFile(const std::string& path);

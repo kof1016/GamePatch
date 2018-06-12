@@ -1,9 +1,14 @@
 #pragma once
 #include "IState.h"
 #include <queue>
+#include <memory>
+#include "FileListMaker.h"
 
 namespace Utility
 {
+
+	
+
 	class StateMachine final
 	{
 	public:
@@ -12,24 +17,21 @@ namespace Utility
 		StateMachine(StateMachine&& ) = delete;
 		~StateMachine();
 
-		IState* CurrentState() const;
+		auto CurrentState() const
+		{
+			return _CurrentState;
+		}
 
-		void Push(IState* new_state);
+		void Push(std::shared_ptr<Utility::IState> new_state);
 
 		bool Update();
-
-		void Termination();
-
-		void Empty();
 
 	private:
 		void _SetCurrentState();
 		void _UpdateCurrentState() const;
-		void _Clear(std::queue<IState*>& q) const;
-
-	private:
-		std::queue<IState*> _StandBys;
-		IState* _CurrentState{nullptr};
+		
+		std::queue<std::shared_ptr<Utility::IState>> _StandBys;
+		std::shared_ptr<Utility::IState> _CurrentState{nullptr};
 	};
 }
 

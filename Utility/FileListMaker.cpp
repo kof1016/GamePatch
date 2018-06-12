@@ -15,10 +15,6 @@ namespace Utility
 		_GetAllFile(path);
 	}
 
-	FileListMaker::~FileListMaker()
-	{
-	}
-
 	void FileListMaker::_GetAllFile(const std::string& path)
 	{
 		namespace fs = std::experimental::filesystem;
@@ -31,7 +27,7 @@ namespace Utility
 			
 			_CreateMD5();
 			
-			_FileListData.Contents.emplace_back(fp.relative_path().string(), _MD5);
+			_FileListData.Contents.emplace(fp.relative_path().string(), _MD5);
 		}
 
 		_WriteFile();
@@ -67,15 +63,13 @@ namespace Utility
 
 	void FileListMaker::_WriteFile()
 	{
-		std::ofstream outfile("filelist-2.txt", std::ofstream::out); //write mode | write data from eof 
-
-		//std::ofstream outfile("filelist-2.txt", std::ofstream::out | std::ofstream::app); //write mode | write data from eof 
+		std::ofstream outfile("filelist-2.txt", std::ofstream::out); //write mode
 
 		outfile << "buildversion=" << _FileListData.Version << std::endl;
 
 		for(auto& c : _FileListData.Contents)
 		{
-			outfile << c.Path << "|" << c.MD5 << std::endl;
+			outfile << c.first << "|" << c.second << std::endl;
 		}
 
 		outfile.close();

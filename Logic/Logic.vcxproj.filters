@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="State">
+      <UniqueIdentifier>{74ca40c8-cdc0-4bc6-b7b8-0e3ec2b12240}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FirstState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateLauncher.h" />
+    <ClInclude Include="GetRemoteFileState.h" />
+    <ClInclude Include="ParserFilelistState.h" />
+    <ClInclude Include="FindDiffState.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FirstState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="SecondState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateLauncher.cpp" />
+    <ClCompile Include="GetRemoteFileState.cpp" />
+    <ClCompile Include="ParserFilelistState.cpp" />
+    <ClCompile Include="FindDiffState.cpp" />
+  </ItemGroup>
+</Project>

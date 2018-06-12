@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <functional>
+#include <unordered_map>
+#include <memory>
 
 namespace DataDefine
 {
@@ -30,8 +32,12 @@ namespace DataDefine
 
 		};
 		int Version{0};
-		std::vector<Content> Contents;
+		//std::vector<Content> Contents;
+
+		std::unordered_map<std::string, std::string> Contents;
 	};
+
+	typedef std::shared_ptr<DataDefine::FileListData> ShareFileList;
 
 
 	typedef std::function<void(char* buffer, size_t total)> OnWriteData;

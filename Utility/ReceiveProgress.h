@@ -1,5 +1,5 @@
 #pragma once
-#include "ReceiveDone.h"
+#include "DataDefine.h"
 
 namespace Utility
 {
