@@ -6,6 +6,7 @@
 #include "../Utility/StateMachine.h"
 #include "../Logic/FirstState.h"
 #include "../Logic/SecondState.h"
+#include "../Logic/UpdateLauncher.h"
 
 // Utility::StateMachine StateMachine;
 //
@@ -27,22 +28,35 @@
 
 int main(int argc, char* argv[])
 {
-	 // _ToFirstState();
-	 //
-  //
-	 // int n = _kbhit();
-	 // while(true)
-	 // {
-	 // 	if(_kbhit()!=0)
-	 // 	{
-	 // 		if(_getch() == 0x32)
-	 // 		{
-	 // 			break;
-	 // 		}
-	 // 	}
-  //
-	 // 	StateMachine.Update();
-	 // }
+	Logic::UpdateLauncher launcher;
 
- 	return 0;
+	launcher.Start();
+
+	launcher.OnDownloadProgress
+	(
+		[=](int total_size, int downloaded_size)
+		{
+			const auto percent = downloaded_size * 100.0 / total_size;
+			std::cout << "percent=" << percent << "\r";
+			// game ui
+		}
+	);
+
+	int n = _kbhit();
+	std::cout << "input 1 to exit" << std::endl;
+
+	while (true)
+	{
+		if (_kbhit() != 0)
+		{
+			if (_getch() == 0x31)
+			{
+				std::cout << "exit" << std::endl;
+				break;
+			}
+		}
+		launcher.Update();
+	}
+
+	return 0;
 }

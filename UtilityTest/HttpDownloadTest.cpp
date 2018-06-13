@@ -5,7 +5,7 @@
 #include "../Utility/ReceiverFacade.h"
 #include "../Utility/IDownloadable.h"
 #include "../Utility/FileTool.h"
-#include "../Utility/HttpDownload.h"
+#include "../Utility/DownloadProvider.h"
 
 class FakeDonwload : public Utility::IDownloadable
 {
@@ -223,7 +223,7 @@ TEST_CASE("download one file", "[httpdownload]")
 	FILE* fp = std::fopen(filename.c_str(), "w");
 
 	//act
-	Utility::HttpDownload download; //user
+	Utility::DownloadProvider download; //user
 	auto size = FileTool::GetFileSize_C(filename);
 	auto size1 = FileTool::GetFileSize_CPlusPlus(filename);
 
@@ -275,7 +275,7 @@ SCENARIO("download muti file", "[httpdownload]")
 
 		WHEN("i ready download")
 		{
-			Utility::HttpDownload download; //user
+			Utility::DownloadProvider download; //user
 
 			THEN("i receive file in disk")
 			{

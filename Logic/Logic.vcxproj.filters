@@ -13,9 +13,11 @@
       <Filter>State</Filter>
     </ClInclude>
     <ClInclude Include="UpdateLauncher.h" />
-    <ClInclude Include="GetRemoteFileState.h" />
     <ClInclude Include="ParserFilelistState.h" />
     <ClInclude Include="FindDiffState.h" />
+    <ClInclude Include="DataDefine.h" />
+    <ClInclude Include="DownloadDiffState.h" />
+    <ClInclude Include="DownloadFileState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FirstState.cpp">
@@ -25,8 +27,9 @@
       <Filter>State</Filter>
     </ClCompile>
     <ClCompile Include="UpdateLauncher.cpp" />
-    <ClCompile Include="GetRemoteFileState.cpp" />
     <ClCompile Include="ParserFilelistState.cpp" />
     <ClCompile Include="FindDiffState.cpp" />
+    <ClCompile Include="DownloadDiffState.cpp" />
+    <ClCompile Include="DownloadFileState.cpp" />
   </ItemGroup>
 </Project>

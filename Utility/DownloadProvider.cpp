@@ -1,4 +1,4 @@
-#include "HttpDownload.h"
+#include "DownloadProvider.h"
 #include <thread>
 #include "HttpDownloadTask.h"
 #include <future>
@@ -9,7 +9,7 @@ namespace Utility
 
 	//std::FILE* fp;
 
-	HttpDownload::HttpDownload()
+	DownloadProvider::DownloadProvider()
 	{
 		//outfile.open("testfile.txt", std::ofstream::out | std::ofstream::app); //write mode | write data from eof 
 		//outfile.clear();
@@ -19,12 +19,12 @@ namespace Utility
 		//outfile << "dm5 = " << strmd5.data() << std::endl << std::endl;
 	}
 
-	HttpDownload::~HttpDownload()
+	DownloadProvider::~DownloadProvider()
 	{
 		int i = 0;
 	}
 
-	std::shared_ptr<ReceiverFacade> HttpDownload::Start(std::string url)
+	std::shared_ptr<ReceiverFacade> DownloadProvider::Start(std::string url)
 	{
 		const std::shared_ptr<ReceiverFacade> receiverFacade(new ReceiverFacade());
 

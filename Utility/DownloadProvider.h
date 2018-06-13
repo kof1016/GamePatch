@@ -7,11 +7,11 @@ namespace Utility
 {
 	class HttpDownloadTask;
 
-	class HttpDownload final : public IDownloadable
+	class DownloadProvider final : public IDownloadable
 	{
 	public:
-		HttpDownload();
-		virtual ~HttpDownload();
+		DownloadProvider();
+		virtual ~DownloadProvider();
 
 		std::shared_ptr<ReceiverFacade> Start(std::string url) override;
 

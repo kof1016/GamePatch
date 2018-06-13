@@ -1,6 +1,7 @@
 #include "ParserFilelistState.h"
 #include "../Utility/FileReader.h"
 #include <memory>
+#include "DataDefine.h"
 
 
 namespace Logic
@@ -19,14 +20,20 @@ namespace Logic
 	{
 		Utility::FileReader reader;
 
-		auto local = reader.ReadFile(R"(..\resources\local-filelist.txt)");
+		auto local = reader.ReadFile(LOCAL_FILELIST_PATH);
 
-		auto remote = reader.ReadFile(R"(..\resources\remote-filelist.txt)");
+		auto remote = reader.ReadFile(REMOTE_FILELIST_PATH);
 
-		// const std::shared_ptr<DataDefine::FileListData> localData(&local);
-		// const std::shared_ptr<DataDefine::FileListData> remoteData(&remote);
-  //
-		// _OnDone(localData, remoteData);
+		if (local.Version != remote.Version)
+		{
+			const DataDefine::ShareFileList localData(&local);
+			const DataDefine::ShareFileList remoteData(&remote);
+			_OnDoneEvent(localData, remoteData);
+		}
+		else
+		{
+			//_OnDoneEvent(localData, remoteData);
+		}
 	}
 
 	void ParserFilelistState::Leave()
@@ -37,8 +44,8 @@ namespace Logic
 	{
 	}
 
-	void ParserFilelistState::DoneEvent(OnCheckVersion&& callback)
+	void ParserFilelistState::OnDoneEvent(DoneEvent&& callback)
 	{
-		_OnDone = callback;
+		_OnDoneEvent = callback;
 	}
 }

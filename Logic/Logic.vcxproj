@@ -148,17 +148,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DataDefine.h" />
+    <ClInclude Include="DownloadDiffState.h" />
     <ClInclude Include="FindDiffState.h" />
     <ClInclude Include="ParserFilelistState.h" />
-    <ClInclude Include="GetRemoteFileState.h" />
+    <ClInclude Include="DownloadFileState.h" />
     <ClInclude Include="FirstState.h" />
     <ClInclude Include="SecondState.h" />
     <ClInclude Include="UpdateLauncher.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DownloadDiffState.cpp" />
     <ClCompile Include="FindDiffState.cpp" />
     <ClCompile Include="ParserFilelistState.cpp" />
-    <ClCompile Include="GetRemoteFileState.cpp" />
+    <ClCompile Include="DownloadFileState.cpp" />
     <ClCompile Include="FirstState.cpp" />
     <ClCompile Include="SecondState.cpp" />
     <ClCompile Include="UpdateLauncher.cpp" />

@@ -180,7 +180,7 @@
     <ClInclude Include="IDownloadable.h" />
     <ClInclude Include="IReadable.h" />
     <ClInclude Include="IState.h" />
-    <ClInclude Include="HttpDownload.h" />
+    <ClInclude Include="DownloadProvider.h" />
     <ClInclude Include="md5.h" />
     <ClInclude Include="Reader.h" />
     <ClInclude Include="ReadLocalVersionFile.h" />
@@ -200,7 +200,7 @@
     <ClCompile Include="ProgressAdapter.cpp" />
     <ClCompile Include="CurlHttp.cpp" />
     <ClCompile Include="FileTool.cpp" />
-    <ClCompile Include="HttpDownload.cpp" />
+    <ClCompile Include="DownloadProvider.cpp" />
     <ClCompile Include="HttpDownloadTask.cpp" />
     <ClCompile Include="md5.cpp" />
     <ClCompile Include="Reader.cpp" />

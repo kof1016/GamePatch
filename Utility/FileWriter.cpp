@@ -15,6 +15,10 @@ namespace Utility
 	void FileWriter::OpenFile()
 	{
 		_File = std::fopen(_FileName.c_str(), "w");
+		if(!_File)
+		{
+			return;
+		}
 	}
 
 	void FileWriter::CloseFile() const

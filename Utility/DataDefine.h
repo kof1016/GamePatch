@@ -31,13 +31,18 @@ namespace DataDefine
 			std::string MD5{};
 
 		};
-		int Version{0};
+		int Version{-1};
 		//std::vector<Content> Contents;
 
-		std::unordered_map<std::string, std::string> Contents;
+		
+		typedef std::unordered_map<std::string, std::string> FilelistContent;
+		typedef std::shared_ptr<FilelistContent> ShareContent;
+		
+		FilelistContent Contents;
+		
 	};
-
-	typedef std::shared_ptr<DataDefine::FileListData> ShareFileList;
+	
+	typedef std::shared_ptr<FileListData> ShareFileList;
 
 
 	typedef std::function<void(char* buffer, size_t total)> OnWriteData;

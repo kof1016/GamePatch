@@ -17,7 +17,7 @@ namespace Utility
 	DataDefine::FileListData ConfigParser::Load(const std::string& data)
 	{
 		const auto r = _ParserVersion(data);
-
+		
 		_ParserFilePath(r);
 
 		_Debug();
@@ -31,11 +31,12 @@ namespace Utility
 
 		std::smatch sm;
 
-		regex_search(data, sm, reg);
-
-		_FileListData.Version = std::stoi(sm[1].str());
-
-		return sm.suffix().str();
+		if(regex_search(data, sm, reg))
+		{
+			_FileListData.Version = std::stoi(sm[1].str());
+			return sm.suffix().str();
+		}
+		return  "";
 	}
 
 	void ConfigParser::_ParserFilePath(const std::string& data)

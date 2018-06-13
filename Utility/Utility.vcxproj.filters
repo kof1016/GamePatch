@@ -54,9 +54,6 @@
     <ClInclude Include="IDownloadable.h">
       <Filter>HttpDownload</Filter>
     </ClInclude>
-    <ClInclude Include="HttpDownload.h">
-      <Filter>HttpDownload</Filter>
-    </ClInclude>
     <ClInclude Include="ReceiveWriteData.h">
       <Filter>Receive</Filter>
     </ClInclude>
@@ -90,6 +87,9 @@
     <ClInclude Include="FileReader.h">
       <Filter>File</Filter>
     </ClInclude>
+    <ClInclude Include="DownloadProvider.h">
+      <Filter>HttpDownload</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
@@ -111,9 +111,6 @@
     </ClCompile>
     <ClCompile Include="ReceiverFacade.cpp">
       <Filter>Receive</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpDownload.cpp">
-      <Filter>HttpDownload</Filter>
     </ClCompile>
     <ClCompile Include="ReceiveWriteData.cpp">
       <Filter>Receive</Filter>
@@ -144,6 +141,9 @@
     </ClCompile>
     <ClCompile Include="FileReader.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="DownloadProvider.cpp">
+      <Filter>HttpDownload</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

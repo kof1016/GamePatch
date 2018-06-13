@@ -9,6 +9,7 @@ namespace Utility
 {
 	FileReader::FileReader()
 	{
+		_Buffer.resize(1,'\0');
 
 	}
 
@@ -50,7 +51,6 @@ namespace Utility
 	void FileReader::_ParserData()
 	{
 		ConfigParser parser;
-
 		_FileListData = parser.Load(_Buffer.data());
 		
 		

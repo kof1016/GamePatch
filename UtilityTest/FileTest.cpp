@@ -30,23 +30,14 @@ TEST_CASE("unordered_map test", "[file]")
 	}
 }
 
-TEST_CASE("two unordered_map compare", "[file]")
+TEST_CASE("find data diff", "[file]")
 {
-	// bool operator()(const string& a, const string& b) const
-	// {
-	// 	return std::lexicographical_compare(
-	// 		a.begin(), a.end(),
-	// 		b.begin(), b.end(),
-	// 		[](auto ch1, auto ch2) {
-	// 		return std::tolower(ch1) < std::tolower(ch2);
-	// 	});
-	// }
-
+	//arrange
 	std::unordered_map<int, int>local{ {1,1} };
 	std::unordered_map<int, int>remote{ { 1,1 }, { 2,1 },{ 3,1 } };
 	std::unordered_map<int, int>diff;
 
-	
+	//act
 	for(auto& e : remote)
 	{
 		const auto r = local.find(e.first);
@@ -55,6 +46,11 @@ TEST_CASE("two unordered_map compare", "[file]")
 			diff.insert(e);
 		}
 	}
+
+	//assert
+	REQUIRE(diff.size() == 2);
+	REQUIRE(diff.at(2) == 1);
+	REQUIRE(diff.at(3) == 1);
 }
 
 

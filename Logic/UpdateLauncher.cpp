@@ -1,9 +1,12 @@
 #include "UpdateLauncher.h"
-#include "../Utility/HttpDownload.h"
+#include "../Utility/DownloadProvider.h"
 #include "../Utility/StateMachine.h"
-#include "GetRemoteFileState.h"
+#include "DownloadFileState.h"
 #include "ParserFilelistState.h"
 #include "FindDiffState.h"
+#include "DataDefine.h"
+#include <filesystem>
+#include <iostream>
 
 namespace Logic
 {
@@ -18,48 +21,107 @@ namespace Logic
 
 	void UpdateLauncher::Start()
 	{
-		_ToGetRemoteFileState();
+		_ToDownloadFileState();
 	}
 
-	void UpdateLauncher::_ToGetRemoteFileState()
+	void UpdateLauncher::_ToDownloadFileState()
 	{
-		Utility::HttpDownload download; //user
-		const auto facade = download.Start("123");
-		const Utility::FileWriter fileWriter("new-filelist");
+		DataDefine::FileListData::ShareContent contents;
 
-		auto dfs = new GetRemoteFileState(facade, fileWriter);
-		dfs->DoneEvent([&]()
-		{
-			_ToCompareFileState();
-		});
+		const auto facade = _DownloadProvider.Start(PATH_SEVER_URL);
+		Utility::FileWriter fileWriter(REMOTE_FILELIST_PATH);
+
+		auto dfs = new DownloadFileState(facade, fileWriter);
+
+		dfs->OnProgressEvent
+		(
+			[=](int total_size, int downloaded_size)
+			{
+				_OnProgress(total_size, downloaded_size);
+			}
+		);
+
+		dfs->OnDoneEvent
+		(
+			[&]()
+			{
+				_ToParserFilelistState();
+			}
+		);
 
 		const std::shared_ptr<Utility::IState> state(dfs);
 		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToCompareFileState()
+	void UpdateLauncher::_ToParserFilelistState()
 	{
 		const auto pfs = new ParserFilelistState();
 
-		pfs->DoneEvent([&](auto local, auto remote)
+		pfs->OnDoneEvent([&](auto local, auto remote)
 		{
-			if (local->Version != remote->Version)
-			{
-				_ToFindDiffState(local, remote);
-			}
+			_ToGetDiffState(local, remote);
 		});
 
 		const std::shared_ptr<Utility::IState> state(pfs);
 		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToFindDiffState(DataDefine::ShareFileList local, DataDefine::ShareFileList remote)
+	void UpdateLauncher::_ToGetDiffState(DataDefine::ShareFileList local, DataDefine::ShareFileList remote)
 	{
 		const auto fds = new FindDiffState(local, remote);
+
+		fds->OnDoneEvent([&](auto contents)
+		{
+			_ToDownloadDiffFileState(contents);
+		});
+
+		const std::shared_ptr<Utility::IState> state(fds);
+		_StateMachine.Push(state);
 	}
+
+	void UpdateLauncher::_ToDownloadDiffFileState(DataDefine::FileListData::ShareContent contents)
+	{
+		//Utility::DownloadProvider download; //user
+
+		// for (auto e : *contents)
+		// {
+		// 	const auto facade = download.Start(PATH_SEVER_URL);
+		// 	Utility::FileWriter fileWriter(e.first);
+		//
+		// 	auto dfs = new DownloadFileState(facade, fileWriter);
+		//
+		// 	dfs->OnDoneEvent([&]()
+		// 	{
+		// 		//
+		// 	});
+		//
+		// 	const std::shared_ptr<Utility::IState> state(dfs);
+		// 	_StateMachine.Push(state);
+		// }
+
+		_ToMoveFile();
+	}
+
+	void UpdateLauncher::_ToMoveFile()
+	{
+		namespace fs = std::experimental::filesystem;
+
+		fs::remove(LOCAL_FILELIST_PATH);
+		fs::rename(REMOTE_FILELIST_PATH, LOCAL_FILELIST_PATH);
+	}
+
 
 	void UpdateLauncher::Update()
 	{
 		_StateMachine.Update();
+	}
+
+	void UpdateLauncher::Shutdown()
+	{
+	}
+
+	void UpdateLauncher::OnDownloadProgress(DataDefine::OnProgress&& callback)
+	{
+		_OnProgress = callback;
 	}
 }
