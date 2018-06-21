@@ -2,13 +2,14 @@
 #include "../Utility/IDownloadable.h"
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 namespace Logic
 {
 	DownloadFileState::DownloadFileState(std::shared_ptr<Utility::ReceiverFacade> facade,
-												Utility::FileWriter& fileuser)
+										Utility::FileWriter& file_writer)
 		: _ReceiverFacade(std::move(facade)),
-		_FileWriter(fileuser)
+		_FileWriter(file_writer)
 	{
 	}
 

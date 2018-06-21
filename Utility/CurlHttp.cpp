@@ -1,6 +1,6 @@
 #include <iostream>
 #include "CurlHttp.h"
-
+#include "zlib.h"
 namespace Utility
 {
 	CurlHttp::CurlHttp()
@@ -20,6 +20,7 @@ namespace Utility
 			std::cout << ex.what() << std::endl;
 			std::cout << "curl init error" << std::endl;
 		}
+
 	}
 
 	CurlHttp::~CurlHttp()

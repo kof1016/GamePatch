@@ -1,17 +1,99 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../Utility/FileListMaker.h"
-#include "../Utility/ConfigParser.h"
 #include "../Utility/md5.h"
 #include <fstream>
+#include <experimental/filesystem>
+#include <unordered_map>
+#include "../Utility/ConfigParser.h"
+
+// TEST_CASE("ComparisonLastVer test", "[file]")
+// {
+// 	//arrange
+// 	const int ver = 1;
+// 	std::string inputpath = "resource";
+// 	std::string outputpath = "resource_pack/ver" + std::to_string(ver);
+// 	
+// 	//act
+// 	namespace fs = std::experimental::filesystem;
+// 	fs::current_path();
+//
+// 	 
+//
+// 	 Utility::FileListMaker maker(inputpath, outputpath, ver);
+// }
+
+  
+
+  
+
+  class Step3
+  {
+  public:
+	  Step3(int i)
+	  {
+		  money = i;
+	  }
+	  int Return()
+	  {
+		  return 3;
+	  }
+	  int money;
+  };
+  class Step2
+  {
+  public:
+	  Step2(int i)
+	  {
+		  money = i;
+	  }
+
+	  int Return()
+	  {
+		  return 2;
+	  }
+	  int money;
+  };
+  class Step1
+  {
+  public:
+	  Step1() {};
+	  int Return()
+	  {
+		  return 1;
+	  }
+  };
+
+ TEST_CASE("Pipeline test", "[file]")
+ {
+	auto step1 = Step1();
+	auto step2 = Step2(step1.Return());
+	auto step3 = Step3(step2.Return());
+	REQUIRE(step3.Return() == 3);
+ }
+
+TEST_CASE("Filesystem test", "[file]")
+{
+	std::string ver = "1";
+	namespace fs = std::experimental::filesystem;
+	fs::create_directories("resource_pack/ver" + ver);
+
+	fs::create_directories("sandbox/1/2/a");
+	fs::create_directory("sandbox/1/2/b");
+
+	fs::create_directory("sandbox/1/2/c", "sandbox/1/2/b");
+
+	std::experimental::filesystem::path p1("c:\\windows");
+	std::experimental::filesystem::path p2 = p1 / "system32";
+}
 
 
 TEST_CASE("FileListMaker test", "[file]")
 {
-	const std::string path{"resources"};
+	
+	const std::string path{ R"(..\resources\)" };
 	const int version = 1;
 
-	Utility::FileListMaker maker(path, version);
+	//Utility::FileListMaker maker(path, version);
 }
 
 TEST_CASE("unordered_map test", "[file]")
@@ -73,7 +155,7 @@ TEST_CASE("config parser", "[file]")
 
 	REQUIRE(r != filelist.Contents.end());
 
-	REQUIRE(r->second == "9e107d9d372bb6826bd81d3542a419d6");
+	REQUIRE(r->first == "9e107d9d372bb6826bd81d3542a419d6");
 }
 
 TEST_CASE("MD5_C_Style", "[file]")

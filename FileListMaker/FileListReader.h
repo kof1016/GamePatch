@@ -1,15 +1,15 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "FileListMaker.h"
+#include "../Utility/DataDefine.h"
 
-namespace Utility
+namespace FileListMaker
 {
-	class FileReader final
+	class FileListReader final
 	{
 	public:
-		FileReader();
-		~FileReader();
+		FileListReader();
+		~FileListReader();
 
 		DataDefine::FileListData ReadFile(const std::string& file_name);
 		

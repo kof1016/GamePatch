@@ -1,25 +1,34 @@
 #include "FileListMaker.h"
 #include <filesystem>
 #include <iostream>
-#include "md5.h"
 #include <fstream>
 #include <cassert>
 #include <utility>
+#include "../Utility/md5.h"
 
-namespace Utility
+namespace FileListMaker
 {
-	FileListMaker::FileListMaker(const std::string& path, int version)
+	FileListMaker::FileListMaker(std::string input_path, std::string output_path, int version)
+		:_InputPath(std::move(input_path))
+		,_OutputPath(std::move(output_path))
+		, _Version(version)
 	{
+		_CreateDirectory();
 		_FileListData.Version = version;
-		
-		_GetAllFile(path);
+		_ScanInputPath();
 	}
 
-	void FileListMaker::_GetAllFile(const std::string& path)
+	void FileListMaker::_CreateDirectory()
+	{
+		namespace fs = std::experimental::filesystem;
+		fs::create_directories(_OutputPath);
+	}
+
+	void FileListMaker::_ScanInputPath()
 	{
 		namespace fs = std::experimental::filesystem;
 
-		for (auto& p : fs::directory_iterator(path))
+		for (auto& p : fs::directory_iterator(_InputPath))
 		{
 			auto& fp = p.path();
 			
@@ -27,10 +36,12 @@ namespace Utility
 			
 			_CreateMD5();
 			
-			_FileListData.Contents.emplace(fp.relative_path().string(), _MD5);
+			//_FileListData.Contents.emplace(_MD5, fp.relative_path().string());
 		}
 
-		_WriteFile();
+		_ComparisonLastVer();
+
+		_CreateFileList();
 	}
 
 	void FileListMaker::_ReadFile(const std::string&& relative_path)
@@ -61,15 +72,24 @@ namespace Utility
 		_MD5 = md5.hexdigest();
 	}
 
-	void FileListMaker::_WriteFile()
+
+	void FileListMaker::_ComparisonLastVer()
 	{
-		std::ofstream outfile("filelist-2.txt", std::ofstream::out); //write mode
+	}
+
+	void FileListMaker::_CreateFileList()
+	{
+		const auto fileName = std::to_string(_Version) + "filelist.txt";
+		const std::experimental::filesystem::path p1(_OutputPath);
+		auto p2 = p1 / fileName;
+
+		std::ofstream outfile(p2.string(), std::ofstream::out); //write mode
 
 		outfile << "buildversion=" << _FileListData.Version << std::endl;
 
 		for(auto& c : _FileListData.Contents)
 		{
-			outfile << c.first << "|" << c.second << std::endl;
+			outfile << c.first << "|" << c.second.Path << std::endl;
 		}
 
 		outfile.close();

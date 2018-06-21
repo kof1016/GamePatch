@@ -8,8 +8,9 @@ namespace Logic
 	{
 	public:
 		
-		typedef std::function<void(DataDefine::ShareFileList, DataDefine::ShareFileList)> DoneEvent;
-		typedef std::function<void()> FinalEvent;
+		typedef std::function<void(DataDefine::FileListData, DataDefine::FileListData)> DoneEvent;
+		typedef std::function<void()> FailEvent;
+		
 		
 		ParserFilelistState();
 		~ParserFilelistState();
@@ -17,8 +18,10 @@ namespace Logic
 		void Leave() override;
 		void Update() override;
 		void OnDoneEvent(DoneEvent&& callback);
+		void OnFailEvent(FailEvent&& callback);
+	
 	private:
-
 		DoneEvent _OnDoneEvent;
+		FailEvent _OnFailEvent;
 	};
 }

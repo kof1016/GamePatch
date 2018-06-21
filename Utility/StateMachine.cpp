@@ -12,7 +12,6 @@ namespace Utility
 		std::swap(empty, _StandBys);
 
 		_CurrentState->Leave();
-		//_CurrentState = nullptr;
 	}
 
 	void StateMachine::Push(std::shared_ptr<Utility::IState> new_state)

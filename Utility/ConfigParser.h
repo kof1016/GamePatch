@@ -12,8 +12,7 @@ namespace Utility
 		void _Debug();
 	private:
 		std::string _ParserVersion(const std::string& data);
-		void _ParserFilePath(const std::string& data);
-		void _ParserMd5(const std::string& data);
+		void _ParserPathAndMD5(const std::string& data);
 
 		DataDefine::FileListData _FileListData;
 	};

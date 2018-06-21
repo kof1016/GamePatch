@@ -157,6 +157,9 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileListMaker\FileListMaker.vcxproj">
+      <Project>{8e6e29e9-27f6-4f75-b171-40622003ada7}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Logic\Logic.vcxproj">
       <Project>{c0a6241d-6530-401c-9036-5dc6a726c735}</Project>
     </ProjectReference>

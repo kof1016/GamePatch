@@ -19,7 +19,7 @@ namespace Logic
 
 		DownloadFileState() = default;
 		
-		DownloadFileState(std::shared_ptr<Utility::ReceiverFacade> facade, Utility::FileWriter& fileuser);
+		DownloadFileState(std::shared_ptr<Utility::ReceiverFacade> facade, Utility::FileWriter& file_writer);
 
 		~DownloadFileState() override;
 		void Enter() override;

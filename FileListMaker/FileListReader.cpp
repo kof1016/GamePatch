@@ -1,35 +1,28 @@
-#include "FileReader.h"
-#include <cassert>
-#include <vector>
+#include "FileListReader.h"
 #include <fstream>
-#include "ConfigParser.h"
+#include "../Utility/ConfigParser.h"
 
 
-namespace Utility
+namespace FileListMaker
 {
-	FileReader::FileReader()
+	FileListReader::FileListReader()
 	{
 		_Buffer.resize(1,'\0');
 
 	}
 
-	FileReader::~FileReader()
+	FileListReader ::~FileListReader()
 	{
 	}
 
-	DataDefine::FileListData FileReader::ReadFile(const std::string& file_name)
+	DataDefine::FileListData FileListReader::ReadFile(const std::string& file_name)
 	{
 		_ReadFile(file_name);
 		_ParserData();
 		return _FileListData;
 	}
 
-	// DataDefine::FileListData FileReader::GetFileList() const
-	// {
-	// 	return _FileListData;
-	// }
-
-	void FileReader::_ReadFile(const std::string& file_name)
+	void FileListReader::_ReadFile(const std::string& file_name)
 	{
 		std::ifstream infile(file_name, std::ios::in | std::ios::ate); //read mode | read to end
 
@@ -48,9 +41,9 @@ namespace Utility
 		infile.close();
 	}
 
-	void FileReader::_ParserData()
+	void FileListReader::_ParserData()
 	{
-		ConfigParser parser;
+		Utility::ConfigParser parser;
 		_FileListData = parser.Load(_Buffer.data());
 		
 		

@@ -13,11 +13,19 @@
       <Filter>State</Filter>
     </ClInclude>
     <ClInclude Include="UpdateLauncher.h" />
-    <ClInclude Include="ParserFilelistState.h" />
-    <ClInclude Include="FindDiffState.h" />
     <ClInclude Include="DataDefine.h" />
-    <ClInclude Include="DownloadDiffState.h" />
-    <ClInclude Include="DownloadFileState.h" />
+    <ClInclude Include="DownloadDiffState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="DownloadFileState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="FindDiffState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserFilelistState.h">
+      <Filter>State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FirstState.cpp">
@@ -27,9 +35,17 @@
       <Filter>State</Filter>
     </ClCompile>
     <ClCompile Include="UpdateLauncher.cpp" />
-    <ClCompile Include="ParserFilelistState.cpp" />
-    <ClCompile Include="FindDiffState.cpp" />
-    <ClCompile Include="DownloadDiffState.cpp" />
-    <ClCompile Include="DownloadFileState.cpp" />
+    <ClCompile Include="DownloadDiffState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="DownloadFileState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="FindDiffState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserFilelistState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

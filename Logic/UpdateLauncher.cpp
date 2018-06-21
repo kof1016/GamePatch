@@ -1,6 +1,4 @@
 #include "UpdateLauncher.h"
-#include "../Utility/DownloadProvider.h"
-#include "../Utility/StateMachine.h"
 #include "DownloadFileState.h"
 #include "ParserFilelistState.h"
 #include "FindDiffState.h"
@@ -21,33 +19,38 @@ namespace Logic
 
 	void UpdateLauncher::Start()
 	{
+		_FilePaths.emplace(R"(..\resources\)"+ TEST_FILE_NAME);
+
 		_ToDownloadFileState();
 	}
 
 	void UpdateLauncher::_ToDownloadFileState()
 	{
-		DataDefine::FileListData::ShareContent contents;
+		const auto path = _FilePaths.front();
 
-		const auto facade = _DownloadProvider.Start(PATH_SEVER_URL);
-		Utility::FileWriter fileWriter(REMOTE_FILELIST_PATH);
+		const auto facade = _DownloadProvider.Start(PATH_SERVER_URL + TEST_FILE_NAME);
+		Utility::FileWriter fileWriter(path);
 
 		auto dfs = new DownloadFileState(facade, fileWriter);
 
-		dfs->OnProgressEvent
-		(
-			[=](int total_size, int downloaded_size)
-			{
-				_OnProgress(total_size, downloaded_size);
-			}
-		);
+		dfs->OnProgressEvent([=](int total_size, int downloaded_size)
+		{
+			_OnProgress(total_size, downloaded_size);
+		});
 
-		dfs->OnDoneEvent
-		(
-			[&]()
+		dfs->OnDoneEvent([&]()
+		{
+			_FilePaths.pop();
+
+			if (_FilePaths.empty())
 			{
 				_ToParserFilelistState();
 			}
-		);
+			else
+			{
+				_ToDownloadFileState();
+			}
+		});
 
 		const std::shared_ptr<Utility::IState> state(dfs);
 		_StateMachine.Push(state);
@@ -62,54 +65,67 @@ namespace Logic
 			_ToGetDiffState(local, remote);
 		});
 
+		pfs->OnFailEvent([&]()
+		{
+			_OnNotNeed();
+		});
+
 		const std::shared_ptr<Utility::IState> state(pfs);
 		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToGetDiffState(DataDefine::ShareFileList local, DataDefine::ShareFileList remote)
+	void UpdateLauncher::_ToGetDiffState(const DataDefine::FileListData& local, const DataDefine::FileListData& remote)
 	{
 		const auto fds = new FindDiffState(local, remote);
 
-		fds->OnDoneEvent([&](auto contents)
+		fds->OnDoneEvent([&](auto paths)
 		{
-			_ToDownloadDiffFileState(contents);
+			std::swap(paths, _FilePaths);
+			_ToDownloadDiffFileState();
 		});
 
 		const std::shared_ptr<Utility::IState> state(fds);
 		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToDownloadDiffFileState(DataDefine::FileListData::ShareContent contents)
+	void UpdateLauncher::_ToDownloadDiffFileState()
 	{
-		//Utility::DownloadProvider download; //user
+		auto& path = _FilePaths.front();
+		const auto facade = _DownloadProvider.Start(PATH_SERVER_URL + TEST_FILE_NAME);
+		Utility::FileWriter fileWriter(path);
 
-		// for (auto e : *contents)
-		// {
-		// 	const auto facade = download.Start(PATH_SEVER_URL);
-		// 	Utility::FileWriter fileWriter(e.first);
-		//
-		// 	auto dfs = new DownloadFileState(facade, fileWriter);
-		//
-		// 	dfs->OnDoneEvent([&]()
-		// 	{
-		// 		//
-		// 	});
-		//
-		// 	const std::shared_ptr<Utility::IState> state(dfs);
-		// 	_StateMachine.Push(state);
-		// }
+		auto dfs = new DownloadFileState(facade, fileWriter);
 
-		_ToMoveFile();
+		dfs->OnProgressEvent([=](int total_size, int downloaded_size)
+		{
+			_OnProgress(total_size, downloaded_size);
+		});
+
+		dfs->OnDoneEvent([&]()
+		{
+			_FilePaths.pop();
+
+			if (_FilePaths.empty())
+			{
+				_OnSuccess();
+			}
+			else
+			{
+				_ToDownloadDiffFileState();
+			}
+		});
+
+		const std::shared_ptr<Utility::IState> state(dfs);
+		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToMoveFile()
+	void UpdateLauncher::_ToMoveFile() const
 	{
 		namespace fs = std::experimental::filesystem;
 
 		fs::remove(LOCAL_FILELIST_PATH);
 		fs::rename(REMOTE_FILELIST_PATH, LOCAL_FILELIST_PATH);
 	}
-
 
 	void UpdateLauncher::Update()
 	{
@@ -118,10 +134,21 @@ namespace Logic
 
 	void UpdateLauncher::Shutdown()
 	{
+		std::cout << "UpdateLauncher::Shutdown" << std::endl;
 	}
 
 	void UpdateLauncher::OnDownloadProgress(DataDefine::OnProgress&& callback)
 	{
 		_OnProgress = callback;
+	}
+
+	void UpdateLauncher::OnUpdateSuccessEvent(DataDefine::OnSuccess&& callback)
+	{
+		_OnSuccess = callback;
+	}
+
+	void UpdateLauncher::OnNotNeedEvent(DataDefine::OnNotNeed&& callback)
+	{
+		_OnNotNeed = callback;
 	}
 }

@@ -167,8 +167,6 @@
   <ItemGroup>
     <ClInclude Include="ConfigParser.h" />
     <ClInclude Include="CurlDebug.h" />
-    <ClInclude Include="FileListMaker.h" />
-    <ClInclude Include="FileReader.h" />
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="IParser.h" />
     <ClInclude Include="ProgressAdapter.h" />
@@ -192,14 +190,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConfigParser.cpp" />
-    <ClCompile Include="FileListMaker.cpp" />
-    <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="WriteDataAdapter.cpp" />
     <ClCompile Include="CurlDebug.cpp" />
     <ClCompile Include="ProgressAdapter.cpp" />
     <ClCompile Include="CurlHttp.cpp" />
-    <ClCompile Include="FileTool.cpp" />
     <ClCompile Include="DownloadProvider.cpp" />
     <ClCompile Include="HttpDownloadTask.cpp" />
     <ClCompile Include="md5.cpp" />

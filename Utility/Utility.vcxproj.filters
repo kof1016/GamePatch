@@ -66,9 +66,6 @@
     <ClInclude Include="WriteDataAdapter.h">
       <Filter>Curl</Filter>
     </ClInclude>
-    <ClInclude Include="FileListMaker.h">
-      <Filter>File</Filter>
-    </ClInclude>
     <ClInclude Include="FileTool.h">
       <Filter>File</Filter>
     </ClInclude>
@@ -82,9 +79,6 @@
       <Filter>HttpDownload</Filter>
     </ClInclude>
     <ClInclude Include="FileWriter.h">
-      <Filter>File</Filter>
-    </ClInclude>
-    <ClInclude Include="FileReader.h">
       <Filter>File</Filter>
     </ClInclude>
     <ClInclude Include="DownloadProvider.h">
@@ -124,12 +118,6 @@
     <ClCompile Include="WriteDataAdapter.cpp">
       <Filter>Curl</Filter>
     </ClCompile>
-    <ClCompile Include="FileListMaker.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
-    <ClCompile Include="FileTool.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
     <ClCompile Include="ConfigParser.cpp">
       <Filter>File</Filter>
     </ClCompile>
@@ -137,9 +125,6 @@
       <Filter>HttpDownload</Filter>
     </ClCompile>
     <ClCompile Include="FileWriter.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
-    <ClCompile Include="FileReader.cpp">
       <Filter>File</Filter>
     </ClCompile>
     <ClCompile Include="DownloadProvider.cpp">

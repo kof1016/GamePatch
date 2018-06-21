@@ -18,11 +18,27 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FileListMaker.cpp" />
+    <ClCompile Include="FileListReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FileListMaker.h" />
+    <ClInclude Include="FileListReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logic\Logic.vcxproj">
+      <Project>{c0a6241d-6530-401c-9036-5dc6a726c735}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.vcxproj">
+      <Project>{b6eb0267-c04d-4412-8ef7-f0ed989f624b}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{C0A6241D-6530-401C-9036-5DC6A726C735}</ProjectGuid>
+    <ProjectGuid>{8E6E29E9-27F6-4F75-B171-40622003ADA7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Logic</RootNamespace>
+    <RootNamespace>FileListMaker</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -90,7 +106,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,25 +162,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="DataDefine.h" />
-    <ClInclude Include="DownloadDiffState.h" />
-    <ClInclude Include="FindDiffState.h" />
-    <ClInclude Include="ParserFilelistState.h" />
-    <ClInclude Include="DownloadFileState.h" />
-    <ClInclude Include="FirstState.h" />
-    <ClInclude Include="SecondState.h" />
-    <ClInclude Include="UpdateLauncher.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DownloadDiffState.cpp" />
-    <ClCompile Include="FindDiffState.cpp" />
-    <ClCompile Include="ParserFilelistState.cpp" />
-    <ClCompile Include="DownloadFileState.cpp" />
-    <ClCompile Include="FirstState.cpp" />
-    <ClCompile Include="SecondState.cpp" />
-    <ClCompile Include="UpdateLauncher.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

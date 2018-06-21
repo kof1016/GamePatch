@@ -3,7 +3,7 @@
 
 namespace Logic
 {
-	FindDiffState::FindDiffState(DataDefine::ShareFileList local, DataDefine::ShareFileList remote)
+	FindDiffState::FindDiffState(const DataDefine::FileListData& local, const DataDefine::FileListData& remote)
 		:_Local(std::move(local)),
 		_Remote(std::move(remote))
 	{
@@ -17,19 +17,24 @@ namespace Logic
 	{
 		DataDefine::FileListData::FilelistContent diffs;
 
-		for (auto& e : _Remote->Contents)
+		for (auto& e : _Remote.Contents)
 		{
-			const auto r = _Local->Contents.find(e.first);
+			const auto r = _Local.Contents.find(e.first);
 			
-			if (r == _Local->Contents.end())
+			if (r == _Local.Contents.end())
 			{
 				diffs.insert(e);
 			}
 		}
 
-		const DataDefine::FileListData::ShareContent content(&diffs);
+		std::queue<std::string> paths;
 
-		_OnDone(content);
+		for(auto& e :diffs)
+		{
+			paths.emplace(e.second.Path);
+		}
+
+		_OnDone(paths);
 	}
 
 	void FindDiffState::Leave()
