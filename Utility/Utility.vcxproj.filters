@@ -22,6 +22,9 @@
     <Filter Include="Receive">
       <UniqueIdentifier>{7f13c31b-cd60-4efc-9b73-49ba8b0b31ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="linq">
+      <UniqueIdentifier>{929d9cc3-9d28-4202-9eba-743c0c4be710}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StateMachine.h">
@@ -69,9 +72,6 @@
     <ClInclude Include="FileTool.h">
       <Filter>File</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigParser.h">
-      <Filter>File</Filter>
-    </ClInclude>
     <ClInclude Include="IParser.h">
       <Filter>File</Filter>
     </ClInclude>
@@ -83,6 +83,12 @@
     </ClInclude>
     <ClInclude Include="DownloadProvider.h">
       <Filter>HttpDownload</Filter>
+    </ClInclude>
+    <ClInclude Include="cpplinq.hpp">
+      <Filter>linq</Filter>
+    </ClInclude>
+    <ClInclude Include="FileListParser.h">
+      <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +124,6 @@
     <ClCompile Include="WriteDataAdapter.cpp">
       <Filter>Curl</Filter>
     </ClCompile>
-    <ClCompile Include="ConfigParser.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
     <ClCompile Include="HttpDownloadTask.cpp">
       <Filter>HttpDownload</Filter>
     </ClCompile>
@@ -129,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="DownloadProvider.cpp">
       <Filter>HttpDownload</Filter>
+    </ClCompile>
+    <ClCompile Include="FileListParser.cpp">
+      <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

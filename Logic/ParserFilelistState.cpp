@@ -18,11 +18,11 @@ namespace Logic
 
 	void ParserFilelistState::Enter()
 	{
-		// Utility::FileListReader reader;
+		// Utility::FileListCreator reader;
   //
-		// auto local = reader.ReadFile(LOCAL_FILELIST_PATH);
+		// auto local = reader.Create(LOCAL_FILELIST_PATH);
   //
-		// auto remote = reader.ReadFile(REMOTE_FILELIST_PATH);
+		// auto remote = reader.Create(REMOTE_FILELIST_PATH);
   //
 		// if (local.Version != remote.Version)
 		// {

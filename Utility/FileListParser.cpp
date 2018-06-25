@@ -1,33 +1,33 @@
-#include "ConfigParser.h"
+#include "FileListParser.h"
 #include <regex>
 #include <iostream>
 
 namespace Utility
 {
-	ConfigParser::ConfigParser()
+	FileListParser::FileListParser()
 	{
 	}
 
 
-	ConfigParser::~ConfigParser()
+	FileListParser::~FileListParser()
 	{
-		std::regex reg("(buildversion=[0-9]+)");
+		//std::regex reg("(buildversion=[0-9]+)");
 	}
 
-	DataDefine::FileListData ConfigParser::Load(const std::string& data)
+	DataDefine::FileList FileListParser::Parser(const std::string& data)
 	{
-		const auto r = _ParserVersion(data);
+		const auto r = ParserVersion(data);
 
-		_ParserPathAndMD5(r);
+		_ParserFileAllData(r);
 
 		_Debug();
 
 		return _FileListData;
 	}
 
-	std::string ConfigParser::_ParserVersion(const std::string& data)
+	std::string FileListParser::ParserVersion(const std::string& data)
 	{
-		const std::regex reg("buildversion=([0-9]+)");
+		const std::regex reg("ver=([0-9]+)");
 
 		std::smatch sm;
 
@@ -39,10 +39,10 @@ namespace Utility
 		return "";
 	}
 
-	void ConfigParser::_ParserPathAndMD5(const std::string& data)
+	void FileListParser::_ParserFileAllData(const std::string& data)
 	{
 		//const std::regex reg(R"(([\w\/.]+)\|([0-9a-fA-F]{32}))");
-		const std::regex reg(R"(([0-9a-fA-F]{32})\|([\w\\.]+))");
+		const std::regex reg(R"((\W)\|([0-9a-fA-F]{32})\|([\w\/.]+))");
 
 		std::smatch sm;
 
@@ -50,12 +50,13 @@ namespace Utility
 
 		while (regex_search(result, sm, reg))
 		{
-			//_FileListData.Contents.emplace(sm[1].str(), sm[2].str());
+			DataDefine::FileList::Content c{ sm[1].str(), sm[2].str(), sm[3].str() };
+			_FileListData.Contents.emplace(c.MD5, c);
 			result = sm.suffix().str();
 		}
 	}
 
-	void ConfigParser::_Debug()
+	void FileListParser::_Debug()
 	{
 		std::cout << std::endl;
 		std::cout << "parser result:" << std::endl;

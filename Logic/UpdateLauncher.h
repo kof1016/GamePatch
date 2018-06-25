@@ -18,7 +18,7 @@ namespace Logic
 	private:
 		void _ToDownloadFileState();
 		void _ToParserFilelistState();
-		void _ToGetDiffState(const DataDefine::FileListData& local, const DataDefine::FileListData& remote);
+		void _ToGetDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote);
 		void _ToDownloadDiffFileState();
 		void _ToMoveFile() const;
 		

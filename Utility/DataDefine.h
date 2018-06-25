@@ -18,7 +18,7 @@ namespace DataDefine
 		bool CheckResult{true};
 	};
 
-	struct FileListData
+	struct FileList
 	{
 		struct Content
 		{
@@ -29,13 +29,36 @@ namespace DataDefine
 				REMOVE,
 			};
 
-			Content(const std::string& md5, const std::string& path, FileState state)
+			Content(const std::string& md5, const std::string& path)
 			{
+				SetState("");
 				MD5 = md5;
 				Path = path;
-				State = state;
 			}
 
+			Content(const std::string& state, const std::string& md5, const std::string& path)
+			{
+				SetState(state);
+				MD5 = md5;
+				Path = path;
+			}
+
+			void SetState(const std::string& state)
+			{
+				if (state == "+")
+				{
+					State = ADD;
+				}
+				else if (state == "-")
+				{
+					State = REMOVE;
+				}
+				else
+				{
+					State = NONE;
+				}
+			}
+			
 			std::string GetFileState()
 			{
 				if (State == ADD)
@@ -49,11 +72,20 @@ namespace DataDefine
 				return "";
 			}
 
+			FileState State{};
 			std::string MD5{};
 			std::string Path{};
-			FileState State{};
+			bool bChecked{ false };
 		};
-		int Version{-1};
+		void Find(const std::string& key)
+		{
+			const auto r = Contents.find(key);
+			if(r != Contents.end())
+			{
+				r->second.bChecked = true;
+			}
+		}
+		int Version{0};
 		//std::vector<Content> Contents;
 
 		
@@ -63,7 +95,7 @@ namespace DataDefine
 		FilelistContent Contents;
 	};
 	
-	typedef std::shared_ptr<FileListData> ShareFileList;
+	typedef std::shared_ptr<FileList> ShareFileList;
 
 
 	typedef std::function<void(char* buffer, size_t total)> OnWriteData;

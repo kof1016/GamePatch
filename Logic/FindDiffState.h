@@ -9,7 +9,7 @@ namespace Logic
 	{
 	public:
 		typedef std::function<void(std::queue<std::string>)> OnDone;
-		FindDiffState(const DataDefine::FileListData& local, const DataDefine::FileListData& remote);
+		FindDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote);
 		~FindDiffState();
 		void Enter() override;
 		void Leave() override;
@@ -17,8 +17,8 @@ namespace Logic
 		void OnDoneEvent(OnDone&& callback);
 
 	private:
-		DataDefine::FileListData _Local;
-		DataDefine::FileListData _Remote;
+		DataDefine::FileList _Local;
+		DataDefine::FileList _Remote;
 		OnDone _OnDone;
 	};
 }

@@ -2,10 +2,37 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="FileListMaker.cpp" />
-    <ClCompile Include="FileListReader.cpp" />
+    <ClCompile Include="PackingLauncher.cpp" />
+    <ClCompile Include="ScanResourcePath.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateNewestVerDoc.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="GetCurrentVerStep.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="CompareResourcePath.cpp" />
+    <ClCompile Include="GetFileList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileListMaker.h" />
-    <ClInclude Include="FileListReader.h" />
+    <ClInclude Include="PackingLauncher.h" />
+    <ClInclude Include="ScanResourcePath.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateNewestVerDoc.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="GetCurrentVerStep.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="CompareResourcePath.h" />
+    <ClInclude Include="GetFileList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Step">
+      <UniqueIdentifier>{729dbbb4-1561-49cd-898c-3f8315f7fa36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

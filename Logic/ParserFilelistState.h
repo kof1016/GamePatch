@@ -8,7 +8,7 @@ namespace Logic
 	{
 	public:
 		
-		typedef std::function<void(DataDefine::FileListData, DataDefine::FileListData)> DoneEvent;
+		typedef std::function<void(DataDefine::FileList, DataDefine::FileList)> DoneEvent;
 		typedef std::function<void()> FailEvent;
 		
 		

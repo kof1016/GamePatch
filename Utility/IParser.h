@@ -9,6 +9,6 @@ namespace Utility
 	public:
 		IParser()=default;
 		virtual ~IParser() = default;
-		virtual DataDefine::FileListData Load(const std::string& data) = 0;
+		virtual DataDefine::FileList Parser(const std::string& data) = 0;
 	};
 }

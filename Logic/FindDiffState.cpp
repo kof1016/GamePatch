@@ -3,7 +3,7 @@
 
 namespace Logic
 {
-	FindDiffState::FindDiffState(const DataDefine::FileListData& local, const DataDefine::FileListData& remote)
+	FindDiffState::FindDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote)
 		:_Local(std::move(local)),
 		_Remote(std::move(remote))
 	{
@@ -15,7 +15,7 @@ namespace Logic
 
 	void FindDiffState::Enter()
 	{
-		DataDefine::FileListData::FilelistContent diffs;
+		DataDefine::FileList::FilelistContent diffs;
 
 		for (auto& e : _Remote.Contents)
 		{

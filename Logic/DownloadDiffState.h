@@ -8,14 +8,14 @@ namespace Logic
 	{
 	public:
 		typedef std::function<void()> OnDone;
-		DownloadDiffState(DataDefine::FileListData::ShareContent contents);
+		DownloadDiffState(DataDefine::FileList::ShareContent contents);
 		~DownloadDiffState();
 		void Enter() override;
 		void Leave() override;
 		void Update() override;
 		void OnDoneEvent(OnDone&& callback);
 	private:
-		DataDefine::FileListData::ShareContent _Contents;
+		DataDefine::FileList::ShareContent _Contents;
 		OnDone _OnDone;
 	};
 

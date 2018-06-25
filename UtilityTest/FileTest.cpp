@@ -4,71 +4,47 @@
 #include <fstream>
 #include <experimental/filesystem>
 #include <unordered_map>
-#include "../Utility/ConfigParser.h"
+#include "../Utility/FileListParser.h"
+#include "../FileListMaker/FileListMaker.h"
+#include "../Utility/cpplinq.hpp"
 
-// TEST_CASE("ComparisonLastVer test", "[file]")
-// {
-// 	//arrange
-// 	const int ver = 1;
-// 	std::string inputpath = "resource";
-// 	std::string outputpath = "resource_pack/ver" + std::to_string(ver);
-// 	
-// 	//act
-// 	namespace fs = std::experimental::filesystem;
-// 	fs::current_path();
-//
-// 	 
-//
-// 	 Utility::FileListMaker maker(inputpath, outputpath, ver);
-// }
-
-  
-
-  
-
-  class Step3
-  {
-  public:
-	  Step3(int i)
-	  {
-		  money = i;
-	  }
-	  int Return()
-	  {
-		  return 3;
-	  }
-	  int money;
-  };
-  class Step2
-  {
-  public:
-	  Step2(int i)
-	  {
-		  money = i;
-	  }
-
-	  int Return()
-	  {
-		  return 2;
-	  }
-	  int money;
-  };
-  class Step1
-  {
-  public:
-	  Step1() {};
-	  int Return()
-	  {
-		  return 1;
-	  }
-  };
-
- TEST_CASE("Pipeline test", "[file]")
+ TEST_CASE("linq test", "[file]")
  {
-	auto step1 = Step1();
-	auto step2 = Step2(step1.Return());
-	auto step3 = Step3(step2.Return());
-	REQUIRE(step3.Return() == 3);
+ 	//arrange
+	 std::list<int> s1{0, 1, 2, 3} ;
+	 std::list<int> s2{0, 1, 2, 4, 5};
+
+ 	//act
+	using namespace cpplinq;
+
+	// auto result = from(s1)
+	// 	// Consider only the games that were played at least once
+	// 	>> where([](int g) { return g > 0; })
+	// 	>> select([](int g) {return g; })
+	// 	>> first_or_default();
+ //
+	// REQUIRE(result == 0);
+
+	int set1[] = { 1,2,3,4,5 };
+	std::vector<int> set2;
+	set2.push_back(1);
+	set2.push_back(2);
+	set2.push_back(3);
+	set2.push_back(4);
+	
+	auto u = from_array(set1)
+		>> union_with(from(set2))
+		>> to_vector(); // yields {1,2,3,4,5,7,9}
+
+	auto i = from_array(set1)
+		>> intersect_with(from(set2))
+		>> to_vector(); // yields {1,3}
+
+	auto j = from_array(set1)
+		>> except(from(set2))
+		>> to_vector(); // yields {1,3}
+		
+ 	REQUIRE(u.size() == 1);
  }
 
 TEST_CASE("Filesystem test", "[file]")
@@ -141,21 +117,37 @@ TEST_CASE("config parser", "[file]")
 {
 	//arrange
 	const std::string data =
-		"buildversion=1"
-		"actions/1.png|9e107d9d372bb6826bd81d3542a419d6";
+		"ver=1"
+		"+|9e107d9d372bb6826bd81d3542a419d6|actions/1.png";
 	//act
-	Utility::ConfigParser parser;
+	Utility::FileListParser parser;
 
-	auto filelist = parser.Load(data);
+	auto filelist = parser.Parser(data);
 
 	// assert
 	REQUIRE(filelist.Version == 1);
 
-	const auto r = filelist.Contents.find("actions/1.png");
-
+	const auto r = filelist.Contents.find("9e107d9d372bb6826bd81d3542a419d6");
 	REQUIRE(r != filelist.Contents.end());
 
 	REQUIRE(r->first == "9e107d9d372bb6826bd81d3542a419d6");
+	REQUIRE(r->second.Path == "actions/1.png");
+	//REQUIRE(r->second.State == DataDefine::FileListData::Content::ADD);
+}
+
+TEST_CASE("first config parser", "[file]")
+{
+	//arrange
+	const std::string data ="";
+	//act
+	Utility::FileListParser parser;
+
+	auto filelist = parser.Parser(data);
+
+	// assert
+	REQUIRE(filelist.Version == 0);
+	
+	REQUIRE(filelist.Contents.empty());
 }
 
 TEST_CASE("MD5_C_Style", "[file]")

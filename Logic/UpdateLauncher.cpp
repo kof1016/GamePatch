@@ -74,7 +74,7 @@ namespace Logic
 		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToGetDiffState(const DataDefine::FileListData& local, const DataDefine::FileListData& remote)
+	void UpdateLauncher::_ToGetDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote)
 	{
 		const auto fds = new FindDiffState(local, remote);
 
