@@ -35,7 +35,7 @@ namespace PackingLogic
 	
 	 	for (auto& c : _FileList)
 	 	{
-	 		outfile << c.GetFileState()<< "|" << c.MD5 << "|" << c.Path << std::endl;
+	 		outfile << c.State<< "|" << c.MD5 << "|" << c.Path << std::endl;
 	 	}
 	
 	 	outfile.close();

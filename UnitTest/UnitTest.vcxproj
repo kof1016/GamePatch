@@ -37,7 +37,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileListMakerTest.cpp" />
+    <ClCompile Include="PackingTest.cpp" />
     <ClCompile Include="FileTest.cpp" />
     <ClCompile Include="HttpDownloadTest.cpp" />
     <ClCompile Include="LinqTest.cpp" />
@@ -54,9 +54,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileListMaker\FileListMaker.vcxproj">
-      <Project>{8e6e29e9-27f6-4f75-b171-40622003ada7}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.vcxproj">
       <Project>{b6eb0267-c04d-4412-8ef7-f0ed989f624b}</Project>
     </ProjectReference>

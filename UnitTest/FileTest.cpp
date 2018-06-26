@@ -5,7 +5,7 @@
 #include <experimental/filesystem>
 #include <unordered_map>
 #include "../Utility/FileListParser.h"
-#include "../FileListMaker/PackingLogic.h"
+#include "../PackingLogic/PackingLogic.h"
 
 TEST_CASE("Filesystem test", "[file]")
 {

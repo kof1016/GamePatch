@@ -59,19 +59,6 @@ namespace DataDefine
 				}
 			}
 			
-			std::string GetFileState()
-			{
-				if (State == ADD)
-				{
-					return "+";
-				}
-				if (State == REMOVE)
-				{
-					return "-";
-				}
-				return "";
-			}
-
 			FileState State{};
 			std::string MD5{};
 			std::string Path{};
@@ -82,13 +69,9 @@ namespace DataDefine
 		std::vector<Content> Contents;
 	};
 	
-	typedef std::shared_ptr<FileList> ShareFileList;
-
-
 	typedef std::function<void(char* buffer, size_t total)> OnWriteData;
 	typedef std::function<void(int total_size, int downloaded_size)> OnProgress;
 	typedef std::function<void()> OnSuccess;
 	typedef std::function<void()> OnNotNeed;
 	typedef std::function<void(bool result)> OnReceiveDownloadDone;
-
 }

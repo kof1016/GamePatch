@@ -14,10 +14,10 @@
     <ClCompile Include="FileTest.cpp">
       <Filter>TestCode</Filter>
     </ClCompile>
-    <ClCompile Include="FileListMakerTest.cpp">
+    <ClCompile Include="LinqTest.cpp">
       <Filter>TestCode</Filter>
     </ClCompile>
-    <ClCompile Include="LinqTest.cpp">
+    <ClCompile Include="PackingTest.cpp">
       <Filter>TestCode</Filter>
     </ClCompile>
   </ItemGroup>

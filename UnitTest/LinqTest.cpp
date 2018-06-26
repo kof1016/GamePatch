@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../FileListMaker/PackingLogic.h"
+#include "../PackingLogic/PackingLogic.h"
 #include "../Utility/cpplinq.hpp"
 
 
@@ -79,7 +79,7 @@ TEST_CASE("linq test", "[linq]")
 	
 	for (auto r : result)
 	{
-		std::cout << "state= " << r.GetFileState() << "   MD5= " << r.MD5 << "   path= " << r.Path << std::endl;
+		std::cout << "state= " << r.State << "   MD5= " << r.MD5 << "   path= " << r.Path << std::endl;
 	}
 	
 }
