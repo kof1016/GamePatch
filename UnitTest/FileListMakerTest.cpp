@@ -1,12 +1,10 @@
 #include "pch.h"
 
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "../FileListMaker/FileListCreator.h"
-#include "../Utility/IParser.h"
 #include "../Utility/FileListParser.h"
 #include "../Utility/FileTool.h"
 #include <filesystem>
+#include "../FileListMaker/FileListMaker.h"
 
 
 class Step3
@@ -70,8 +68,8 @@ TEST_CASE("get newest ver filelist", "[filelistmaker]")
 	auto filePath = path / "resource_pack" / "ver.txt";
 
 	//act
-	FileListMaker::FileListCreator fileListReader;
-	auto data = fileListReader.Create(filePath.string());
+	Utility::FileListParser parser;
+	auto data = parser.Parser(filePath.string());
 
 	//assert
 	REQUIRE(data.Version == 0);
@@ -80,10 +78,10 @@ TEST_CASE("get newest ver filelist", "[filelistmaker]")
 TEST_CASE("first packing", "[filelistmaker]")
 {
 	//arrange
-	const std::string write{"ver=1"};
+	const std::string write{ "ver=1" };
 
-	const std::string write2 =  "ver=" + std::to_string(1) ;
-	
+	const std::string write2 = "ver=" + std::to_string(1);
+
 
 	//act
 	std::ofstream outfile("NewestVer.txt", std::ofstream::out); //write mode | write data from eof 
@@ -101,7 +99,7 @@ TEST_CASE("first packing", "[filelistmaker]")
 		return;
 	}
 
-	 std::string read;
+	std::string read;
 	// while (infile >> read)
 	// {
 	// 	std::cout << read;
@@ -111,7 +109,7 @@ TEST_CASE("first packing", "[filelistmaker]")
 	// 	}
 	// }
 	// infile.close();
-	
+
 	infile >> read;
 	infile.close();
 
@@ -126,8 +124,8 @@ TEST_CASE("scan resource folder test", "[filelistmaker]")
 	auto filePath = path / "resource";
 
 	//act
-	FileListMaker::FileListCreator fileListReader;
-	auto data = fileListReader.Create(filePath.string());
+	Utility::FileListParser parser;
+	auto data = parser.Parser(filePath.string());
 
 	//assert
 	REQUIRE(data.Version == 0);

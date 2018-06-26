@@ -51,7 +51,7 @@ namespace Utility
 		while (regex_search(result, sm, reg))
 		{
 			DataDefine::FileList::Content c{ sm[1].str(), sm[2].str(), sm[3].str() };
-			_FileListData.Contents.emplace(c.MD5, c);
+			_FileListData.Contents.push_back(c);
 			result = sm.suffix().str();
 		}
 	}
@@ -64,8 +64,8 @@ namespace Utility
 		std::cout << "==============contents=========== " << std::endl;
 		for (auto& c : _FileListData.Contents)
 		{
-			std::cout << "md5 = " << c.first << std::endl;
-			std::cout << "path = " << c.second.Path << std::endl;
+			std::cout << "md5 = " << c.MD5 << std::endl;
+			std::cout << "path = " << c.Path << std::endl;
 		}
 	}
 }

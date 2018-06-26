@@ -1,34 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="FileListMaker.cpp" />
     <ClCompile Include="PackingLauncher.cpp" />
-    <ClCompile Include="ScanResourcePath.cpp">
+    <ClCompile Include="GetCurrentVer.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="CreateNewestVerDoc.cpp">
+    <ClCompile Include="CreateZip.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="GetCurrentVerStep.cpp">
+    <ClCompile Include="FileListMaker.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="CompareResourcePath.cpp" />
-    <ClCompile Include="GetFileList.cpp" />
+    <ClCompile Include="GetFileList.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="MergeFileList.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveFilelist.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="VersionUpdater.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileListMaker.h" />
     <ClInclude Include="PackingLauncher.h" />
-    <ClInclude Include="ScanResourcePath.h">
+    <ClInclude Include="GetCurrentVer.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="CreateNewestVerDoc.h">
+    <ClInclude Include="CreateZip.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="GetCurrentVerStep.h">
+    <ClInclude Include="FileListMaker.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="CompareResourcePath.h" />
-    <ClInclude Include="GetFileList.h" />
+    <ClInclude Include="GetFileList.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="MergeFileList.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveFilelist.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="VersionUpdater.h">
+      <Filter>Step</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Step">

@@ -1,13 +1,13 @@
 #include "PackingLauncher.h"
-#include "GetCurrentVerStep.h"
-#include "CreateNewestVerDoc.h"
+#include "GetCurrentVer.h"
 #include "GetFileList.h"
-#include "CompareResourcePath.h"
+#include "MergeFileList.h"
 #include <filesystem>
 #include <string>
-
 #include "FileListMaker.h"
-
+#include "VersionUpdater.h"
+#include "SaveFileList.h"
+#include "CreateZip.h"
 
 
 namespace FileListMaker
@@ -23,53 +23,39 @@ namespace FileListMaker
 	void PackingLauncher::Start()
 	{
 		//step1
-		GetCurrentVerStep step1;
-		const auto ver = step1.Result();
+		GetCurrentVer getCurrentVer;
+		const auto ver = getCurrentVer.Result();
 
 		//step2
 		namespace fs = std::experimental::filesystem;
 		auto current = fs::current_path();
 		auto filelistPath = current / "ResourcePack" / ("ver" + std::to_string(ver))/ ("filelist_" + ("ver" + std::to_string(ver) + ".txt"));
 		
-		GetFileList step2(filelistPath.string());
-		auto packfilelist = step2.Result();
+		GetFileList getFileList(filelistPath.string());
+		auto currentFileList = getFileList.Result();
 
 		//step3
 		namespace fs = std::experimental::filesystem;
 		current = fs::current_path();
 		auto input = current / "Resource";
 
-		FileListMaker maker(input.string(), filelistPath.string());
-		auto newfileList = maker.Make();
+		FileListMaker maker(input.string());
+		auto allresourcefileList = maker.Make();
+
+		//step4		
+		MergeFileList merge(currentFileList, allresourcefileList);
+		auto mergedlist = merge.Result();
+
+		//step5
+		VersionUpdater verUpdater;
+		const auto newver = verUpdater.Update();
+
+		//step6
+		SaveFileList saveFilelist(newver, mergedlist);
+		saveFilelist.Save();
 		
-		//CompareResourcePath step3;
-
-
-		//CreateNewestVerDoc step3(ver);
-
-
-
-		// void FileListMaker::_ComparisonLastVer()
-		// {
-		// }
-  //
-		// void FileListMaker::_CreateFileList()
-		// {
-		// 	const auto fileName = std::to_string(_Version) + "filelist.txt";
-		// 	const std::experimental::filesystem::path p1(_OutputPath);
-		// 	auto p2 = p1 / fileName;
-  //
-		// 	std::ofstream outfile(p2.string(), std::ofstream::out); //write mode
-  //
-		// 	outfile << "buildversion=" << _CurrentFileList.Version << std::endl;
-  //
-		// 	for (auto& c : _CurrentFileList.Contents)
-		// 	{
-		// 		outfile << c.first << "|" << c.second.Path << std::endl;
-		// 	}
-  //
-		// 	outfile.close();
-		// }
+		//step7
+		CreateZip zip;
 	}
 
 	void PackingLauncher::Update()

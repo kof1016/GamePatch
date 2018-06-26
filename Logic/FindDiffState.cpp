@@ -15,26 +15,26 @@ namespace Logic
 
 	void FindDiffState::Enter()
 	{
-		DataDefine::FileList::FilelistContent diffs;
-
-		for (auto& e : _Remote.Contents)
-		{
-			const auto r = _Local.Contents.find(e.first);
-			
-			if (r == _Local.Contents.end())
-			{
-				diffs.insert(e);
-			}
-		}
-
-		std::queue<std::string> paths;
-
-		for(auto& e :diffs)
-		{
-			paths.emplace(e.second.Path);
-		}
-
-		_OnDone(paths);
+		// DataDefine::FileList::FilelistContent diffs;
+  //
+		// for (auto& e : _Remote.Contents)
+		// {
+		// 	const auto r = _Local.Contents.find(e.first);
+		// 	
+		// 	if (r == _Local.Contents.end())
+		// 	{
+		// 		diffs.insert(e);
+		// 	}
+		// }
+  //
+		// std::queue<std::string> paths;
+  //
+		// for(auto& e :diffs)
+		// {
+		// 	paths.emplace(e.second.Path);
+		// }
+  //
+		// _OnDone(paths);
 	}
 
 	void FindDiffState::Leave()

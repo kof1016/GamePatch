@@ -14,7 +14,7 @@ namespace FileListMaker
 
 		std::string _Path;
 		std::vector<char> _Buffer{ 1,'\0' };
-		Utility::FileListParser _Parser{};
+		Utility::FileListParser _Parser;
 	};
 
 }

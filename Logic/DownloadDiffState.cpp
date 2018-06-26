@@ -2,7 +2,7 @@
 
 namespace Logic
 {
-	DownloadDiffState::DownloadDiffState(DataDefine::FileList::ShareContent contents)
+	DownloadDiffState::DownloadDiffState(DataDefine::FileList::Content contents)
 		:_Contents(std::move(contents))
 	{
 	}

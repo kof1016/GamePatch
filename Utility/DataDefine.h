@@ -77,22 +77,9 @@ namespace DataDefine
 			std::string Path{};
 			bool bChecked{ false };
 		};
-		void Find(const std::string& key)
-		{
-			const auto r = Contents.find(key);
-			if(r != Contents.end())
-			{
-				r->second.bChecked = true;
-			}
-		}
+		
 		int Version{0};
-		//std::vector<Content> Contents;
-
-		
-		typedef std::unordered_map<std::string, Content> FilelistContent;
-		typedef std::shared_ptr<FilelistContent> ShareContent;
-		
-		FilelistContent Contents;
+		std::vector<Content> Contents;
 	};
 	
 	typedef std::shared_ptr<FileList> ShareFileList;

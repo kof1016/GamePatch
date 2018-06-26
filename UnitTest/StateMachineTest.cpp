@@ -4,7 +4,7 @@
 #include "../Utility/StateMachine.h"
 
 
-class FakeState : public Utility::IState
+class FakeState final : public Utility::IState
 {
 public:
 	FakeState()
@@ -36,18 +36,22 @@ public:
 
 TEST_CASE("state machine test", "[Utility]")
 {
-	// auto machine = new Utility::StateMachine;
- //
-	// const auto fake = new FakeState;
- //
-	// fake->OnDone = []()
-	// {
-	// 	std::cout << "state done" << std::endl;
-	// };
- //
-	// const std::shared_ptr<Utility::IState> state(fake);
-	// machine->Push(state);
-	// machine->Update();
- //
-	// delete machine;
+	 auto machine = new Utility::StateMachine;
+ 
+	 const auto fake = new FakeState;
+
+	 bool bDone = false;
+	 fake->OnDone = [&]()
+	 {
+	 	std::cout << "state done" << std::endl;
+		bDone = true;
+	 };
+ 
+	 const std::shared_ptr<Utility::IState> state(fake);
+	 machine->Push(state);
+	 machine->Update();
+ 
+	 delete machine;
+	 
+	REQUIRE(bDone== true);
 }

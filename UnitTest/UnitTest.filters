@@ -14,6 +14,9 @@
     <ClCompile Include="StateMachineTest.cpp">
       <Filter>TestCode</Filter>
     </ClCompile>
+    <ClCompile Include="FileListMakerTest.cpp">
+      <Filter>TestCode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -22,5 +25,8 @@
     <Filter Include="TestCode">
       <UniqueIdentifier>{f45bbe8d-054d-4155-8182-b02d461a1ce8}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
