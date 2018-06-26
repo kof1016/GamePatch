@@ -3,7 +3,7 @@
 #include "../Utility/FileTool.h"
 
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	GetFileList::GetFileList(std::string path)
 		:_Path(std::move(path))

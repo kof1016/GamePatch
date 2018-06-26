@@ -22,7 +22,7 @@
     <ClCompile Include="CreateZip.cpp" />
     <ClCompile Include="MergeFileList.cpp" />
     <ClCompile Include="SaveFilelist.cpp" />
-    <ClCompile Include="FileListMaker.cpp" />
+    <ClCompile Include="PackingLogic.cpp" />
     <ClCompile Include="GetFileList.cpp" />
     <ClCompile Include="GetCurrentVer.cpp" />
     <ClCompile Include="PackingLauncher.cpp" />
@@ -32,7 +32,7 @@
     <ClInclude Include="CreateZip.h" />
     <ClInclude Include="MergeFileList.h" />
     <ClInclude Include="SaveFilelist.h" />
-    <ClInclude Include="FileListMaker.h" />
+    <ClInclude Include="PackingLogic.h" />
     <ClInclude Include="GetFileList.h" />
     <ClInclude Include="GetCurrentVer.h" />
     <ClInclude Include="PackingLauncher.h" />
@@ -49,6 +49,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>FileListMaker</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>PackingLogic</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

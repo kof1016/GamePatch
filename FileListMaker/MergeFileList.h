@@ -3,7 +3,7 @@
 #include "../Utility/cpplinq.hpp"
 
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	class MergeFileList
 	{

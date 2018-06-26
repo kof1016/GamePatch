@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace Logic
+namespace UpdateLogic
 {
 	const std::string LOCAL_FILELIST_PATH{R"(..\resources\local-filelist.txt)"};
 	const std::string REMOTE_FILELIST_PATH{R"(..\resources\remote-filelist.txt)"};

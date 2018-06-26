@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../FileListMaker/FileListMaker.h"
+#include "../FileListMaker/PackingLogic.h"
 #include "../Utility/cpplinq.hpp"
 
 

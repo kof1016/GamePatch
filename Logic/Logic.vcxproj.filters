@@ -6,12 +6,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FirstState.h">
-      <Filter>State</Filter>
-    </ClInclude>
-    <ClInclude Include="SecondState.h">
-      <Filter>State</Filter>
-    </ClInclude>
     <ClInclude Include="UpdateLauncher.h" />
     <ClInclude Include="DataDefine.h" />
     <ClInclude Include="DownloadDiffState.h">
@@ -28,12 +22,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FirstState.cpp">
-      <Filter>State</Filter>
-    </ClCompile>
-    <ClCompile Include="SecondState.cpp">
-      <Filter>State</Filter>
-    </ClCompile>
     <ClCompile Include="UpdateLauncher.cpp" />
     <ClCompile Include="DownloadDiffState.cpp">
       <Filter>State</Filter>

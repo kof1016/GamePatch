@@ -8,9 +8,6 @@
     <ClCompile Include="CreateZip.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="FileListMaker.cpp">
-      <Filter>Step</Filter>
-    </ClCompile>
     <ClCompile Include="GetFileList.cpp">
       <Filter>Step</Filter>
     </ClCompile>
@@ -23,6 +20,9 @@
     <ClCompile Include="VersionUpdater.cpp">
       <Filter>Step</Filter>
     </ClCompile>
+    <ClCompile Include="PackingLogic.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PackingLauncher.h" />
@@ -30,9 +30,6 @@
       <Filter>Step</Filter>
     </ClInclude>
     <ClInclude Include="CreateZip.h">
-      <Filter>Step</Filter>
-    </ClInclude>
-    <ClInclude Include="FileListMaker.h">
       <Filter>Step</Filter>
     </ClInclude>
     <ClInclude Include="GetFileList.h">
@@ -45,6 +42,9 @@
       <Filter>Step</Filter>
     </ClInclude>
     <ClInclude Include="VersionUpdater.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="PackingLogic.h">
       <Filter>Step</Filter>
     </ClInclude>
   </ItemGroup>

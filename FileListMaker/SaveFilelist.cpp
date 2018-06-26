@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <fstream>
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	SaveFileList::SaveFileList(int ver, std::list<DataDefine::FileList::Content>& file_list)
 	{

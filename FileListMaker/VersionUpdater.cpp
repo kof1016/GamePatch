@@ -3,7 +3,7 @@
 #include <fstream>
 
 
-namespace FileListMaker
+namespace PackingLogic
 {
 
 	VersionUpdater::VersionUpdater()

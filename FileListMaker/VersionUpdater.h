@@ -1,5 +1,5 @@
 #pragma once
-namespace FileListMaker
+namespace PackingLogic
 {
 	class VersionUpdater
 	{

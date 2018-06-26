@@ -2,7 +2,7 @@
 #include "../Utility/FileListParser.h"
 #include <string>
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	class SaveFileList
 	{

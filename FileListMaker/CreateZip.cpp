@@ -1,7 +1,7 @@
 #include "CreateZip.h"
 
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	CreateZip::CreateZip()
 	{

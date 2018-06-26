@@ -2,7 +2,7 @@
 #include "../Utility/StateMachine.h"
 #include "../Utility/DownloadProvider.h"
 
-namespace Logic
+namespace UpdateLogic
 {
 	class UpdateLauncher final
 	{

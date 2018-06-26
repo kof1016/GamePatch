@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <iostream>
 
-namespace Logic
+namespace UpdateLogic
 {
 	UpdateLauncher::UpdateLauncher()
 	{

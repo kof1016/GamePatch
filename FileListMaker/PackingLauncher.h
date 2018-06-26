@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	class PackingLauncher
 	{

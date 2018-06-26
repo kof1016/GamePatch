@@ -1,6 +1,6 @@
 #pragma once
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	class CreateZip
 	{

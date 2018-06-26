@@ -2,7 +2,7 @@
 #include <string>
 #include "../Utility/DataDefine.h"
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	 class FileListMaker final
 	 {

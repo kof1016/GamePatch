@@ -1,7 +1,7 @@
 #include "MergeFileList.h"
 #include "../Utility/cpplinq.hpp"
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	MergeFileList::MergeFileList(DataDefine::FileList& current, DataDefine::FileList& all_source)
 		: _Current(current)

@@ -4,13 +4,13 @@
 #include "MergeFileList.h"
 #include <filesystem>
 #include <string>
-#include "FileListMaker.h"
+#include "PackingLogic.h"
 #include "VersionUpdater.h"
 #include "SaveFileList.h"
 #include "CreateZip.h"
 
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	PackingLauncher::PackingLauncher()
 	{

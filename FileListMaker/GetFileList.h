@@ -2,7 +2,7 @@
 #include "../Utility/DataDefine.h"
 #include "../Utility/FileListParser.h"
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	class GetFileList
 	{

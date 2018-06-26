@@ -1,10 +1,10 @@
-#include "FileListMaker.h"
+#include "PackingLogic.h"
 #include <filesystem>
 #include <utility>
 #include "../Utility/FileTool.h"
 
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	 FileListMaker::FileListMaker(std::string input_path)
 	 	: _InputPath(std::move(input_path))
