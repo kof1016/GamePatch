@@ -6,7 +6,7 @@
 
 int main()
 {
-	FileListMaker::PackingLauncher launcer;
+	PackingLogic::PackingLauncher launcer;
 
 	launcer.Start();
     

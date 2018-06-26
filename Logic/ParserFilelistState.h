@@ -2,7 +2,7 @@
 #include "../Utility/IState.h"
 #include "../Utility/DataDefine.h"
 
-namespace Logic
+namespace UpdateLogic
 {
 	class ParserFilelistState final : public Utility::IState
 	{

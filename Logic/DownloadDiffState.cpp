@@ -1,6 +1,6 @@
 #include "DownloadDiffState.h"
 
-namespace Logic
+namespace UpdateLogic
 {
 	DownloadDiffState::DownloadDiffState(DataDefine::FileList::Content contents)
 		:_Contents(std::move(contents))

@@ -2,7 +2,7 @@
 #include <filesystem>
 #include "../Utility/FileTool.h"
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	GetCurrentVer::GetCurrentVer()
 	{

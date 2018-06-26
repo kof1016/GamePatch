@@ -3,7 +3,7 @@
 #include "../Utility/DataDefine.h"
 #include <queue>
 
-namespace Logic
+namespace UpdateLogic
 {
 	class FindDiffState final : public Utility::IState
 	{

@@ -4,7 +4,7 @@
 
 
 
-namespace Logic
+namespace UpdateLogic
 {
 	ParserFilelistState::ParserFilelistState()
 	{

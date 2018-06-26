@@ -2,7 +2,7 @@
 #include "../Utility/IState.h"
 #include "../Utility/DataDefine.h"
 
-namespace Logic 
+namespace UpdateLogic 
 {
 	class DownloadDiffState final : public Utility::IState
 	{

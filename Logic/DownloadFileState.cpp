@@ -4,7 +4,7 @@
 #include <fstream>
 #include <utility>
 
-namespace Logic
+namespace UpdateLogic
 {
 	DownloadFileState::DownloadFileState(std::shared_ptr<Utility::ReceiverFacade> facade,
 										Utility::FileWriter& file_writer)

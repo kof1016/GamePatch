@@ -10,7 +10,7 @@ namespace Utility {
 	class ReceiverFacade;
 }
 
-namespace Logic
+namespace UpdateLogic
 {
 	class DownloadFileState final : public Utility::IState
 	{

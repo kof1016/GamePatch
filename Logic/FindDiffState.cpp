@@ -1,7 +1,7 @@
 #include "FindDiffState.h"
 #include <utility>
 
-namespace Logic
+namespace UpdateLogic
 {
 	FindDiffState::FindDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote)
 		:_Local(std::move(local)),

@@ -2,7 +2,7 @@
 
 #include "../Utility/FileListParser.h"
 
-namespace FileListMaker
+namespace PackingLogic
 {
 	class GetCurrentVer final
 	{
