@@ -15,12 +15,12 @@ namespace Utility
 		
 		void GetRemoteFileSize(std::string url);
 
-		void Downloading(DataDefine::CurlInitData&& data);
+		void Downloading(CurlInitData&& data);
 
-		void BindWriteData(DataDefine::OnWriteData&& callback);
-		void BindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback);
+		void BindWriteData(OnWriteData&& callback);
+		void BindReceiveDone(OnReceiveDownloadDone&& callback);
 
-		void BindProgress(DataDefine::OnProgress&& callback);
+		void BindProgress(OnProgress&& callback);
 
 	private:
 		void _SetUrl(std::string&& url);
@@ -40,7 +40,7 @@ namespace Utility
 		CURL* _pCurl{nullptr};
 		CURLcode _Result;
 
-		DataDefine::OnReceiveDownloadDone _OnReceiveDone;
+		OnReceiveDownloadDone _OnReceiveDone;
 		curl_off_t _RemoteFileSize{-1};
 	};
 }

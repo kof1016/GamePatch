@@ -51,7 +51,7 @@ namespace Utility
 		curl_easy_cleanup(curl);
 	}
 
-	void CurlHttp::Downloading(DataDefine::CurlInitData&& data)
+	void CurlHttp::Downloading(CurlInitData&& data)
 	{
 		//GetRemoteFileSize(data.Url);
 		_pCurl = curl_easy_init();
@@ -73,17 +73,17 @@ namespace Utility
 		_CheckResult(data.CheckResult);
 	}
 
-	void CurlHttp::BindWriteData(DataDefine::OnWriteData&& callback)
+	void CurlHttp::BindWriteData(OnWriteData&& callback)
 	{
 		_CurlWriteDataAdapter.Bind(std::move(callback));
 	}
 
-	void CurlHttp::BindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback)
+	void CurlHttp::BindReceiveDone(OnReceiveDownloadDone&& callback)
 	{
 		_OnReceiveDone = callback;
 	}
 
-	void CurlHttp::BindProgress(DataDefine::OnProgress&& callback)
+	void CurlHttp::BindProgress(OnProgress&& callback)
 	{
 		_CurlProgressAdapter.Bind(std::move(callback));
 	}

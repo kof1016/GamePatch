@@ -3,7 +3,7 @@
 
 namespace PackingLogic
 {
-	MergeFileList::MergeFileList(DataDefine::FileList& current, DataDefine::FileList& all_source)
+	MergeFileList::MergeFileList(Utility::FileList& current, Utility::FileList& all_source)
 		: _Current(current)
 		, _AllSource(all_source)
 	{
@@ -14,7 +14,7 @@ namespace PackingLogic
 	{
 	}
 
-	std::list<DataDefine::FileList::Content> MergeFileList::Result()
+	std::list<Utility::FileList::Content> MergeFileList::Result()
 	{
 		using namespace cpplinq;
 
@@ -43,7 +43,7 @@ namespace PackingLogic
 											{
 												if (md5 == d.MD5)
 												{
-													d.State = DataDefine::FileList::Content::ADD;
+													d.StateSymbol = "+";
 												}
 
 												return md5 == d.MD5;
@@ -51,6 +51,7 @@ namespace PackingLogic
 				return *r;
 			})
 			>> to_list();
+
 		auto result2 = from(remove)
 			>> select([&](auto key)
 			{
@@ -59,7 +60,7 @@ namespace PackingLogic
 											{
 												if (key == d.MD5)
 												{
-													d.State = DataDefine::FileList::Content::REMOVE;
+													d.StateSymbol = "-";
 												}
 
 												return key == d.MD5;
@@ -69,7 +70,7 @@ namespace PackingLogic
 			>> to_list();
 
 		result.insert(result.end(), result2.begin(), result2.end());
-		
+
 		return result;
 	}
 }

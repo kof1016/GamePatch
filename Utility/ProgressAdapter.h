@@ -11,10 +11,10 @@ namespace Utility
 
 		static int CurlCallback(void* buffer, curl_off_t t, curl_off_t d, curl_off_t ultotal, curl_off_t ulnow);
 
-		void Bind(DataDefine::OnProgress&& callback);
+		void Bind(OnProgress&& callback);
 		void Invoke(int total_size, int downloaded_size) const;
 				
 	private:
-		DataDefine::OnProgress _OnProgress;
+		OnProgress _OnProgress;
 	};
 }

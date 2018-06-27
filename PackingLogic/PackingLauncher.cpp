@@ -1,13 +1,11 @@
 #include "PackingLauncher.h"
-#include "GetCurrentVer.h"
+#include "DataDefine.h"
 #include "GetFileList.h"
 #include "MergeFileList.h"
-#include <filesystem>
-#include <string>
-#include "PackingLogic.h"
 #include "VersionUpdater.h"
-#include "SaveFileList.h"
+#include "CreateFileListToFile.h"
 #include "CreateZip.h"
+#include "ScanResourceFolder.h"
 
 
 namespace PackingLogic
@@ -23,46 +21,27 @@ namespace PackingLogic
 	void PackingLauncher::Start()
 	{
 		//step1
-		GetCurrentVer getCurrentVer;
-		const auto ver = getCurrentVer.Result();
-
-		//step2
-		namespace fs = std::experimental::filesystem;
-		auto current = fs::current_path();
-		auto filelistPath = current / "ResourcePack" / ("ver" + std::to_string(ver))/ ("filelist_" + ("ver" + std::to_string(ver) + ".txt"));
+		CreateDir(GetNewestVerPath());
 		
-		GetFileList getFileList(filelistPath.string());
-		auto currentFileList = getFileList.Result();
+		//step2
+		const auto currentVer = GetFileList(GetNewestVerPath()).Result().Version;
 
 		//step3
-		namespace fs = std::experimental::filesystem;
-		current = fs::current_path();
-		auto input = current / "Resource";
+		auto currentFileList = GetFileList(GetCurrentFileListPath(currentVer)).Result();
 
-		FileListMaker maker(input.string());
-		auto allresourcefileList = maker.Make();
-
-		//step4		
-		MergeFileList merge(currentFileList, allresourcefileList);
-		auto mergedlist = merge.Result();
-
-		//step5
-		VersionUpdater verUpdater;
-		const auto newver = verUpdater.Update();
+		//step4
+		auto allresourcefileList = ScanResourceFolder(GetResourcePath()).Make();
+		
+		//step5		
+		auto mergedList = MergeFileList(currentFileList, allresourcefileList).Result();
 
 		//step6
-		SaveFileList saveFilelist(newver, mergedlist);
-		saveFilelist.Save();
+		const auto newestVer = VersionUpdater().Update();
 		
 		//step7
-		CreateZip zip;
-	}
+		auto fileList = CreateFileListToFile(newestVer, mergedList).Create();
 
-	void PackingLauncher::Update()
-	{
-	}
-
-	void PackingLauncher::Shutdown()
-	{
+		//step8
+		CreateZip(fileList).Start();
 	}
 }

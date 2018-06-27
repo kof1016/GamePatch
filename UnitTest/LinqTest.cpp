@@ -1,19 +1,19 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../PackingLogic/PackingLogic.h"
+#include "../PackingLogic/ScanResourceFolder.h"
 #include "../Utility/cpplinq.hpp"
 
 
 TEST_CASE("linq test", "[linq]")
 {
-	std::list<DataDefine::FileList::Content> currentdata =
+	std::list<Utility::FileList::Content> currentdata =
 	{
 		{"1", "path1"},
 		{"2", "path2"},
 		{"3", "path3"},
 	};
 
-	std::list<DataDefine::FileList::Content> sourcedata =
+	std::list<Utility::FileList::Content> sourcedata =
 	{
 		{"1", "path1"},
 		{"2", "path2"},
@@ -46,7 +46,7 @@ TEST_CASE("linq test", "[linq]")
 										{
 											if (key == d.MD5)
 											{
-												d.State = DataDefine::FileList::Content::ADD;
+												d.StateSymbol = "+";
 											}
 
 											return key == d.MD5;
@@ -63,7 +63,7 @@ TEST_CASE("linq test", "[linq]")
 										{
 											if (key == d.MD5)
 											{
-												d.State = DataDefine::FileList::Content::REMOVE;
+												d.StateSymbol = "-";
 											}
 
 											return key == d.MD5;
@@ -79,7 +79,7 @@ TEST_CASE("linq test", "[linq]")
 	
 	for (auto r : result)
 	{
-		std::cout << "state= " << r.State << "   MD5= " << r.MD5 << "   path= " << r.Path << std::endl;
+		std::cout << "state= " << r.StateSymbol << "   MD5= " << r.MD5 << "   path= " << r.Path << std::endl;
 	}
 	
 }

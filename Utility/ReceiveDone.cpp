@@ -12,7 +12,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiveDone::Bind(DataDefine::OnReceiveDownloadDone&& callback)
+	void ReceiveDone::Bind(OnReceiveDownloadDone&& callback)
 	{
 		_OnDownloadDone = callback;
 

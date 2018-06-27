@@ -11,10 +11,10 @@ namespace Utility
 
 		static size_t CurlCallback(char* buffer, size_t size, size_t nmemb, void* userdata);
 
-		void Bind(DataDefine::OnWriteData&& callback);
+		void Bind(OnWriteData&& callback);
 		void Invoke(char* buffer, size_t nmemb) const;
 
 	private:
-		DataDefine::OnWriteData _OnWriteData;
+		OnWriteData _OnWriteData;
 	};
 }

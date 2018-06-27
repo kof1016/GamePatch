@@ -41,7 +41,7 @@ namespace Utility
 
 		try
 		{
-			_CurlHttp.Downloading(DataDefine::CurlInitData
+			_CurlHttp.Downloading(CurlInitData
 				{
 					url, //url
 					false, //postMode
@@ -60,7 +60,7 @@ namespace Utility
 		}
 	}
 
-	void HttpDownloadTask::BindDownloadDone(DataDefine::OnReceiveDownloadDone&& callback)
+	void HttpDownloadTask::BindDownloadDone(OnReceiveDownloadDone&& callback)
 	{
 		_OnDownloadDone = callback;
 

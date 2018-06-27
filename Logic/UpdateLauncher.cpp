@@ -74,7 +74,7 @@ namespace UpdateLogic
 		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToGetDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote)
+	void UpdateLauncher::_ToGetDiffState(const Utility::FileList& local, const Utility::FileList& remote)
 	{
 		const auto fds = new FindDiffState(local, remote);
 
@@ -137,17 +137,17 @@ namespace UpdateLogic
 		std::cout << "UpdateLauncher::Shutdown" << std::endl;
 	}
 
-	void UpdateLauncher::OnDownloadProgress(DataDefine::OnProgress&& callback)
+	void UpdateLauncher::OnDownloadProgress(Utility::OnProgress&& callback)
 	{
 		_OnProgress = callback;
 	}
 
-	void UpdateLauncher::OnUpdateSuccessEvent(DataDefine::OnSuccess&& callback)
+	void UpdateLauncher::OnUpdateSuccessEvent(Utility::OnSuccess&& callback)
 	{
 		_OnSuccess = callback;
 	}
 
-	void UpdateLauncher::OnNotNeedEvent(DataDefine::OnNotNeed&& callback)
+	void UpdateLauncher::OnNotNeedEvent(Utility::OnNotNeed&& callback)
 	{
 		_OnNotNeed = callback;
 	}

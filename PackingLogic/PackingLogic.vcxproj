@@ -21,20 +21,19 @@
   <ItemGroup>
     <ClCompile Include="CreateZip.cpp" />
     <ClCompile Include="MergeFileList.cpp" />
-    <ClCompile Include="SaveFilelist.cpp" />
-    <ClCompile Include="PackingLogic.cpp" />
+    <ClCompile Include="CreateFileListToFile.cpp" />
+    <ClCompile Include="ScanResourceFolder.cpp" />
     <ClCompile Include="GetFileList.cpp" />
-    <ClCompile Include="GetCurrentVer.cpp" />
     <ClCompile Include="PackingLauncher.cpp" />
     <ClCompile Include="VersionUpdater.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CreateZip.h" />
+    <ClInclude Include="DataDefine.h" />
     <ClInclude Include="MergeFileList.h" />
-    <ClInclude Include="SaveFilelist.h" />
-    <ClInclude Include="PackingLogic.h" />
+    <ClInclude Include="CreateFileListToFile.h" />
+    <ClInclude Include="ScanResourceFolder.h" />
     <ClInclude Include="GetFileList.h" />
-    <ClInclude Include="GetCurrentVer.h" />
     <ClInclude Include="PackingLauncher.h" />
     <ClInclude Include="VersionUpdater.h" />
   </ItemGroup>

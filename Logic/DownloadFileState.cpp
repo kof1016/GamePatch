@@ -61,7 +61,7 @@ namespace UpdateLogic
 		_OnDone = callback;
 	}
 
-	void DownloadFileState::OnProgressEvent(DataDefine::OnProgress&& callback)
+	void DownloadFileState::OnProgressEvent(Utility::OnProgress&& callback)
 	{
 		_OnProgress = callback;
 	}

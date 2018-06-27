@@ -15,7 +15,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiveProgress::Bind(DataDefine::OnProgress&& callback)
+	void ReceiveProgress::Bind(OnProgress&& callback)
 	{
 		_OnProgress = callback;
 		

@@ -7,13 +7,14 @@ namespace Utility
 	class FileWriter final
 	{
 	public:
-		FileWriter() = default;
+		FileWriter() = delete;
 		FileWriter(std::string file_name);
 		~FileWriter();
 
 		void OpenFile();
 		void CloseFile() const;
 		void Write(char* buffer, size_t nmemb) const;
+		void Write(const char* buffer, size_t nmemb) const;
 
 	private:
 

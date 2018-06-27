@@ -9,11 +9,11 @@ namespace Utility
 		ReceiveProgress();
 		~ReceiveProgress();
 
-		void Bind(DataDefine::OnProgress&& callback);
+		void Bind(OnProgress&& callback);
 		void Invoke(int total_size, int downloaded_size);
 
 	private:
-		DataDefine::OnProgress _OnProgress;
+		OnProgress _OnProgress;
 
 		int _Total{0};
 		int _Downloaded{0};

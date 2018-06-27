@@ -9,7 +9,7 @@ namespace UpdateLogic
 	{
 	public:
 		typedef std::function<void(std::queue<std::string>)> OnDone;
-		FindDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote);
+		FindDiffState(const Utility::FileList& local, const Utility::FileList& remote);
 		~FindDiffState();
 		void Enter() override;
 		void Leave() override;
@@ -17,8 +17,8 @@ namespace UpdateLogic
 		void OnDoneEvent(OnDone&& callback);
 
 	private:
-		DataDefine::FileList _Local;
-		DataDefine::FileList _Remote;
+		Utility::FileList _Local;
+		Utility::FileList _Remote;
 		OnDone _OnDone;
 	};
 }

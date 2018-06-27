@@ -5,7 +5,6 @@
 #include <experimental/filesystem>
 #include <unordered_map>
 #include "../Utility/FileListParser.h"
-#include "../PackingLogic/PackingLogic.h"
 
 TEST_CASE("Filesystem test", "[file]")
 {
@@ -35,7 +34,7 @@ TEST_CASE("FileList Parser Test", "[file]")
 
 	// assert
 	REQUIRE(filelist.Version == 1);
-	REQUIRE(filelist.Contents[0].State == DataDefine::FileList::Content::ADD);
+	REQUIRE(filelist.Contents[0].StateSymbol == "+");
 	REQUIRE(filelist.Contents[0].MD5== "9e107d9d372bb6826bd81d3542a419d6");
 	REQUIRE(filelist.Contents[0].Path == "actions/1.png");
 }

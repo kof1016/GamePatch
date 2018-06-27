@@ -1,11 +1,11 @@
 #include "VersionUpdater.h"
-#include "GetCurrentVer.h"
-#include <fstream>
+#include "DataDefine.h"
+#include "GetFileList.h"
+#include "../Utility/FileWriter.h"
 
 
 namespace PackingLogic
 {
-
 	VersionUpdater::VersionUpdater()
 	{
 	}
@@ -17,21 +17,17 @@ namespace PackingLogic
 
 	int VersionUpdater::Update()
 	{
-		GetCurrentVer getCurrentVer;
-		auto ver = getCurrentVer.Result();
-		ver = ver + 1;
-		
-		const auto write = "ver=" + std::to_string(ver);
+		const auto path = GetNewestVerPath();
+		const auto newVer = GetFileList(path).Result().Version + 1;
 
-		std::ofstream outfile("NewestVer.txt");
-		if (!outfile.is_open())
-		{
-			return -1;
-		}
+		Utility::FileWriter writer(path);
+		writer.OpenFile();
 
-		outfile << write;
-		outfile.close();
+		const auto write = "ver=" + std::to_string(newVer);
+		writer.Write(write.data(), write.size());
 
-		return ver;
+		writer.CloseFile();
+
+		return newVer;
 	}
 }

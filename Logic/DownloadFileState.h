@@ -27,12 +27,12 @@ namespace UpdateLogic
 		void Update() override;
 		
 		void OnDoneEvent(DoneEvent&& callback);
-		void OnProgressEvent(DataDefine::OnProgress&& callback);
+		void OnProgressEvent(Utility::OnProgress&& callback);
 
 	private:
 		std::shared_ptr<Utility::ReceiverFacade> _ReceiverFacade;
 		Utility::FileWriter _FileWriter;
 		DoneEvent _OnDone;
-		DataDefine::OnProgress _OnProgress;
+		Utility::OnProgress _OnProgress;
 	};
 }

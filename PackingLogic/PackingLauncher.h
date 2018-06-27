@@ -1,15 +1,13 @@
 #pragma once
 
-
 namespace PackingLogic
 {
-	class PackingLauncher
+	class PackingLauncher final
 	{
 	public:
 		PackingLauncher();
 		~PackingLauncher();
+
 		void Start();
-		void Update();
-		void Shutdown();
 	};
 }

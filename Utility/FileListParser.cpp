@@ -14,7 +14,7 @@ namespace Utility
 		//std::regex reg("(buildversion=[0-9]+)");
 	}
 
-	DataDefine::FileList FileListParser::Parser(const std::string& data)
+	FileList FileListParser::Parser(const std::string& data)
 	{
 		const auto r = ParserVersion(data);
 
@@ -50,7 +50,7 @@ namespace Utility
 
 		while (regex_search(result, sm, reg))
 		{
-			DataDefine::FileList::Content c{ sm[1].str(), sm[2].str(), sm[3].str() };
+			FileList::Content c{sm[1].str(), sm[2].str(), sm[3].str()};
 			_FileListData.Contents.push_back(c);
 			result = sm.suffix().str();
 		}

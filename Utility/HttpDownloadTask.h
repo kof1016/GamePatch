@@ -12,13 +12,13 @@ namespace Utility
 		~HttpDownloadTask();
 
 		void Connect(std::string url);
-		void BindDownloadDone(DataDefine::OnReceiveDownloadDone&& callback);
+		void BindDownloadDone(OnReceiveDownloadDone&& callback);
 		//std::shared_ptr<ReceiverFacade> GetReceiver();
 
 	private:
 		std::shared_ptr<ReceiverFacade> _ReceiverFacade;
 		CurlHttp _CurlHttp;
 
-		DataDefine::OnReceiveDownloadDone _OnDownloadDone;
+		OnReceiveDownloadDone _OnDownloadDone;
 	};
 }

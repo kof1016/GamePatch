@@ -1,132 +1,136 @@
 #include "pch.h"
 
 #include "catch.hpp"
-#include "../Utility/FileListParser.h"
 #include "../Utility/FileTool.h"
 #include <filesystem>
-#include "../PackingLogic/PackingLogic.h"
+#include "../PackingLogic/ScanResourceFolder.h"
+#include "../PackingLogic/GetFileList.h"
+#include "../PackingLogic/DataDefine.h"
+#include "../Utility/FileWriter.h"
+#include "../PackingLogic/CreateFileListToFile.h"
+#include "../Utility/cpplinq.hpp"
 
 
-class Step3
+TEST_CASE("get FileList test", "[packing]")
 {
-public:
-	Step3(int i)
-	{
-		money = i;
-	}
+	//auto path = PackingLogic::GetCurrentFileListPath(1);
 
-	int Return()
-	{
-		return 3;
-	}
+	auto path = "filelist_empty.txt";
+	PackingLogic::GetFileList getFileList(path);
+	auto fileList = getFileList.Result();
+	REQUIRE(fileList.Version == 0);
+}
 
-	int money;
-};
-
-class Step2
+TEST_CASE("ScanResourceFolder test", "[packing]")
 {
-public:
-	Step2(int i)
-	{
-		money = i;
-	}
+	const auto path = PackingLogic::GetResourcePath();
 
-	int Return()
-	{
-		return 2;
-	}
+	PackingLogic::ScanResourceFolder maker(path);
 
-	int money;
-};
+	const auto r = maker.Make();
 
-class Step1
+	REQUIRE(r.Contents.size() ==3);
+}
+
+TEST_CASE("update ver test", "[packing]")
 {
-public:
-	Step1()
+	const auto path = PackingLogic::GetNewestVerPath();
+	PackingLogic::GetFileList getCurrentVer(path);
+	const auto data = getCurrentVer.Result();
+	const auto newestVer = data.Version + 1;
+
+	Utility::FileWriter writer(path);
+	writer.OpenFile();
+
+	const auto write = "ver=" + std::to_string(newestVer);
+	writer.Write(write.data(), write.size());
+
+	writer.CloseFile();
+
+	REQUIRE(newestVer == data.Version+1);
+}
+
+TEST_CASE("save filelist test", "[packing]")
+{
+	//arrange
+	int newestVer = 1;
+	std::list<Utility::FileList::Content> files
 	{
+		{"+", "1", "path1"},
+		{"+", "2", "path2"},
+		{"+", "3", "path3"},
+		{"+", "4", "path4"},
+		{"+", "5", "path5"},
 	};
 
-	int Return()
-	{
-		return 1;
-	}
-};
+	auto path = PackingLogic::GetCurrentFileListPath(newestVer);
 
-TEST_CASE("filelistmaker test", "[filelistmaker]")
-{
-	auto step1 = Step1();
-	auto step2 = Step2(step1.Return());
-	auto step3 = Step3(step2.Return());
-	REQUIRE(step3.Return() == 3);
-}
-
-TEST_CASE("get newest ver filelist", "[filelistmaker]")
-{
-	//arrange
 	namespace fs = std::experimental::filesystem;
-	const auto path = fs::current_path();
-	auto filePath = path / "resource_pack" / "ver.txt";
+	fs::path p(path);
+	if (!exists(p.parent_path()))
+	{
+		create_directories(p.parent_path());
+	}
 
-	//act
-	Utility::FileListParser parser;
-	auto data = parser.Parser(filePath.string());
+	std::ofstream outfile(path, std::ofstream::out); //write mode
 
-	//assert
-	REQUIRE(data.Version == 0);
-}
+	for (auto& c : files)
+	{
+		outfile << c.StateSymbol << "|" << c.MD5 << "|" << c.Path << std::endl;
+	}
 
-TEST_CASE("first packing", "[filelistmaker]")
-{
-	//arrange
-	const std::string write{ "ver=1" };
-
-	const std::string write2 = "ver=" + std::to_string(1);
-
-
-	//act
-	std::ofstream outfile("NewestVer.txt", std::ofstream::out); //write mode | write data from eof 
-
-	outfile << write;
 	outfile.close();
-
-	//assert
-	std::ifstream infile("NewestVer.txt", std::ios::in); //read mode | read to end
-
-	if (!infile.is_open())
-	{
-		int i = 0;
-		assert("open file error, testfile.txt");
-		return;
-	}
-
-	std::string read;
-	// while (infile >> read)
-	// {
-	// 	std::cout << read;
-	// 	if (infile.peek() == '\n') //detect "\n"
-	// 	{
-	// 		std::cout << std::endl;
-	// 	}
-	// }
-	// infile.close();
-
-	infile >> read;
-	infile.close();
-
-	REQUIRE(write == read);
 }
 
-TEST_CASE("scan resource folder test", "[filelistmaker]")
+TEST_CASE("Create zip test", "[packing]")
+{
+	//arrange
+	std::list<Utility::FileList::Content> _FileList
+	{
+		{"+", "1", "1.txt"},
+		{"+", "2", "2.txt"},
+		{"+", "3", "3.txt"},
+		{"+", "4", "path4"},
+		{"+", "5", "path5"},
+	};
+
+
+	namespace fs = std::experimental::filesystem;
+
+	auto fromPath = PackingLogic::GetResourcePath();
+
+	fs::path toPath(PackingLogic::GetCurrentFileListPath(1));
+
+
+	for (auto& p : fs::directory_iterator(fromPath))
+	{
+		const auto r = std::find_if(_FileList.begin(), _FileList.end(),
+									[&](Utility::FileList::Content& d)
+									{
+										auto name = p.path().filename();
+										return name == d.Path;
+									});
+
+		if (r != _FileList.end())
+		{
+			copy_file(p.path(), toPath.parent_path() / p.path().filename());
+		}
+	}
+}
+
+TEST_CASE("copy file", "[packing]")
 {
 	//arrange
 	namespace fs = std::experimental::filesystem;
-	const auto path = fs::current_path();
-	auto filePath = path / "resource";
 
-	//act
-	Utility::FileListParser parser;
-	auto data = parser.Parser(filePath.string());
+	auto fromPath = PackingLogic::GetResourcePath();
 
-	//assert
-	REQUIRE(data.Version == 0);
+	fs::path toPath(PackingLogic::GetCurrentFileListPath(1));
+
+
+	for (auto& p : fs::directory_iterator(fromPath))
+	{
+		auto& fp = p.path();
+		copy_file(p.path(), toPath.parent_path() / fp.filename());
+	}
 }

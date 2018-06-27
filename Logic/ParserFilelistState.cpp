@@ -20,9 +20,9 @@ namespace UpdateLogic
 	{
 		// Utility::FileListCreator reader;
   //
-		// auto local = reader.Save(LOCAL_FILELIST_PATH);
+		// auto local = reader.Create(LOCAL_FILELIST_PATH);
   //
-		// auto remote = reader.Save(REMOTE_FILELIST_PATH);
+		// auto remote = reader.Create(REMOTE_FILELIST_PATH);
   //
 		// if (local.Version != remote.Version)
 		// {

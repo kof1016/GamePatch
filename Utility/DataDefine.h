@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 #include <functional>
-#include <unordered_map>
-#include <memory>
+#include <vector>
+#include <map>
 
-namespace DataDefine
+namespace Utility
 {
 	struct CurlInitData
 	{
@@ -22,47 +22,23 @@ namespace DataDefine
 	{
 		struct Content
 		{
-			enum FileState
+			Content(const std::string& md5, const std::string& path) 
 			{
-				NONE,
-				ADD,
-				REMOVE,
-			};
-
-			Content(const std::string& md5, const std::string& path)
-			{
-				SetState("");
+				StateSymbol = "";
 				MD5 = md5;
 				Path = path;
 			}
 
 			Content(const std::string& state, const std::string& md5, const std::string& path)
 			{
-				SetState(state);
+				StateSymbol = state;
 				MD5 = md5;
 				Path = path;
 			}
-
-			void SetState(const std::string& state)
-			{
-				if (state == "+")
-				{
-					State = ADD;
-				}
-				else if (state == "-")
-				{
-					State = REMOVE;
-				}
-				else
-				{
-					State = NONE;
-				}
-			}
 			
-			FileState State{};
+			std::string StateSymbol{};
 			std::string MD5{};
 			std::string Path{};
-			bool bChecked{ false };
 		};
 		
 		int Version{0};

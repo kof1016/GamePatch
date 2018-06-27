@@ -2,7 +2,7 @@
 
 namespace UpdateLogic
 {
-	DownloadDiffState::DownloadDiffState(DataDefine::FileList::Content contents)
+	DownloadDiffState::DownloadDiffState(Utility::FileList::Content contents)
 		:_Contents(std::move(contents))
 	{
 	}

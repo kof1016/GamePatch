@@ -10,7 +10,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiverFacade::BindReceiverDone(DataDefine::OnReceiveDownloadDone&& callback)
+	void ReceiverFacade::BindReceiverDone(OnReceiveDownloadDone&& callback)
 	{
 		_ReceiveDone.Bind(std::move(callback));
 	}
@@ -20,7 +20,7 @@ namespace Utility
 		_ReceiveDone.Invoke(result);
 	}
 
-	void ReceiverFacade::BindWriteData(DataDefine::OnWriteData&& callback)
+	void ReceiverFacade::BindWriteData(OnWriteData&& callback)
 	{
 		_ReceiveWriteData.Bind(std::move(callback));
 	}
@@ -30,7 +30,7 @@ namespace Utility
 		_ReceiveWriteData.Invoke(buffer, total);
 	}
 
-	void ReceiverFacade::BindProgress(DataDefine::OnProgress&& callback)
+	void ReceiverFacade::BindProgress(OnProgress&& callback)
 	{
 		_ReceiveProgress.Bind(std::move(callback));
 	}

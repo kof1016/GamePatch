@@ -13,7 +13,7 @@ namespace Utility
 		
 	}
 
-	void ProgressAdapter::Bind(DataDefine::OnProgress&& callback)
+	void ProgressAdapter::Bind(OnProgress&& callback)
 	{
 		_OnProgress = callback;
 	}

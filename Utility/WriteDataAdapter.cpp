@@ -10,7 +10,7 @@ namespace Utility
 	{
 	}
 
-	void WriteDataAdapter::Bind(DataDefine::OnWriteData&& callback)
+	void WriteDataAdapter::Bind(OnWriteData&& callback)
 	{
 		_OnWriteData = callback;
 	}

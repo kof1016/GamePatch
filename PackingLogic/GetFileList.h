@@ -1,15 +1,17 @@
 #pragma once
 #include "../Utility/DataDefine.h"
 #include "../Utility/FileListParser.h"
+#include <vector>
 
 namespace PackingLogic
 {
 	class GetFileList
 	{
 	public:
+		GetFileList() = delete;
 		GetFileList(std::string pack_path);
 		~GetFileList();
-		DataDefine::FileList Result();
+		Utility::FileList Result();
 	private:
 
 		std::string _Path;

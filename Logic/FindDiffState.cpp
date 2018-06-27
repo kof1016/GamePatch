@@ -3,7 +3,7 @@
 
 namespace UpdateLogic
 {
-	FindDiffState::FindDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote)
+	FindDiffState::FindDiffState(const Utility::FileList& local, const Utility::FileList& remote)
 		:_Local(std::move(local)),
 		_Remote(std::move(remote))
 	{
@@ -15,7 +15,7 @@ namespace UpdateLogic
 
 	void FindDiffState::Enter()
 	{
-		// DataDefine::FileList::FilelistContent diffs;
+		// Utility::FileList::FilelistContent diffs;
   //
 		// for (auto& e : _Remote.Contents)
 		// {

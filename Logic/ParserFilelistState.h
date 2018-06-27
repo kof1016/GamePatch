@@ -8,7 +8,7 @@ namespace UpdateLogic
 	{
 	public:
 		
-		typedef std::function<void(DataDefine::FileList, DataDefine::FileList)> DoneEvent;
+		typedef std::function<void(Utility::FileList, Utility::FileList)> DoneEvent;
 		typedef std::function<void()> FailEvent;
 		
 		

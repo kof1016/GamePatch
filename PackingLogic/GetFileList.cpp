@@ -1,6 +1,7 @@
 #include "GetFileList.h"
 #include <utility>
 #include "../Utility/FileTool.h"
+#include <filesystem>
 
 
 namespace PackingLogic
@@ -14,7 +15,7 @@ namespace PackingLogic
 	{
 	}
 
-	DataDefine::FileList GetFileList::Result()
+	Utility::FileList GetFileList::Result()
 	{
 		 FileTool::ReadFileToBuffer(_Path, _Buffer);
 		 return _Parser.Parser(_Buffer.data());

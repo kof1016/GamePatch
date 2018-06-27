@@ -12,7 +12,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiveWriteData::Bind(DataDefine::OnWriteData&& callback)
+	void ReceiveWriteData::Bind(OnWriteData&& callback)
 	{
 		_OnWriteData = callback;
 

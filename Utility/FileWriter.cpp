@@ -1,4 +1,5 @@
 #include "FileWriter.h"
+//#include <fstream>
 
 namespace Utility
 {
@@ -14,6 +15,8 @@ namespace Utility
 
 	void FileWriter::OpenFile()
 	{
+		 //std::ofstream outfile("NewestVer.txt");
+
 		_File = std::fopen(_FileName.c_str(), "w");
 		if(!_File)
 		{
@@ -27,6 +30,11 @@ namespace Utility
 	}
 
 	void FileWriter::Write(char* buffer, size_t nmemb) const
+	{
+		fwrite(buffer, 1, nmemb, _File);
+	}
+
+	void FileWriter::Write(const char* buffer, size_t nmemb) const
 	{
 		fwrite(buffer, 1, nmemb, _File);
 	}

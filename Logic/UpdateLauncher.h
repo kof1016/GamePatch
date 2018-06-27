@@ -12,20 +12,20 @@ namespace UpdateLogic
 		void Start();
 		void Update();
 		void Shutdown();
-		void OnDownloadProgress(DataDefine::OnProgress&& callback);
-		void OnUpdateSuccessEvent(DataDefine::OnSuccess&& callback);
-		void OnNotNeedEvent(DataDefine::OnNotNeed&& callback);
+		void OnDownloadProgress(Utility::OnProgress&& callback);
+		void OnUpdateSuccessEvent(Utility::OnSuccess&& callback);
+		void OnNotNeedEvent(Utility::OnNotNeed&& callback);
 	private:
 		void _ToDownloadFileState();
 		void _ToParserFilelistState();
-		void _ToGetDiffState(const DataDefine::FileList& local, const DataDefine::FileList& remote);
+		void _ToGetDiffState(const Utility::FileList& local, const Utility::FileList& remote);
 		void _ToDownloadDiffFileState();
 		void _ToMoveFile() const;
 		
 		Utility::StateMachine _StateMachine;
-		DataDefine::OnProgress _OnProgress;
-		DataDefine::OnSuccess _OnSuccess;
-		DataDefine::OnNotNeed _OnNotNeed;
+		Utility::OnProgress _OnProgress;
+		Utility::OnSuccess _OnSuccess;
+		Utility::OnNotNeed _OnNotNeed;
 		
 		Utility::DownloadProvider _DownloadProvider;
 		std::queue<std::string> _FilePaths;

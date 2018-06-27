@@ -33,7 +33,7 @@ namespace Utility
 
 		task->BindDownloadDone
 		(
-			DataDefine::OnReceiveDownloadDone([=](bool result)
+			OnReceiveDownloadDone([=](bool result)
 			{
 				_Tasks.remove(task);
 				delete task;

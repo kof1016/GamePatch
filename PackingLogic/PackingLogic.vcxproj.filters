@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="PackingLauncher.cpp" />
-    <ClCompile Include="GetCurrentVer.cpp">
-      <Filter>Step</Filter>
-    </ClCompile>
     <ClCompile Include="CreateZip.cpp">
       <Filter>Step</Filter>
     </ClCompile>
@@ -14,21 +11,18 @@
     <ClCompile Include="MergeFileList.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="SaveFilelist.cpp">
-      <Filter>Step</Filter>
-    </ClCompile>
     <ClCompile Include="VersionUpdater.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="PackingLogic.cpp">
+    <ClCompile Include="ScanResourceFolder.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateFileListToFile.cpp">
       <Filter>Step</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PackingLauncher.h" />
-    <ClInclude Include="GetCurrentVer.h">
-      <Filter>Step</Filter>
-    </ClInclude>
     <ClInclude Include="CreateZip.h">
       <Filter>Step</Filter>
     </ClInclude>
@@ -38,13 +32,14 @@
     <ClInclude Include="MergeFileList.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="SaveFilelist.h">
-      <Filter>Step</Filter>
-    </ClInclude>
     <ClInclude Include="VersionUpdater.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="PackingLogic.h">
+    <ClInclude Include="DataDefine.h" />
+    <ClInclude Include="ScanResourceFolder.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateFileListToFile.h">
       <Filter>Step</Filter>
     </ClInclude>
   </ItemGroup>
