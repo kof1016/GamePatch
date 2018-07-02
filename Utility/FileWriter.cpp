@@ -1,5 +1,5 @@
 #include "FileWriter.h"
-//#include <fstream>
+
 
 namespace Utility
 {
@@ -17,7 +17,7 @@ namespace Utility
 	{
 		 //std::ofstream outfile("NewestVer.txt");
 
-		_File = std::fopen(_SavePath.c_str(), "w");
+		fopen_s(&_File, _SavePath.c_str(), "w");
 		if(!_File)
 		{
 			return;

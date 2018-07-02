@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "../Utility/DataParser.h"
 #include "../Utility/FileWriter.h"
+#include <cassert>
 
 TEST_CASE("Filesystem test", "[file]")
 {
