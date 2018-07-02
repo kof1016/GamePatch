@@ -8,10 +8,10 @@ namespace PackingLogic
 	class MergeFileList
 	{
 	public:
-		MergeFileList(Utility::FileList& current, Utility::FileList& all_source);
+		MergeFileList(Utility::FileList current, Utility::FileList all_source);
 		~MergeFileList();
 
-		std::list<Utility::FileList::Content> Result();
+		Utility::FileList Result();
 
 	private:
 		Utility::FileList _Current;

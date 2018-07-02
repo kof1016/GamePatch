@@ -8,7 +8,7 @@ namespace Utility
 	{
 	public:
 		FileWriter() = delete;
-		FileWriter(std::string file_name);
+		FileWriter(std::string save_path);
 		~FileWriter();
 
 		void OpenFile();
@@ -19,6 +19,6 @@ namespace Utility
 	private:
 
 		FILE* _File{nullptr};
-		std::string _FileName;
+		std::string _SavePath;
 	};
 }

@@ -251,7 +251,7 @@ void MD5::update(const unsigned char input[], size_type length)
   // compute number of bytes mod 64
   size_type index = count[0] / 8 % blocksize;
 
-  // Update number of bits
+  // UpdateVer number of bits
   if ((count[0] += (length << 3)) < (length << 3))
     count[1]++;
   count[1] += (length >> 29);

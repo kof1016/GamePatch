@@ -1,12 +1,13 @@
 #include "CreateZip.h"
 #include "../Utility/FileTool.h"
-#include <filesystem>
-#include "DataDefine.h"
+
+namespace fs = std::experimental::filesystem;
 
 namespace PackingLogic
 {
-	CreateZip::CreateZip(std::list<Utility::FileList::Content> file_list)
-		:_FileList(std::move(file_list))
+	CreateZip::CreateZip(std::string save_path, Utility::FileList content)
+		: _SavePath(std::move(save_path))
+		, _FileList(std::move(content))
 	{
 	}
 
@@ -16,5 +17,14 @@ namespace PackingLogic
 
 	void CreateZip::Start()
 	{
+		for(auto& d : _FileList)
+		{
+			fs::path sourcePath(d.Path);
+			const auto targetFolder = _SavePath / sourcePath.parent_path(); // sourceFile.filename() returns "sourceFile.ext".
+
+			FileTool::CreateDir(targetFolder);
+
+			copy_file(sourcePath, targetFolder / sourcePath.filename(), fs::copy_options::overwrite_existing);
+		}
 	}
 }

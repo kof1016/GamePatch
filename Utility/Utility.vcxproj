@@ -165,7 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="FileListParser.h" />
+    <ClInclude Include="DataParser.h" />
     <ClInclude Include="cpplinq.hpp" />
     <ClInclude Include="CurlDebug.h" />
     <ClInclude Include="FileWriter.h" />
@@ -190,7 +190,7 @@
     <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileListParser.cpp" />
+    <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="WriteDataAdapter.cpp" />
     <ClCompile Include="CurlDebug.cpp" />

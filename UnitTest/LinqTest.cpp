@@ -2,18 +2,19 @@
 #include "catch.hpp"
 #include "../PackingLogic/ScanResourceFolder.h"
 #include "../Utility/cpplinq.hpp"
+#include "../Utility/DataParser.h"
 
 
 TEST_CASE("linq test", "[linq]")
 {
-	std::list<Utility::FileList::Content> currentdata =
+	Utility::FileList currentdata =
 	{
 		{"1", "path1"},
 		{"2", "path2"},
 		{"3", "path3"},
 	};
 
-	std::list<Utility::FileList::Content> sourcedata =
+	Utility::FileList sourcedata =
 	{
 		{"1", "path1"},
 		{"2", "path2"},

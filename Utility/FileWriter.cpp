@@ -3,9 +3,9 @@
 
 namespace Utility
 {
-	FileWriter::FileWriter(std::string file_name)
+	FileWriter::FileWriter(std::string save_path)
 	{
-		_FileName = file_name;
+		_SavePath = save_path;
 	}
 
 	FileWriter::~FileWriter()
@@ -17,7 +17,7 @@ namespace Utility
 	{
 		 //std::ofstream outfile("NewestVer.txt");
 
-		_File = std::fopen(_FileName.c_str(), "w");
+		_File = std::fopen(_SavePath.c_str(), "w");
 		if(!_File)
 		{
 			return;

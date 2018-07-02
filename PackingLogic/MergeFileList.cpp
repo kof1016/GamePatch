@@ -1,11 +1,12 @@
 #include "MergeFileList.h"
+#include <utility>
 #include "../Utility/cpplinq.hpp"
 
 namespace PackingLogic
 {
-	MergeFileList::MergeFileList(Utility::FileList& current, Utility::FileList& all_source)
-		: _Current(current)
-		, _AllSource(all_source)
+	MergeFileList::MergeFileList(Utility::FileList current, Utility::FileList all_source)
+		: _Current(std::move(current))
+		, _AllSource(std::move(all_source))
 	{
 	}
 
@@ -14,15 +15,15 @@ namespace PackingLogic
 	{
 	}
 
-	std::list<Utility::FileList::Content> MergeFileList::Result()
+	Utility::FileList MergeFileList::Result()
 	{
 		using namespace cpplinq;
 
-		const auto current = from(_Current.Contents)
+		const auto current = from(_Current)
 			>> select([](auto d) { return d.MD5; })
 			>> to_list();
 
-		const auto source = from(_AllSource.Contents)
+		const auto source = from(_AllSource)
 			>> select([](auto d) { return d.MD5; })
 			>> to_list();
 
@@ -38,7 +39,7 @@ namespace PackingLogic
 		auto result = from(add)
 			>> select([&](auto md5)
 			{
-				const auto r = std::find_if(_AllSource.Contents.begin(), _AllSource.Contents.end(),
+				const auto r = std::find_if(_AllSource.begin(), _AllSource.end(),
 											[&](auto& d)
 											{
 												if (md5 == d.MD5)
@@ -55,7 +56,7 @@ namespace PackingLogic
 		auto result2 = from(remove)
 			>> select([&](auto key)
 			{
-				const auto r = std::find_if(_Current.Contents.begin(), _Current.Contents.end(),
+				const auto r = std::find_if(_Current.begin(), _Current.end(),
 											[&](auto& d)
 											{
 												if (key == d.MD5)

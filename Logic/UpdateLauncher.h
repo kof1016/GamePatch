@@ -16,11 +16,15 @@ namespace UpdateLogic
 		void OnUpdateSuccessEvent(Utility::OnSuccess&& callback);
 		void OnNotNeedEvent(Utility::OnNotNeed&& callback);
 	private:
+		void _ToDownloadNewestVer();
 		void _ToDownloadFileState();
-		void _ToParserFilelistState();
-		void _ToGetDiffState(const Utility::FileList& local, const Utility::FileList& remote);
-		void _ToDownloadDiffFileState();
-		void _ToMoveFile() const;
+		void _ToUnZip();
+		void _ToMerge(Utility::FileList file_list);
+		void _ToUpdteLocalVer();
+		void _ToParserFilelistState(path file_path);
+		void _ToDiffVerNumberState();
+		
+		void _ToParserVerNumberState(const path& file_path);
 		
 		Utility::StateMachine _StateMachine;
 		Utility::OnProgress _OnProgress;
@@ -28,6 +32,10 @@ namespace UpdateLogic
 		Utility::OnNotNeed _OnNotNeed;
 		
 		Utility::DownloadProvider _DownloadProvider;
-		std::queue<std::string> _FilePaths;
+		std::queue<path> _FilePaths;
+		std::queue<path> _FilePathTmp;
+
+		int _NewestVer{0};
+		int _LocalVer{ 0 };
 	};
 }

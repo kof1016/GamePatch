@@ -4,8 +4,11 @@ namespace PackingLogic
 	class VersionUpdater
 	{
 	public:
-		VersionUpdater();
+		VersionUpdater() = delete;
+		VersionUpdater(int current_ver);
 		~VersionUpdater();
-		int Update();
+		int UpdateVer();
+	private:
+		int _NewtVer;
 	};
 }

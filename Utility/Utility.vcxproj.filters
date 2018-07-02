@@ -87,7 +87,7 @@
     <ClInclude Include="cpplinq.hpp">
       <Filter>linq</Filter>
     </ClInclude>
-    <ClInclude Include="FileListParser.h">
+    <ClInclude Include="DataParser.h">
       <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
@@ -133,7 +133,7 @@
     <ClCompile Include="DownloadProvider.cpp">
       <Filter>HttpDownload</Filter>
     </ClCompile>
-    <ClCompile Include="FileListParser.cpp">
+    <ClCompile Include="DataParser.cpp">
       <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>

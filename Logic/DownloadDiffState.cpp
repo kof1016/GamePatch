@@ -2,8 +2,8 @@
 
 namespace UpdateLogic
 {
-	DownloadDiffState::DownloadDiffState(Utility::FileList::Content contents)
-		:_Contents(std::move(contents))
+	DownloadDiffState::DownloadDiffState(Utility::FileList file_list)
+		:_FileList(std::move(file_list))
 	{
 	}
 

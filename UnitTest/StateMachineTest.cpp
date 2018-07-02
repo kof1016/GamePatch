@@ -27,7 +27,7 @@ public:
 
 	void Update() override
 	{
-		std::cout << "Update FakeState" << std::endl;
+		std::cout << "UpdateToFile FakeState" << std::endl;
 		OnDone();
 	}
 

@@ -1,7 +1,6 @@
 #include "ParserFilelistState.h"
-#include <memory>
 #include "DataDefine.h"
-
+#include "../Utility/DataParser.h"
 
 
 namespace UpdateLogic
@@ -18,9 +17,8 @@ namespace UpdateLogic
 
 	void ParserFilelistState::Enter()
 	{
-		// Utility::FileListCreator reader;
   //
-		// auto local = reader.Create(LOCAL_FILELIST_PATH);
+	//	 auto local = reader.Create(LOCAL_FILELIST_PATH);
   //
 		// auto remote = reader.Create(REMOTE_FILELIST_PATH);
   //

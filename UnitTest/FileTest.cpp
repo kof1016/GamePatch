@@ -4,7 +4,19 @@
 #include <fstream>
 #include <experimental/filesystem>
 #include <unordered_map>
-#include "../Utility/FileListParser.h"
+#include "../Utility/DataParser.h"
+#include "../Utility/FileWriter.h"
+
+TEST_CASE("Filesystem test", "[file]")
+{
+	auto p = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
+	std::vector<char> buffer{ '1','\0'};
+
+	FILE* file = std::fopen(p.string().data(), "w");
+	fwrite(buffer.data(), 1, buffer.size(), file);
+	fclose(file);
+}
+
 
 TEST_CASE("Filesystem test", "[file]")
 {
@@ -24,33 +36,34 @@ TEST_CASE("Filesystem test", "[file]")
 TEST_CASE("FileList Parser Test", "[file]")
 {
 	//arrange
-	const std::string data =
-		"ver=1"
-		"+|9e107d9d372bb6826bd81d3542a419d6|actions/1.png";
-	//act
-	Utility::FileListParser parser;
+	const std::string data_ver = "ver=1";
 
-	auto filelist = parser.Parser(data);
+	const std::string data_filelist ="+|9e107d9d372bb6826bd81d3542a419d6|actions/1.png";
+	//act
+	Utility::DataParser parser;
+
+
+	auto verNum = Utility::DataParser::ParserVersionNumber(data_ver);
+
+	auto filelist = Utility::DataParser::ParserFileList(data_filelist);
 
 	// assert
-	REQUIRE(filelist.Version == 1);
-	REQUIRE(filelist.Contents[0].StateSymbol == "+");
-	REQUIRE(filelist.Contents[0].MD5== "9e107d9d372bb6826bd81d3542a419d6");
-	REQUIRE(filelist.Contents[0].Path == "actions/1.png");
+	REQUIRE(verNum == 1);
+	
+	REQUIRE(filelist.front().StateSymbol == "+");
+	REQUIRE(filelist.front().MD5== "9e107d9d372bb6826bd81d3542a419d6");
+	REQUIRE(filelist.front().Path == "actions/1.png");
 }
 
 TEST_CASE("first config parser", "[file]")
 {
-	//arrange
-	const std::string data;
-
 	//act
-	Utility::FileListParser parser;
-	auto filelist = parser.Parser(data);
+	auto verNum = Utility::DataParser::ParserVersionNumber("");
+	auto filelist = Utility::DataParser::ParserFileList("");
 
 	// assert
-	REQUIRE(filelist.Version == 0);
-	REQUIRE(filelist.Contents.empty());
+	REQUIRE(verNum == 0);
+	REQUIRE(filelist.empty());
 }
 
 TEST_CASE("File IO C Style", "[file]")

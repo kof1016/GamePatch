@@ -7,13 +7,13 @@ namespace PackingLogic
 	class CreateZip
 	{
 	public:
-		CreateZip(std::list<Utility::FileList::Content> file_list);
+		CreateZip(std::string save_path, Utility::FileList content);
 		~CreateZip();
 		void Start();
 	
 	private:
-		std::list<Utility::FileList::Content> _FileList;
-		std::string _Path;
-		int _Ver;
+		std::string _SavePath;
+		Utility::FileList _FileList;
+		
 	};
 }

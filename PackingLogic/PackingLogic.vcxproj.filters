@@ -5,9 +5,6 @@
     <ClCompile Include="CreateZip.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="GetFileList.cpp">
-      <Filter>Step</Filter>
-    </ClCompile>
     <ClCompile Include="MergeFileList.cpp">
       <Filter>Step</Filter>
     </ClCompile>
@@ -17,16 +14,13 @@
     <ClCompile Include="ScanResourceFolder.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="CreateFileListToFile.cpp">
+    <ClCompile Include="WriteToFile.cpp">
       <Filter>Step</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PackingLauncher.h" />
     <ClInclude Include="CreateZip.h">
-      <Filter>Step</Filter>
-    </ClInclude>
-    <ClInclude Include="GetFileList.h">
       <Filter>Step</Filter>
     </ClInclude>
     <ClInclude Include="MergeFileList.h">
@@ -39,7 +33,7 @@
     <ClInclude Include="ScanResourceFolder.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="CreateFileListToFile.h">
+    <ClInclude Include="WriteToFile.h">
       <Filter>Step</Filter>
     </ClInclude>
   </ItemGroup>

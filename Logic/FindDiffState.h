@@ -9,7 +9,7 @@ namespace UpdateLogic
 	{
 	public:
 		typedef std::function<void(std::queue<std::string>)> OnDone;
-		FindDiffState(const Utility::FileList& local, const Utility::FileList& remote);
+		FindDiffState(Utility::FileList& local, Utility::FileList& remote);
 		~FindDiffState();
 		void Enter() override;
 		void Leave() override;

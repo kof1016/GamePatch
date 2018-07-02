@@ -1,21 +1,18 @@
 #pragma once
-#include <sys/stat.h>
 #include <string>
 #include <fstream>
 #include "md5.h"
+#include <filesystem>
+using namespace std::experimental::filesystem ;
 
-class FileTool
+namespace FileTool
 {
-public:
-	FileTool();
-	~FileTool();
-
 	static _off_t GetFileSize_C(std::string& path)
 	{
 		struct stat fileStat{};
 
 		const _off_t ret = stat(path.c_str(), &fileStat);
-		
+
 		if (ret == 0)
 		{
 			return fileStat.st_size;
@@ -46,7 +43,7 @@ public:
 		infile.seekg(0);
 		infile.read(buffer.data(), size);
 		infile.close();
-		
+
 		return true;
 	}
 
@@ -57,5 +54,12 @@ public:
 		md5.finalize();
 		return md5.hexdigest();
 	}
-};
 
+	static void CreateDir(const path& path)
+	{
+		if (!exists(path))
+		{
+			create_directories(path);
+		}
+	}
+}

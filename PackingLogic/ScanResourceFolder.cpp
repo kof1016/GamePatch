@@ -6,29 +6,40 @@
 
 namespace PackingLogic
 {
-	 ScanResourceFolder::ScanResourceFolder(std::string input_path)
-	 	: _InputPath(std::move(input_path))
-	 {
-	 }
+	ScanResourceFolder::ScanResourceFolder(std::string input_path)
+		: _InputPath(std::move(input_path))
+	{
+	}
 
-	 Utility::FileList ScanResourceFolder::Make()
-	 {
-	 	Utility::FileList fileList;
-	 	std::vector<char> buffer;
- 
-	 	namespace fs = std::experimental::filesystem;
-	 	for (auto& p : fs::directory_iterator(_InputPath))
-	 	{
-	 		auto& fp = p.path();
-	 		
-	 		FileTool::ReadFileToBuffer(fp.string(), buffer);
+	Utility::FileList ScanResourceFolder::Make()
+	{
+		namespace fs = std::experimental::filesystem;
+		for (auto& p : fs::directory_iterator(_InputPath))
+		{
+			if (is_directory(p))
+			{
+				_InputPath = p.path().string();
+				Make();
+			}
 
-			const auto md5 = FileTool::CreateMD5(buffer);
+			_AddToList(p.path());
+		}
 
-			const auto c = Utility::FileList::Content{ md5, fp.relative_path().string() };
-	 		fileList.Contents.push_back(c);
-	 	}
- 
-	 	return fileList;
-	 }
+		return _FileList;
+	}
+
+	void ScanResourceFolder::_AddToList(const std::experimental::filesystem::path& path)
+	{
+		std::vector<char> buffer;
+		FileTool::ReadFileToBuffer(path.string(), buffer);
+
+		const auto md5 = FileTool::CreateMD5(buffer);
+
+		if (!is_directory(path))
+		{
+			const auto filepath = path.relative_path().string();
+			const auto c = Utility::FileData{md5, filepath};
+			_FileList.push_back(c);
+		}
+	}
 }

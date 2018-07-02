@@ -4,57 +4,75 @@
 #include "../Utility/FileTool.h"
 #include <filesystem>
 #include "../PackingLogic/ScanResourceFolder.h"
-#include "../PackingLogic/GetFileList.h"
 #include "../PackingLogic/DataDefine.h"
-#include "../Utility/FileWriter.h"
-#include "../PackingLogic/CreateFileListToFile.h"
 #include "../Utility/cpplinq.hpp"
+#include "../PackingLogic/MergeFileList.h"
+#include "../Utility/DataDefine.h"
+#include "../PackingLogic/VersionUpdater.h"
+#include "../Utility/DataParser.h"
 
 
-TEST_CASE("get FileList test", "[packing]")
+TEST_CASE("merge tets", "[packing]")
 {
-	//auto path = PackingLogic::GetCurrentFileListPath(1);
+	Utility::FileList current{};
+	std::cout << "current size = " << current.size()<< std::endl;
 
-	auto path = "filelist_empty.txt";
-	PackingLogic::GetFileList getFileList(path);
-	auto fileList = getFileList.Result();
-	REQUIRE(fileList.Version == 0);
+	Utility::FileList resource
+	{
+		{"md5-1", "path1"},
+		{"md5-2", "path2"},
+		{"md5-3", "path3"},
+		{"md5-4", "path4"},
+		{"md5-5", "path5"},
+	};
+	std::cout << "resource size = " << resource.size() << std::endl;
+
+	auto mergedList = PackingLogic::MergeFileList(current, resource).Result();
+	
+	REQUIRE(mergedList.size() == 5);
+
+	std::cout << "merge result" << std::endl;
+	for (auto& r : mergedList)
+	{
+		REQUIRE(r.StateSymbol == "+");
+		std::cout << r.StateSymbol << "|" << r.MD5 << "|" << r.Path << std::endl;
+	}
 }
+
 
 TEST_CASE("ScanResourceFolder test", "[packing]")
 {
-	const auto path = PackingLogic::GetResourcePath();
+	const auto path = Utility::RESOURCE_FOLDER_NAME;
 
 	PackingLogic::ScanResourceFolder maker(path);
 
-	const auto r = maker.Make();
+	const auto reuslt = maker.Make();
 
-	REQUIRE(r.Contents.size() ==3);
+	for (auto& r : reuslt)
+	{
+		std::cout << "MD5= " << r.MD5 << "Path= " << r.Path << std::endl;
+	}
+
+	REQUIRE(reuslt.size() ==5);
 }
 
 TEST_CASE("update ver test", "[packing]")
 {
-	const auto path = PackingLogic::GetNewestVerPath();
-	PackingLogic::GetFileList getCurrentVer(path);
-	const auto data = getCurrentVer.Result();
-	const auto newestVer = data.Version + 1;
+	auto currentVer = 0;
+	PackingLogic::VersionUpdater updater(currentVer);
+	auto newestVer = updater.UpdateVer();
 
-	Utility::FileWriter writer(path);
-	writer.OpenFile();
+	std::cout << "currentVer= " << currentVer << std::endl;
+	std::cout << "newestVer= " << newestVer << std::endl;
 
-	const auto write = "ver=" + std::to_string(newestVer);
-	writer.Write(write.data(), write.size());
-
-	writer.CloseFile();
-
-	REQUIRE(newestVer == data.Version+1);
+	REQUIRE(newestVer == currentVer +1);
 }
 
 TEST_CASE("save filelist test", "[packing]")
 {
 	//arrange
 	int newestVer = 1;
-	std::list<Utility::FileList::Content> files
+	Utility::FileList files
 	{
 		{"+", "1", "path1"},
 		{"+", "2", "path2"},
@@ -63,16 +81,17 @@ TEST_CASE("save filelist test", "[packing]")
 		{"+", "5", "path5"},
 	};
 
-	auto path = PackingLogic::GetCurrentFileListPath(newestVer);
+	auto saveTarget = Utility::FileListSavePath(newestVer);
 
-	namespace fs = std::experimental::filesystem;
-	fs::path p(path);
-	if (!exists(p.parent_path()))
+	auto aa = absolute(saveTarget);
+
+
+	if (!exists(saveTarget.parent_path()))
 	{
-		create_directories(p.parent_path());
+		create_directories(saveTarget.parent_path());
 	}
 
-	std::ofstream outfile(path, std::ofstream::out); //write mode
+	std::ofstream outfile(saveTarget, std::ofstream::out); //write mode
 
 	for (auto& c : files)
 	{
@@ -85,52 +104,52 @@ TEST_CASE("save filelist test", "[packing]")
 TEST_CASE("Create zip test", "[packing]")
 {
 	//arrange
-	std::list<Utility::FileList::Content> _FileList
+	Utility::FileList _FileList
 	{
-		{"+", "1", "1.txt"},
-		{"+", "2", "2.txt"},
-		{"+", "3", "3.txt"},
-		{"+", "4", "path4"},
-		{"+", "5", "path5"},
+		{"-", "1", "resource/art/1.txt"},
+		{"+", "2", "resource/art/2.txt"},
+		// {"-", "3", "3.txt"},
+		// {"-", "4", "path4"},
+		// {"-", "5", "path5"},
 	};
-
 
 	namespace fs = std::experimental::filesystem;
 
-	auto fromPath = PackingLogic::GetResourcePath();
+	path target(Utility::FileListSavePath(1));
 
-	fs::path toPath(PackingLogic::GetCurrentFileListPath(1));
-
-
-	for (auto& p : fs::directory_iterator(fromPath))
+	for (auto& d : _FileList)
 	{
-		const auto r = std::find_if(_FileList.begin(), _FileList.end(),
-									[&](Utility::FileList::Content& d)
-									{
-										auto name = p.path().filename();
-										return name == d.Path;
-									});
-
-		if (r != _FileList.end())
+		if (d.StateSymbol == "+")
 		{
-			copy_file(p.path(), toPath.parent_path() / p.path().filename());
+			auto sourceFile = path(d.Path);
+			const auto targetFolder = target.parent_path() / sourceFile.parent_path();
+
+			if (!exists(targetFolder))
+			{
+				create_directories(targetFolder);
+			}
+			copy_file(sourceFile, targetFolder / sourceFile.filename(), copy_options::overwrite_existing);
 		}
 	}
 }
 
 TEST_CASE("copy file", "[packing]")
 {
-	//arrange
+	//arrangeMergeFileList
 	namespace fs = std::experimental::filesystem;
 
-	auto fromPath = PackingLogic::GetResourcePath();
+	path sourceFile = "Resource/art/1.txt";
+	path targetParent = "ResourcePack/";
 
-	fs::path toPath(PackingLogic::GetCurrentFileListPath(1));
+	auto sourceParent = sourceFile.parent_path();
 
+	auto targetFolder = targetParent / sourceParent; // sourceFile.filename() returns "sourceFile.ext".
 
-	for (auto& p : fs::directory_iterator(fromPath))
+	if (!exists(targetFolder))
 	{
-		auto& fp = p.path();
-		copy_file(p.path(), toPath.parent_path() / fp.filename());
+		create_directories(targetFolder);
 	}
+	copy_file(sourceFile, targetFolder / sourceFile.filename(), copy_options::overwrite_existing);
+
+	
 }

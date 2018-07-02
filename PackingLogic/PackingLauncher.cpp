@@ -1,11 +1,12 @@
 #include "PackingLauncher.h"
 #include "DataDefine.h"
-#include "GetFileList.h"
 #include "MergeFileList.h"
 #include "VersionUpdater.h"
-#include "CreateFileListToFile.h"
 #include "CreateZip.h"
 #include "ScanResourceFolder.h"
+#include "WriteToFile.h"
+#include "../Utility/DataParser.h"
+#include "../Utility/FileTool.h"
 
 
 namespace PackingLogic
@@ -21,27 +22,33 @@ namespace PackingLogic
 	void PackingLauncher::Start()
 	{
 		//step1
-		CreateDir(GetNewestVerPath());
+		FileTool::CreateDir(Utility::PACKING_FOLDER_NAME);
 		
 		//step2
-		const auto currentVer = GetFileList(GetNewestVerPath()).Result().Version;
+		const auto currentVerNumber = Utility::DataParser::ParserVersionNumber(Utility::NewestVerFilePath().string());
 
 		//step3
-		auto currentFileList = GetFileList(GetCurrentFileListPath(currentVer)).Result();
+		const auto currentVerFileList = Utility::DataParser::ParserFileList(Utility::FileListSavePath(currentVerNumber).string());
 
 		//step4
-		auto allresourcefileList = ScanResourceFolder(GetResourcePath()).Make();
+		const auto resourceFileList = ScanResourceFolder(path(Utility::RESOURCE_FOLDER_NAME).string()).Make();
 		
 		//step5		
-		auto mergedList = MergeFileList(currentFileList, allresourcefileList).Result();
+		const auto mergedList = MergeFileList(currentVerFileList, resourceFileList).Result();
 
 		//step6
-		const auto newestVer = VersionUpdater().Update();
-		
-		//step7
-		auto fileList = CreateFileListToFile(newestVer, mergedList).Create();
+		const auto newestVer = VersionUpdater(currentVerNumber).UpdateVer(); 
 
+		//step7
+		WriteFileFromString(Utility::NewestVerFilePath().string(), "ver=" + std::to_string(newestVer)).Write();
+		
 		//step8
-		CreateZip(fileList).Start();
+		FileTool::CreateDir(Utility::FileListSavePath(newestVer).parent_path());
+
+		//step9
+		CreateZip(Utility::FileListSavePath(newestVer).parent_path().string(), mergedList).Start();
+
+		//step10
+		WriteFileFromList(Utility::FileListSavePath(newestVer).string(), mergedList).Write();
 	}
 }

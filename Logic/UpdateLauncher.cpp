@@ -5,6 +5,8 @@
 #include "DataDefine.h"
 #include <filesystem>
 #include <iostream>
+#include "../Utility/FileTool.h"
+#include "../Utility/DataParser.h"
 
 namespace UpdateLogic
 {
@@ -19,17 +21,61 @@ namespace UpdateLogic
 
 	void UpdateLauncher::Start()
 	{
-		_FilePaths.emplace(R"(..\resources\)"+ TEST_FILE_NAME);
+		_ToDownloadNewestVer();
+	}
 
+	void UpdateLauncher::_ToDownloadNewestVer()
+	{
+		auto filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
+		const auto url = Utility::BuildRemoteFilePath(filePath).string();
+		const auto facade = _DownloadProvider.Start(url);
+		Utility::FileWriter fileWriter(filePath.string());
+
+		auto dfs = new DownloadFileState(facade, fileWriter);
+
+		dfs->OnProgressEvent([=](int total_size, int downloaded_size)
+		{
+			_OnProgress(total_size, downloaded_size);
+		});
+
+		dfs->OnDoneEvent([&]()
+		{
+			_ToParserVerNumberState(filePath);
+		});
+
+		const std::shared_ptr<Utility::IState> state(dfs);
+		_StateMachine.Push(state);
+	}
+
+	void UpdateLauncher::_ToParserVerNumberState(const path& file_path)
+	{
+		_NewestVer = Utility::DataParser::ParserVersionNumber(file_path.string());
+		_LocalVer = Utility::DataParser::ParserVersionNumber(Utility::LocalVerSavePath().string());
+
+		_ToDiffVerNumberState();
+	}
+
+	void UpdateLauncher::_ToDiffVerNumberState()
+	{
+		for (int i = _LocalVer + 1; i < _NewestVer; ++i)
+		{
+			auto path = Utility::ZipFileSavePath(i);
+			_FilePaths.emplace(path);
+		}
+
+
+		std::swap(_FilePathTmp, _FilePaths);
+		
 		_ToDownloadFileState();
 	}
 
 	void UpdateLauncher::_ToDownloadFileState()
 	{
-		const auto path = _FilePaths.front();
+		const auto filePath = _FilePaths.front();
 
-		const auto facade = _DownloadProvider.Start(PATH_SERVER_URL + TEST_FILE_NAME);
-		Utility::FileWriter fileWriter(path);
+		const auto url = Utility::BuildRemoteFilePath(filePath).string();
+		const auto facade = _DownloadProvider.Start(url);
+		Utility::FileWriter fileWriter(filePath.string());
 
 		auto dfs = new DownloadFileState(facade, fileWriter);
 
@@ -44,7 +90,7 @@ namespace UpdateLogic
 
 			if (_FilePaths.empty())
 			{
-				_ToParserFilelistState();
+				_ToUnZip();
 			}
 			else
 			{
@@ -56,75 +102,47 @@ namespace UpdateLogic
 		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToParserFilelistState()
+	void UpdateLauncher::_ToUnZip()
 	{
-		const auto pfs = new ParserFilelistState();
-
-		pfs->OnDoneEvent([&](auto local, auto remote)
+		//unzipfile
+		while(_FilePathTmp.empty())
 		{
-			_ToGetDiffState(local, remote);
-		});
+			const auto zipFilePath = _FilePathTmp.front();
+			_ToParserFilelistState(zipFilePath);
+			_FilePathTmp.pop();
+		}
 
-		pfs->OnFailEvent([&]()
-		{
-			_OnNotNeed();
-		});
-
-		const std::shared_ptr<Utility::IState> state(pfs);
-		_StateMachine.Push(state);
+		_ToUpdteLocalVer();
 	}
 
-	void UpdateLauncher::_ToGetDiffState(const Utility::FileList& local, const Utility::FileList& remote)
+	void UpdateLauncher::_ToParserFilelistState(path file_path)
 	{
-		const auto fds = new FindDiffState(local, remote);
+		auto fileList = Utility::DataParser::ParserFileList(file_path.parent_path().string());
 
-		fds->OnDoneEvent([&](auto paths)
-		{
-			std::swap(paths, _FilePaths);
-			_ToDownloadDiffFileState();
-		});
-
-		const std::shared_ptr<Utility::IState> state(fds);
-		_StateMachine.Push(state);
+		_ToMerge(fileList);
+	
 	}
 
-	void UpdateLauncher::_ToDownloadDiffFileState()
+	void UpdateLauncher::_ToMerge(Utility::FileList file_list)
 	{
-		auto& path = _FilePaths.front();
-		const auto facade = _DownloadProvider.Start(PATH_SERVER_URL + TEST_FILE_NAME);
-		Utility::FileWriter fileWriter(path);
-
-		auto dfs = new DownloadFileState(facade, fileWriter);
-
-		dfs->OnProgressEvent([=](int total_size, int downloaded_size)
+		for(auto& file : file_list)
 		{
-			_OnProgress(total_size, downloaded_size);
-		});
-
-		dfs->OnDoneEvent([&]()
-		{
-			_FilePaths.pop();
-
-			if (_FilePaths.empty())
+			if(file.StateSymbol =="+")
 			{
-				_OnSuccess();
+				//copy file to resource floder
 			}
-			else
+			else if(file.StateSymbol == "-")
 			{
-				_ToDownloadDiffFileState();
-			}
-		});
-
-		const std::shared_ptr<Utility::IState> state(dfs);
-		_StateMachine.Push(state);
+				//remove file to resource floder
+			}  
+		}
 	}
 
-	void UpdateLauncher::_ToMoveFile() const
+	void UpdateLauncher::_ToUpdteLocalVer()
 	{
-		namespace fs = std::experimental::filesystem;
-
-		fs::remove(LOCAL_FILELIST_PATH);
-		fs::rename(REMOTE_FILELIST_PATH, LOCAL_FILELIST_PATH);
+		Utility::LocalVerSavePath();
+		remove(Utility::LocalVerSavePath());
+		rename(Utility::NewestVerSavePath(), Utility::LocalVerSavePath());
 	}
 
 	void UpdateLauncher::Update()
