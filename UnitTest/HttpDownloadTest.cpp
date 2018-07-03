@@ -216,11 +216,18 @@ SCENARIO("fake resume download", "[httpdownload]")
 TEST_CASE("download one file", "[httpdownload]")
 {
 	//arrange
-	std::string url = "http://tpdb.speed2.hinet.net/test_040m.zip";
+	//std::string url = "http://tpdb.speed2.hinet.net/test_040m.zip";
 
-	//std::string url = "https://dl.google.com/dl/android/studio/install/3.0.1.0/android-studio-ide-171.4443003-windows.exe";
-	std::string filename = "testfile1.txt";
-	FILE* fp = std::fopen(filename.c_str(), "w");
+	FileTool::CreateDir(Utility::PACKING_FOLDER_NAME);
+	
+	path filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
+	const auto url = Utility::FilePathToUrl(filePath);
+	
+	
+	std::string filename = "NewestVer.txt";
+	
+	FILE* fp;
+	fopen_s(&fp, filePath.string().data(), "w");
 
 	//act
 	Utility::DownloadProvider download; //user

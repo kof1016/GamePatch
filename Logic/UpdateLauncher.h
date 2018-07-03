@@ -19,14 +19,14 @@ namespace UpdateLogic
 		void _ToDownloadNewestVer();
 		void _ToDownloadFileState();
 		void _ToUnZip();
-		void _ToMerge(Utility::FileList file_list);
+		void _ToMerge(Utility::FileList file_list, path file_path);
 		void _ToUpdteLocalVer();
 		void _ToParserFilelistState(path file_path);
 		void _ToDiffVerNumberState();
 		
-		void _ToParserVerNumberState(const path& file_path);
+		void _ToParserVerNumberState(path file_path);
 		
-		Utility::StateMachine _StateMachine;
+		//Utility::StateMachine _StateMachine;
 		Utility::OnProgress _OnProgress;
 		Utility::OnSuccess _OnSuccess;
 		Utility::OnNotNeed _OnNotNeed;

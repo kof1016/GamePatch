@@ -3,6 +3,7 @@
 #include <fstream>
 #include "md5.h"
 #include <filesystem>
+#include <assert.h>
 using namespace std::experimental::filesystem ;
 
 namespace FileTool
@@ -30,11 +31,14 @@ namespace FileTool
 	{
 		std::ifstream infile(file_path, std::ios::in | std::ios::ate); //read mode | read to end
 
+
 		if (!infile.is_open())
 		{
-			//assert("open file error, testfile.txt");
+			std::string msg = "open file error = " + file_path;
+			assert(false && msg.c_str());
 			return false;
 		}
+
 
 		const auto size = infile.tellg();
 

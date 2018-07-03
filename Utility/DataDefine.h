@@ -83,7 +83,7 @@ namespace Utility
 
 	static path ZipFileSavePath(int ver)
 	{
-		return path(PACKING_FOLDER_NAME) / path("ver" + std::to_string(ver)) / path("ver" + std::to_string(ver) + ".zip");
+		return path(PACKING_FOLDER_NAME) / path("ver" + std::to_string(ver) + ".zip");
 	}
 
 	static path NewestVerFilePath()
@@ -93,8 +93,13 @@ namespace Utility
 
 	 const path PATH_SERVER_URL{"http://127.0.0.1:8887"};
 	
-	 static path BuildRemoteFilePath(const path& file_path)
+	 static std::string FilePathToUrl(const path& file_path)
 	 {
-	 	return PATH_SERVER_URL / file_path;
+		auto path = PATH_SERVER_URL.string() / file_path.string();
+
+		std::string url = path.string();
+		
+	 	std::replace(url.begin(), url.end(), '\\', '/');
+		return url;
 	 }
 }

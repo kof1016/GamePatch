@@ -1,15 +1,14 @@
 #include "pch.h"
-
 #include "catch.hpp"
-#include "../Utility/FileTool.h"
 #include <filesystem>
-#include "../PackingLogic/ScanResourceFolder.h"
-#include "../PackingLogic/DataDefine.h"
-#include "../Utility/cpplinq.hpp"
-#include "../PackingLogic/MergeFileList.h"
 #include "../Utility/DataDefine.h"
+#include "../Utility/FileTool.h"
+#include "../Utility/cpplinq.hpp"
+
+#include "../PackingLogic/ScanResourceFolder.h"
+#include "../PackingLogic/MergeFileList.h"
 #include "../PackingLogic/VersionUpdater.h"
-#include "../Utility/DataParser.h"
+
 
 
 TEST_CASE("merge tets", "[packing]")

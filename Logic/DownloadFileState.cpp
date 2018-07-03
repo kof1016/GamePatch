@@ -8,7 +8,7 @@ namespace UpdateLogic
 {
 	DownloadFileState::DownloadFileState(std::shared_ptr<Utility::ReceiverFacade> facade,
 										Utility::FileWriter& file_writer)
-		: _ReceiverFacade(std::move(facade)),
+		: _ReceiverFacade(facade),
 		_FileWriter(file_writer)
 	{
 	}
@@ -42,14 +42,17 @@ namespace UpdateLogic
 		(
 			[&](bool result)
 			{
+			
+				_FileWriter.CloseFile();
 				_OnDone();
+				
+
 			}
 		);
 	}
 
 	void DownloadFileState::Leave()
 	{
-		_FileWriter.CloseFile();
 	}
 
 	void DownloadFileState::Update()

@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../Utility/md5.h"
 #include <fstream>
-#include <experimental/filesystem>
-#include <unordered_map>
-#include "../Utility/DataParser.h"
-#include "../Utility/FileWriter.h"
 #include <cassert>
+#include "../Utility/md5.h"
+#include "../Utility/DataParser.h"
+#include "../curl/curl.h"
+#include "../Utility/CurlHttp.h"
+
 
 TEST_CASE("Filesystem test", "[file]")
 {
@@ -43,6 +43,26 @@ TEST_CASE("FileList Parser Test", "[file]")
 	REQUIRE(filelist.front().StateSymbol == "+");
 	REQUIRE(filelist.front().MD5== "9e107d9d372bb6826bd81d3542a419d6");
 	REQUIRE(filelist.front().Path == "actions/1.png");
+}
+
+TEST_CASE("FileList Parser by file Test", "[file]")
+{
+	//arrange
+	path filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
+
+	//act
+	Utility::DataParser parser;
+
+	auto verNum = Utility::DataParser::ParserVersionNumberByFile(filePath.string());
+
+	//auto filelist = Utility::DataParser::ParserFileList(data_filelist);
+
+	// assert
+	REQUIRE(verNum == 1);
+
+	// REQUIRE(filelist.front().StateSymbol == "+");
+	// REQUIRE(filelist.front().MD5 == "9e107d9d372bb6826bd81d3542a419d6");
+	// REQUIRE(filelist.front().Path == "actions/1.png");
 }
 
 TEST_CASE("first config parser", "[file]")
@@ -126,4 +146,51 @@ TEST_CASE("MD5 Test", "[file]")
 	const auto result2 = md5.hexdigest();
 
 	REQUIRE(result == result2);
+}
+
+TEST_CASE("Create Zip Test", "[file]")
+{
+	 //gzFile inFileZ = gzopen("NewestVer.txt", "rb");
+	//
+	// if (inFileZ == NULL) 
+	// {
+	// 	printf("Error: Failed to gzopen %s\n", "NewestVer.txt");
+	// 	exit(0);
+	// }
+	// unsigned char unzipBuffer[8192];
+	// unsigned int unzippedBytes;
+	// std::vector<unsigned char> unzippedData;
+	// while (true) 
+	// {
+	// 	unzippedBytes = gzread(inFileZ, unzipBuffer, 8192);
+	// 	if (unzippedBytes > 0) 
+	// 	{
+	// 		unzippedData.insert(unzippedData.end(), unzipBuffer, unzipBuffer + unzippedBytes);
+	// 	}
+	// 	else 
+	// 	{
+	// 		break;
+	// 	}
+	// }
+	// gzclose(inFileZ);
+}
+
+TEST_CASE("Zlib Test", "[file]")
+{
+	// const int CHUNK = 16384;
+	// char inbuf[CHUNK];
+	// int readBytes;
+	// GZipCompressor compressor(9, auto_flush);
+	// for (;;) {
+	// 	cin.read(inbuf, CHUNK);
+	// 	readBytes = cin.gcount();
+	// 	if (readBytes == 0) {
+	// 		break;
+	// 	}
+	// 	std::string input(inbuf, readBytes);
+	// 	std::string output = compressor.compress(input);
+	// 	std::cout << output;
+	// }
+	// std::cout << compressor.finish();
+	// return 0;
 }

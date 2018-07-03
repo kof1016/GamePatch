@@ -3,9 +3,10 @@
 
 namespace Utility
 {
-	FileWriter::FileWriter(std::string save_path)
+	FileWriter::FileWriter(std::string save_path, std::string mode)
+	:_SavePath(std::move(save_path))
+	,_Mode(std::move(mode))
 	{
-		_SavePath = save_path;
 	}
 
 	FileWriter::~FileWriter()
@@ -15,13 +16,8 @@ namespace Utility
 
 	void FileWriter::OpenFile()
 	{
-		 //std::ofstream outfile("NewestVer.txt");
-
-		fopen_s(&_File, _SavePath.c_str(), "w");
-		if(!_File)
-		{
-			return;
-		}
+		//std::ofstream outfile("NewestVer.txt");
+		fopen_s(&_File, _SavePath.data(), _Mode.data());
 	}
 
 	void FileWriter::CloseFile() const

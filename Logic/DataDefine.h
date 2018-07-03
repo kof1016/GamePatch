@@ -13,7 +13,7 @@ namespace UpdateLogic
  //
 	// const std::string REMOTE_FILELIST_NAME{R"(new-filelist)"};
  //
-	// static path BuildRemoteFilePath(const path& file_path)
+	// static path FilePathToUrl(const path& file_path)
 	// {
 	// 	return PATH_SERVER_URL / file_path;
 	// }

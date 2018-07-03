@@ -25,7 +25,7 @@ namespace PackingLogic
 		FileTool::CreateDir(Utility::PACKING_FOLDER_NAME);
 		
 		//step2
-		const auto currentVerNumber = Utility::DataParser::ParserVersionNumber(Utility::NewestVerFilePath().string());
+		const auto currentVerNumber = Utility::DataParser::ParserVersionNumberByFile(Utility::NewestVerFilePath().string());
 
 		//step3
 		const auto currentVerFileList = Utility::DataParser::ParserFileList(Utility::FileListSavePath(currentVerNumber).string());

@@ -4,12 +4,16 @@
 
 namespace Utility
 {
-	int DataParser::ParserVersionNumber(const std::string& pack_path)
+	int DataParser::ParserVersionNumberByFile(const std::string& file_path)
 	{
-		std::vector<char> buffer{1, '\0'};
-		FileTool::ReadFileToBuffer(pack_path, buffer);
-		const std::string data{buffer.data()};
+		std::vector<char> buffer{ 1, '\0' };
+		FileTool::ReadFileToBuffer(file_path, buffer);
 
+		return ParserVersionNumber(buffer.data());
+	}
+
+	int DataParser::ParserVersionNumber(const std::string& data)
+	{
 		const std::regex reg("ver=([0-9]+)");
 		std::smatch sm;
 
@@ -21,12 +25,17 @@ namespace Utility
 		return 0;
 	}
 
-	FileList DataParser::ParserFileList(const std::string& pack_path)
+	FileList DataParser::ParserFileListByFile(const std::string& file_path)
 	{
-		std::vector<char> buffer{1, '\0'};
-		FileTool::ReadFileToBuffer(pack_path, buffer);
-		const std::string data{buffer.data()};
+		std::vector<char> buffer{ 1, '\0' };
+		FileTool::ReadFileToBuffer(file_path, buffer);
+		
+		return ParserFileList(buffer.data());
+		
+	}
 
+	FileList DataParser::ParserFileList(const std::string& data)
+	{
 		const std::regex reg(R"((\W)\|([0-9a-fA-F]{32})\|([\w\/.]+))");
 
 		std::smatch sm;

@@ -21,50 +21,58 @@ namespace UpdateLogic
 
 	void UpdateLauncher::Start()
 	{
+		FileTool::CreateDir(Utility::PACKING_FOLDER_NAME);
+
 		_ToDownloadNewestVer();
 	}
 
 	void UpdateLauncher::_ToDownloadNewestVer()
 	{
-		auto filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
-		const auto url = Utility::BuildRemoteFilePath(filePath).string();
+		path filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
+		const auto url = Utility::FilePathToUrl(filePath);
 		const auto facade = _DownloadProvider.Start(url);
-		Utility::FileWriter fileWriter(filePath.string());
+		Utility::FileWriter fileWriter(filePath.string(),"w");
 
 		auto dfs = new DownloadFileState(facade, fileWriter);
+		
+		dfs->Enter();
 
 		dfs->OnProgressEvent([=](int total_size, int downloaded_size)
 		{
 			_OnProgress(total_size, downloaded_size);
 		});
 
-		dfs->OnDoneEvent([&]()
+		dfs->OnDoneEvent([=]()
 		{
 			_ToParserVerNumberState(filePath);
 		});
-
-		const std::shared_ptr<Utility::IState> state(dfs);
-		_StateMachine.Push(state);
 	}
 
-	void UpdateLauncher::_ToParserVerNumberState(const path& file_path)
+	void UpdateLauncher::_ToParserVerNumberState(path file_path)
 	{
-		_NewestVer = Utility::DataParser::ParserVersionNumber(file_path.string());
-		_LocalVer = Utility::DataParser::ParserVersionNumber(Utility::LocalVerSavePath().string());
+		_NewestVer = Utility::DataParser::ParserVersionNumberByFile(file_path.string());
 
-		_ToDiffVerNumberState();
+		_LocalVer = Utility::DataParser::ParserVersionNumberByFile(Utility::LocalVerSavePath().string());
+
+		if(_LocalVer ==_NewestVer)
+		{
+			std::cout << "local ver = newestver, into game" << std::endl;
+		}
+		else
+		{
+			_ToDiffVerNumberState();
+		}
 	}
 
 	void UpdateLauncher::_ToDiffVerNumberState()
 	{
-		for (int i = _LocalVer + 1; i < _NewestVer; ++i)
+		for (int i = _LocalVer + 1; i <= _NewestVer; ++i)
 		{
 			auto path = Utility::ZipFileSavePath(i);
 			_FilePaths.emplace(path);
 		}
 
-
-		std::swap(_FilePathTmp, _FilePaths);
+		_FilePathTmp = _FilePaths;
 		
 		_ToDownloadFileState();
 	}
@@ -72,12 +80,18 @@ namespace UpdateLogic
 	void UpdateLauncher::_ToDownloadFileState()
 	{
 		const auto filePath = _FilePaths.front();
+		
+		FileTool::CreateDir(filePath.parent_path());
 
-		const auto url = Utility::BuildRemoteFilePath(filePath).string();
+
+		const auto url = Utility::FilePathToUrl(filePath);
 		const auto facade = _DownloadProvider.Start(url);
-		Utility::FileWriter fileWriter(filePath.string());
+		//Utility::FileWriter fileWriter(filePath.string());
+		Utility::FileWriter fileWriter(filePath.string(),"wb");
+
 
 		auto dfs = new DownloadFileState(facade, fileWriter);
+		dfs->Enter();
 
 		dfs->OnProgressEvent([=](int total_size, int downloaded_size)
 		{
@@ -98,16 +112,17 @@ namespace UpdateLogic
 			}
 		});
 
-		const std::shared_ptr<Utility::IState> state(dfs);
-		_StateMachine.Push(state);
+		// const std::shared_ptr<Utility::IState> state(dfs);
+		// _StateMachine.Push(state);
 	}
 
 	void UpdateLauncher::_ToUnZip()
 	{
 		//unzipfile
-		while(_FilePathTmp.empty())
+		while(!_FilePathTmp.empty())
 		{
 			const auto zipFilePath = _FilePathTmp.front();
+
 			_ToParserFilelistState(zipFilePath);
 			_FilePathTmp.pop();
 		}
@@ -117,22 +132,27 @@ namespace UpdateLogic
 
 	void UpdateLauncher::_ToParserFilelistState(path file_path)
 	{
-		auto fileList = Utility::DataParser::ParserFileList(file_path.parent_path().string());
+		//auto fileList = Utility::DataParser::ParserFileList(file_path.parent_path().string());
+		auto fileList = Utility::DataParser::ParserFileListByFile(file_path.string());
 
-		_ToMerge(fileList);
+		_ToMerge(fileList, file_path);
 	
 	}
 
-	void UpdateLauncher::_ToMerge(Utility::FileList file_list)
+	void UpdateLauncher::_ToMerge(Utility::FileList file_list, path file_path)
 	{
 		for(auto& file : file_list)
 		{
 			if(file.StateSymbol =="+")
 			{
+				copy(file_path.parent_path(), Utility::RESOURCE_FOLDER_NAME, copy_options::update_existing);
+
 				//copy file to resource floder
 			}
 			else if(file.StateSymbol == "-")
 			{
+				remove(Utility::LocalVerSavePath());
+
 				//remove file to resource floder
 			}  
 		}
@@ -147,7 +167,7 @@ namespace UpdateLogic
 
 	void UpdateLauncher::Update()
 	{
-		_StateMachine.Update();
+		//_StateMachine.Update();
 	}
 
 	void UpdateLauncher::Shutdown()

@@ -25,6 +25,9 @@
     <Filter Include="linq">
       <UniqueIdentifier>{929d9cc3-9d28-4202-9eba-743c0c4be710}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zip">
+      <UniqueIdentifier>{7335464b-ba4b-4e37-85c7-c164e1c5a447}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StateMachine.h">
@@ -90,6 +93,12 @@
     <ClInclude Include="DataParser.h">
       <Filter>File</Filter>
     </ClInclude>
+    <ClInclude Include="unzip.h">
+      <Filter>Zip</Filter>
+    </ClInclude>
+    <ClInclude Include="zip.h">
+      <Filter>Zip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
@@ -135,6 +144,12 @@
     </ClCompile>
     <ClCompile Include="DataParser.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="unzip.cpp">
+      <Filter>Zip</Filter>
+    </ClCompile>
+    <ClCompile Include="zip.cpp">
+      <Filter>Zip</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
