@@ -58,6 +58,8 @@ TEST_CASE("ScanResourceFolder test", "[packing]")
 
 TEST_CASE("update ver test", "[packing]")
 {
+
+	//test
 	auto currentVer = 0;
 	PackingLogic::VersionUpdater updater(currentVer);
 	auto newestVer = updater.UpdateVer();
