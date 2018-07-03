@@ -10,17 +10,6 @@
 
 TEST_CASE("Filesystem test", "[file]")
 {
-	auto p = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
-	std::vector<char> buffer{ '1','\0'};
-
-	FILE* file = std::fopen(p.string().data(), "w");
-	fwrite(buffer.data(), 1, buffer.size(), file);
-	fclose(file);
-}
-
-
-TEST_CASE("Filesystem test", "[file]")
-{
 	std::string ver = "1";
 	namespace fs = std::experimental::filesystem;
 	fs::create_directories("resource_pack/ver" + ver);
