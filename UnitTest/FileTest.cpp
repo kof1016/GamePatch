@@ -6,7 +6,12 @@
 #include "../Utility/DataParser.h"
 #include "../curl/curl.h"
 #include "../Utility/CurlHttp.h"
+#include "zlib.h"
 
+TEST_CASE("zlib", "[file]")
+{
+	auto r = uncompress(nullptr, nullptr, nullptr, 0);
+}
 
 TEST_CASE("Filesystem test", "[file]")
 {

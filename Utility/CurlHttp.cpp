@@ -1,6 +1,6 @@
 #include <iostream>
 #include "CurlHttp.h"
-#include "zlib.h"
+
 namespace Utility
 {
 	CurlHttp::CurlHttp()
