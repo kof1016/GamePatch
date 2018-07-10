@@ -28,7 +28,7 @@ namespace PackingLogic
 		const auto currentVerNumber = Utility::DataParser::ParserVersionNumberByFile(Utility::NewestVerFilePath().string());
 
 		//step3
-		const auto currentVerFileList = Utility::DataParser::ParserFileList(Utility::FileListSavePath(currentVerNumber).string());
+		const auto currentVerFileList = Utility::DataParser::ParserFileListByFile(Utility::FileListSavePath(currentVerNumber).string());
 
 		//step4
 		const auto resourceFileList = ScanResourceFolder(path(Utility::RESOURCE_FOLDER_NAME).string()).Make();
@@ -43,12 +43,21 @@ namespace PackingLogic
 		WriteFileFromString(Utility::NewestVerFilePath().string(), "ver=" + std::to_string(newestVer)).Write();
 		
 		//step8
-		FileTool::CreateDir(Utility::FileListSavePath(newestVer).parent_path());
+		//FileTool::CreateDir(Utility::FileListSavePath(newestVer).parent_path());
 
 		//step9
-		CreateZip(Utility::FileListSavePath(newestVer).parent_path().string(), mergedList).Start();
-
-		//step10
 		WriteFileFromList(Utility::FileListSavePath(newestVer).string(), mergedList).Write();
+
+		std::vector<std::string> paths;
+		paths.push_back(Utility::FileListSavePath(newestVer).string());
+		for(auto& a : mergedList)
+		{
+			paths.push_back(a.Path);
+		}
+		
+		//step10
+		FileTool::CreateZipFromFileList(paths, Utility::ZipFileSavePath(newestVer).string());
+		
+		//CreateZip(Utility::FileListSavePath(newestVer).parent_path().string() + ".zip", mergedList).Start();
 	}
 }

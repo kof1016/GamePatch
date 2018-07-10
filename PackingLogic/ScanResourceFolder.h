@@ -15,7 +15,7 @@ namespace PackingLogic
 		Utility::FileList Make();
 
 	private:
-		void _AddToList(const std::experimental::filesystem::path& path);
+		void _AddToList(const std::string& path);
 		std::string _InputPath;
 		Utility::FileList _FileList;
 

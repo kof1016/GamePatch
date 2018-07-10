@@ -17,14 +17,16 @@ namespace PackingLogic
 
 	void CreateZip::Start()
 	{
-		for(auto& d : _FileList)
-		{
-			fs::path sourcePath(d.Path);
-			const auto targetFolder = _SavePath / sourcePath.parent_path(); // sourceFile.filename() returns "sourceFile.ext".
-
-			FileTool::CreateDir(targetFolder);
-
-			copy_file(sourcePath, targetFolder / sourcePath.filename(), fs::copy_options::overwrite_existing);
-		}
+		//FileTool::CreateZipFromFileList(_FileList, _SavePath);
+		
+		// for(auto& d : _FileList)
+		// {
+		// 	fs::path sourcePath(d.Path);
+		// 	const auto targetFolder = _SavePath / sourcePath.parent_path(); // sourceFile.filename() returns "sourceFile.ext".
+  //
+		// 	FileTool::CreateDir(targetFolder);
+  //
+		// 	copy_file(sourcePath, targetFolder / sourcePath.filename(), fs::copy_options::overwrite_existing);
+		// }
 	}
 }

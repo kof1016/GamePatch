@@ -1,31 +1,33 @@
 #include "pch.h"
 #include "catch.hpp"
 #include <fstream>
+
 #include <cassert>
 #include "../Utility/md5.h"
 #include "../Utility/DataParser.h"
 #include "../curl/curl.h"
 #include "../Utility/CurlHttp.h"
-#include "zlib.h"
+#include <minizip/zip.h>
+#include <minizip/unzip.h>
+#include <iostream>
+#include <tchar.h>
+#include "../PackingLogic/ScanResourceFolder.h"
+#include "../Utility/FileTool.h"
 
-TEST_CASE("zlib", "[file]")
-{
-	auto r = uncompress(nullptr, nullptr, nullptr, 0);
-}
+using namespace std;
 
 TEST_CASE("Filesystem test", "[file]")
 {
 	std::string ver = "1";
-	namespace fs = std::experimental::filesystem;
-	fs::create_directories("resource_pack/ver" + ver);
+	
+	create_directories("resource_pack/ver" + ver);
+	create_directories("sandbox/1/2/a");
+	create_directory("sandbox/1/2/b");
 
-	fs::create_directories("sandbox/1/2/a");
-	fs::create_directory("sandbox/1/2/b");
+	create_directory("sandbox/1/2/c", "sandbox/1/2/b");
 
-	fs::create_directory("sandbox/1/2/c", "sandbox/1/2/b");
-
-	std::experimental::filesystem::path p1("c:\\windows");
-	std::experimental::filesystem::path p2 = p1 / "system32";
+	path p1("c:\\windows");
+	path p2 = p1 / "system32";
 }
 
 TEST_CASE("FileList Parser Test", "[file]")
@@ -33,7 +35,7 @@ TEST_CASE("FileList Parser Test", "[file]")
 	//arrange
 	const std::string data_ver = "ver=1";
 
-	const std::string data_filelist ="+|9e107d9d372bb6826bd81d3542a419d6|actions/1.png";
+	const std::string data_filelist = "+|9e107d9d372bb6826bd81d3542a419d6|actions/1.png";
 	//act
 	Utility::DataParser parser;
 
@@ -44,7 +46,7 @@ TEST_CASE("FileList Parser Test", "[file]")
 
 	// assert
 	REQUIRE(verNum == 1);
-	
+
 	REQUIRE(filelist.front().StateSymbol == "+");
 	REQUIRE(filelist.front().MD5== "9e107d9d372bb6826bd81d3542a419d6");
 	REQUIRE(filelist.front().Path == "actions/1.png");
@@ -153,49 +155,163 @@ TEST_CASE("MD5 Test", "[file]")
 	REQUIRE(result == result2);
 }
 
-TEST_CASE("Create Zip Test", "[file]")
-{
-	 //gzFile inFileZ = gzopen("NewestVer.txt", "rb");
-	//
-	// if (inFileZ == NULL) 
-	// {
-	// 	printf("Error: Failed to gzopen %s\n", "NewestVer.txt");
-	// 	exit(0);
-	// }
-	// unsigned char unzipBuffer[8192];
-	// unsigned int unzippedBytes;
-	// std::vector<unsigned char> unzippedData;
-	// while (true) 
-	// {
-	// 	unzippedBytes = gzread(inFileZ, unzipBuffer, 8192);
-	// 	if (unzippedBytes > 0) 
-	// 	{
-	// 		unzippedData.insert(unzippedData.end(), unzipBuffer, unzipBuffer + unzippedBytes);
-	// 	}
-	// 	else 
-	// 	{
-	// 		break;
-	// 	}
-	// }
-	// gzclose(inFileZ);
-}
+// int writeInZipFile(zipFile zFile, const std::string& file)
+// {
+// 	std::fstream f(file.c_str(), std::ios::binary | std::ios::in);
+// 	f.seekg(0, std::ios::end);
+// 	const long size = f.tellg();
+// 	f.seekg(0, std::ios::beg);
+// 	if (size <= 0)
+// 	{
+// 		return zipWriteInFileInZip(zFile, nullptr, 0);
+// 	}
+// 	vector<char> buf;
+// 	buf.resize(size);
+// 	f.read(buf.data(), size);
+// 	int ret = zipWriteInFileInZip(zFile, buf.data(), size);
+// 	return ret;
+// }
 
-TEST_CASE("Zlib Test", "[file]")
-{
-	// const int CHUNK = 16384;
-	// char inbuf[CHUNK];
-	// int readBytes;
-	// GZipCompressor compressor(9, auto_flush);
-	// for (;;) {
-	// 	cin.read(inbuf, CHUNK);
-	// 	readBytes = cin.gcount();
-	// 	if (readBytes == 0) {
-	// 		break;
-	// 	}
-	// 	std::string input(inbuf, readBytes);
-	// 	std::string output = compressor.compress(input);
-	// 	std::cout << output;
-	// }
-	// std::cout << compressor.finish();
-	// return 0;
-}
+
+
+ TEST_CASE("minizip-zip test", "[file]")
+ {
+ 	const auto fileList = PackingLogic::ScanResourceFolder("TestFolder").Make();
+
+ 	const auto zFile = zipOpen("testpack2.zip", APPEND_STATUS_CREATE);
+ 	
+ 	for(auto& p : fileList)
+ 	{
+ 		zip_fileinfo zFileInfo;
+
+ 		int ret = zipOpenNewFileInZip(zFile, p.Path.data(), &zFileInfo, nullptr, 0, nullptr, 0, nullptr, 0, Z_DEFAULT_COMPRESSION);
+ 		if (ret != ZIP_OK)
+ 		{
+ 			cout << "openfile in zip failed" << endl;
+ 			zipClose(zFile, nullptr);
+ 			return;
+ 		}
+ 		vector<char> buffer;
+ 		FileTool::ReadFileToBufferToBinary(p.Path, buffer);
+ 		ret = zipWriteInFileInZip(zFile, buffer.data(), buffer.size());
+ 		
+ 		if (ret != ZIP_OK)
+ 		{
+ 			cout << "write in zip failed" << endl;
+ 			zipClose(zFile, nullptr);
+ 			return;
+ 		}
+ 	}
+ 	
+ 	zipClose(zFile, nullptr);
+ 	cout << "zip ok" << endl;
+ }
+
+ TEST_CASE("minizip-unzip", "[file]")
+ {
+ #define READ_SIZE 8192  
+ #define MAX_FILENAME 512  
+
+ 	// Open the zip file  
+ 	const auto zipfile = unzOpen("testpack2.zip");
+ 	if (zipfile == nullptr)
+ 	{
+ 		std::cout << "not found\n";
+ 		return;
+ 	}
+
+ 	// Get info about the zip file  
+ 	unz_global_info global_info;
+ 	if (unzGetGlobalInfo(zipfile, &global_info) != UNZ_OK)
+ 	{
+ 		std::cout << "could not read file global info\n";
+ 		unzClose(zipfile);
+ 		return;
+ 	}
+
+ 	// Buffer to hold data read from the zip file.  
+ 	char read_buffer[READ_SIZE]{'0'};
+
+ 	for (auto i = 0; i < global_info.number_entry; ++i)
+ 	{
+ 		// Get info about current file.  
+ 		unz_file_info file_info;
+ 		char filename[MAX_FILENAME]{'0'};
+ 		
+ 		if (unzGetCurrentFileInfo(
+ 			zipfile,
+ 			&file_info,
+ 			filename,
+ 			MAX_FILENAME,
+ 			nullptr, 0, nullptr, 0) != UNZ_OK)
+ 		{
+ 			std::cout <<"could not read file info\n";
+ 			unzClose(zipfile);
+ 			return;
+ 		}
+
+ 		// Check if this entry is a directory or file.  
+ 		if(!path(filename).has_extension())
+ 		{
+ 			FileTool::CreateDir(path(filename));
+ 		}
+ 		else
+ 		{
+ 			if (unzOpenCurrentFile(zipfile) != UNZ_OK)
+ 			{
+ 				printf("could not open file\n");
+ 				unzClose(zipfile);
+ 				return;
+ 			}
+
+ 			// Open a file to write out the data.  
+ 			FileTool::CreateDir(path(filename).parent_path());
+ 			
+ 			FILE* out = fopen(filename, "wb");
+ 			if (out == nullptr)
+ 			{
+ 				printf("could not open destination file\n");
+ 				unzCloseCurrentFile(zipfile);
+ 				unzClose(zipfile);
+ 				return ;
+ 			}
+
+ 			int error = UNZ_OK;
+ 			do
+ 			{
+ 				error = unzReadCurrentFile(zipfile, read_buffer, READ_SIZE);
+ 				if (error < 0)
+ 				{
+ 					printf("error %d\n", error);
+ 					unzCloseCurrentFile(zipfile);
+ 					unzClose(zipfile);
+ 					return;
+ 				}
+
+ 				// Write data to file.  
+ 				if (error > 0)
+ 				{
+ 					fwrite(read_buffer, error, 1, out); // You should check return of fwrite...  
+ 				}
+ 			} 
+ 			while (error > 0);
+
+ 			fclose(out);
+ 		}
+
+ 		unzCloseCurrentFile(zipfile);
+
+ 		// Go the the next entry listed in the zip file.  
+ 		if (i + 1 < global_info.number_entry)
+ 		{
+ 			if (unzGoToNextFile(zipfile) != UNZ_OK)
+ 			{
+ 				printf("cound not read next file\n");
+ 				unzClose(zipfile);
+ 				return ;
+ 			}
+ 		}
+ 	}
+
+ 	unzClose(zipfile);
+ }

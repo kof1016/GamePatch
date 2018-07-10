@@ -27,6 +27,13 @@ namespace Utility
 	{
 		FileData() = delete;
 
+		FileData(const std::string& path)
+		{
+			StateSymbol = "";
+			MD5 = "";
+			Path = path;
+		}
+
 		FileData(const std::string& md5, const std::string& path)
 		{
 			StateSymbol = "";
@@ -78,7 +85,7 @@ namespace Utility
 
 	static path FileListSavePath(int ver)
 	{
-		return path(PACKING_FOLDER_NAME) / path("ver" + std::to_string(ver)) / path("filelist_ver" + std::to_string(ver) + ".txt");
+		return path(PACKING_FOLDER_NAME) / path("filelist_ver" + std::to_string(ver) + ".txt");
 	}
 
 	static path ZipFileSavePath(int ver)
