@@ -41,6 +41,7 @@ namespace PackingLogic
 		std::string _Content;
 	};
 	typedef class WriteToFile<std::string> WriteFileFromString;
+	typedef WriteFileFromString CreateNewestVerFile;
 
 	template <>
 	class WriteToFile<Utility::FileList>
@@ -72,4 +73,5 @@ namespace PackingLogic
 		Utility::FileList _FileList;
 	};
 	typedef class WriteToFile<Utility::FileList> WriteFileFromList;
+	typedef WriteFileFromList CreateFileListFile;
 }

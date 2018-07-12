@@ -10,8 +10,6 @@ int main(int argc, char* argv[])
 {
 	UpdateLogic::UpdateLauncher launcher;
 
-	launcher.Start();
-
 	launcher.OnDownloadProgress([=](int total_size, int downloaded_size)
 	{
 		const auto percent = downloaded_size * 100.0 / total_size;
@@ -19,37 +17,35 @@ int main(int argc, char* argv[])
 		// game using interface
 	});
 
-	launcher.OnUpdateSuccessEvent([=]()
+	bool done = false;
+	launcher.OnUpdateSuccessEvent([&]()
 	{
 		std::cout << "all download success" << std::endl;
 		std::cout << "ready to game" << std::endl;
+		done = true;
 		// game using interface
 	});
 
-	launcher.OnNotNeedEvent([=]()
+	launcher.OnNotNeedEvent([&]()
 	{
-		std::cout << "remote ver equally local ver" << std::endl;
+		std::cout << "remote ver = local ver" << std::endl;
 		std::cout << "need not update" << std::endl;
 		std::cout << "ready to game" << std::endl;
+		done = true;
 		// game using interface
 	});
 
+	std::cout << "====================================" << std::endl;
+	std::cout << "remote update tool " << std::endl;
+	std::cout << "press any key to start update" << std::endl;
 
-	int n = _kbhit();
-	std::cout << "input 1 to exit" << std::endl;
+	_getch();
 
-	while (true)
+	launcher.Start();
+	std::cout << "update starting" << std::endl;
+
+	while (!done)
 	{
-		if (_kbhit() != 0)
-		{
-			if (_getch() == 0x31)
-			{
-				std::cout << "exit" << std::endl;
-				launcher.Shutdown();
-				break;
-			}
-		}
-		launcher.Update();
 	}
 
 	return 0;

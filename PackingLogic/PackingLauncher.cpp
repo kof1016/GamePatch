@@ -39,16 +39,15 @@ namespace PackingLogic
 		const auto newestVer = VersionUpdater(currentVerNumber).UpdateVer(); 
 
 		//step7
-		WriteFileFromString(Utility::NewestVerFilePath().string(), "ver=" + std::to_string(newestVer)).Write();
+		CreateNewestVerFile(Utility::NewestVerFilePath().string(), "ver=" + std::to_string(newestVer)).Write();
 		
 		//step8
-		WriteFileFromList(Utility::FileListSavePath(newestVer).string(), mergedList).Write();
+		CreateFileListFile(Utility::FileListSavePath(newestVer).string(), mergedList).Write();
 
 		//step9
 		const auto savelist = FilterDataToSave(mergedList, newestVer).Filter();
 		
 		//step10
 		FileTool::CreateZipFromSaveList(savelist, Utility::ZipFileSavePath(newestVer).string());
-	
 	}
 }

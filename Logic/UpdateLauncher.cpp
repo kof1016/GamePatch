@@ -50,23 +50,24 @@ namespace UpdateLogic
 
 	void UpdateLauncher::_ToParserVerNumberState(path file_path)
 	{
-		_NewestVer = Utility::DataParser::ParserVersionNumberByFile(file_path.string());
+		const auto newestVer = Utility::DataParser::ParserVersionNumberByFile(file_path.string());
 
-		_LocalVer = Utility::DataParser::ParserVersionNumberByFile(Utility::LocalVerSavePath().string());
+		const auto localVer = Utility::DataParser::ParserVersionNumberByFile(Utility::LocalVerSavePath().string());
 
-		if(_LocalVer ==_NewestVer)
+		if(localVer == newestVer)
 		{
-			std::cout << "local ver = newestver, into game" << std::endl;
+			_RemoveDownloadPack();
+			_OnNotNeed();
 		}
 		else
 		{
-			_ToDiffVerNumberState();
+			_ToDiffVerNumberState(localVer, newestVer);
 		}
 	}
 
-	void UpdateLauncher::_ToDiffVerNumberState()
+	void UpdateLauncher::_ToDiffVerNumberState(int local_ver, int newest_ver)
 	{
-		for (int i = _LocalVer + 1; i <= _NewestVer; ++i)
+		for (int i = local_ver + 1; i <= newest_ver; ++i)
 		{
 			auto path = Utility::ZipFileSavePath(i);
 			_DownloadList.emplace(path);
@@ -123,12 +124,12 @@ namespace UpdateLogic
 		
 		_ToUpdteLocalVer();
 		_RemoveDownloadPack();
+		_OnSuccess();
 	}
 
 	void UpdateLauncher::_ToParserFileListState(const path& file_path)
 	{
-		//auto fileList = Utility::DataParser::ParserFileList(file_path.parent_path().string());
-		auto fileList = Utility::DataParser::ParserFileListByFile(file_path.string());
+		const auto fileList = Utility::DataParser::ParserFileListByFile(file_path.string());
 
 		_ToMerge(fileList, file_path);
 	}
@@ -161,16 +162,6 @@ namespace UpdateLogic
 	void UpdateLauncher::_RemoveDownloadPack()
 	{
 		remove_all(Utility::PACKING_FOLDER_NAME);
-	}
-
-	void UpdateLauncher::Update()
-	{
-		//_StateMachine.Update();
-	}
-
-	void UpdateLauncher::Shutdown()
-	{
-		std::cout << "UpdateLauncher::Shutdown" << std::endl;
 	}
 
 	void UpdateLauncher::OnDownloadProgress(Utility::OnProgress&& callback)
