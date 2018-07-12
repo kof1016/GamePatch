@@ -1,6 +1,7 @@
 #pragma once
 #include "../Utility/StateMachine.h"
 #include "../Utility/DownloadProvider.h"
+#include <map>
 
 namespace UpdateLogic
 {
@@ -19,12 +20,13 @@ namespace UpdateLogic
 		void _ToDownloadNewestVer();
 		void _ToDownloadFileState();
 		void _ToUnZip();
-		void _ToMerge(Utility::FileList file_list, path file_path);
-		void _ToUpdteLocalVer();
-		void _ToParserFilelistState(path file_path);
+		void _ToMerge(const Utility::FileList& file_list, const path& file_path);
+		void _ToParserFileListState(const path& file_path);
 		void _ToDiffVerNumberState();
-		
 		void _ToParserVerNumberState(path file_path);
+		
+		void _ToUpdteLocalVer();
+		void _RemoveDownloadPack();
 		
 		//Utility::StateMachine _StateMachine;
 		Utility::OnProgress _OnProgress;
@@ -32,8 +34,8 @@ namespace UpdateLogic
 		Utility::OnNotNeed _OnNotNeed;
 		
 		Utility::DownloadProvider _DownloadProvider;
-		std::queue<path> _FilePaths;
-		std::queue<path> _FilePathTmp;
+		std::queue<path> _DownloadList;
+		std::map<int, path> _FilePaths;
 
 		int _NewestVer{0};
 		int _LocalVer{ 0 };

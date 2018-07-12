@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CreateZip.cpp" />
+    <ClCompile Include="FilterDataToSave.cpp" />
     <ClCompile Include="MergeFileList.cpp" />
     <ClCompile Include="ScanResourceFolder.cpp" />
     <ClCompile Include="PackingLauncher.cpp" />
@@ -27,8 +27,8 @@
     <ClCompile Include="WriteToFile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CreateZip.h" />
     <ClInclude Include="DataDefine.h" />
+    <ClInclude Include="FilterDataToSave.h" />
     <ClInclude Include="MergeFileList.h" />
     <ClInclude Include="ScanResourceFolder.h" />
     <ClInclude Include="PackingLauncher.h" />

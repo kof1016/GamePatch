@@ -1,10 +1,14 @@
 #pragma once
+#include <string>
+#include <vector>
+
 //#include <string>
 //#include <filesystem>
 
 //using namespace  std::experimental::filesystem ;
 namespace PackingLogic
 {
+	
 	// const std::string PACKING_FOLDER_NAME = "ResourcePack";
 	// const std::string NEWESTVER_NAME = "NewestVer.txt";
  //

@@ -61,6 +61,27 @@ namespace Utility
 	typedef std::function<void()> OnNotNeed;
 	typedef std::function<void(bool result)> OnReceiveDownloadDone;
 
+	struct ZipSaveData
+	{
+		ZipSaveData() = delete;
+
+		ZipSaveData(std::string path)
+			: Path(std::move(path))
+		{
+			SaveName = Path;
+		}
+
+		ZipSaveData(std::string path, std::string save_name)
+			: Path(std::move(path))
+			, SaveName(std::move(save_name))
+		{
+		}
+
+		std::string Path;
+		std::string SaveName;
+	};
+	typedef std::vector<ZipSaveData> SaveList;
+
 	/*
 	 * const string
 	 */

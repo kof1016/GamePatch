@@ -1,13 +1,12 @@
 #include "PackingLauncher.h"
-#include "DataDefine.h"
 #include "MergeFileList.h"
 #include "VersionUpdater.h"
-#include "CreateZip.h"
 #include "ScanResourceFolder.h"
 #include "WriteToFile.h"
+#include "FilterDataToSave.h"
+
 #include "../Utility/DataParser.h"
 #include "../Utility/FileTool.h"
-
 
 namespace PackingLogic
 {
@@ -43,21 +42,13 @@ namespace PackingLogic
 		WriteFileFromString(Utility::NewestVerFilePath().string(), "ver=" + std::to_string(newestVer)).Write();
 		
 		//step8
-		//FileTool::CreateDir(Utility::FileListSavePath(newestVer).parent_path());
-
-		//step9
 		WriteFileFromList(Utility::FileListSavePath(newestVer).string(), mergedList).Write();
 
-		std::vector<std::string> paths;
-		paths.push_back(Utility::FileListSavePath(newestVer).string());
-		for(auto& a : mergedList)
-		{
-			paths.push_back(a.Path);
-		}
+		//step9
+		const auto savelist = FilterDataToSave(mergedList, newestVer).Filter();
 		
 		//step10
-		FileTool::CreateZipFromFileList(paths, Utility::ZipFileSavePath(newestVer).string());
-		
-		//CreateZip(Utility::FileListSavePath(newestVer).parent_path().string() + ".zip", mergedList).Start();
+		FileTool::CreateZipFromSaveList(savelist, Utility::ZipFileSavePath(newestVer).string());
+	
 	}
 }

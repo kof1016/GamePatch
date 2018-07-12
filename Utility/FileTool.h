@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <minizip/zip.h>
 #include <minizip/unzip.h>
+#include "../PackingLogic/FilterDataToSave.h"
 
 using namespace std::experimental::filesystem ;
 
@@ -98,17 +99,17 @@ namespace FileTool
 		}
 	}
 
-	static void CreateZipFromFileList(const std::vector<std::string>& paths, const std::string& target_path)
+	static void CreateZipFromSaveList(Utility::SaveList save_list, const std::string& target_path)
 	{
 		const auto zFile = zipOpen(target_path.data(), APPEND_STATUS_CREATE);
 
-		for (auto& p : paths)
+		for (auto& p : save_list)
 		{
 			zip_fileinfo zFileInfo;
 
 			auto ret = zipOpenNewFileInZip(
 				zFile, 
-				p.data(), 
+				p.SaveName.data(), 
 				&zFileInfo, 
 				nullptr, 0, 
 				nullptr, 0, 
@@ -122,7 +123,7 @@ namespace FileTool
 				return;
 			}
 			std::vector<char> buffer;
-			ReadFileToBufferToBinary(p, buffer);
+			ReadFileToBufferToBinary(p.Path, buffer);
 			ret = zipWriteInFileInZip(zFile, buffer.data(), buffer.size());
 
 			if (ret != ZIP_OK)

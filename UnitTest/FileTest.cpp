@@ -16,6 +16,13 @@
 
 using namespace std;
 
+TEST_CASE("Filesystem remove test", "[file]")
+{
+	auto n = remove_all("sandbox");
+	std::cout << "Deleted " << n << " files or directories\n";
+}
+
+
 TEST_CASE("Filesystem test", "[file]")
 {
 	std::string ver = "1";

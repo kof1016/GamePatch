@@ -28,7 +28,7 @@ namespace UpdateLogic
 
 	void UpdateLauncher::_ToDownloadNewestVer()
 	{
-		path filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
+		path filePath = Utility::NewestVerSavePath();;
 		const auto url = Utility::FilePathToUrl(filePath);
 		const auto facade = _DownloadProvider.Start(url);
 		Utility::FileWriter fileWriter(filePath.string(),"w");
@@ -69,28 +69,26 @@ namespace UpdateLogic
 		for (int i = _LocalVer + 1; i <= _NewestVer; ++i)
 		{
 			auto path = Utility::ZipFileSavePath(i);
-			_FilePaths.emplace(path);
+			_DownloadList.emplace(path);
+			_FilePaths.emplace(i, path);
 		}
-
-		_FilePathTmp = _FilePaths;
 		
 		_ToDownloadFileState();
 	}
 
 	void UpdateLauncher::_ToDownloadFileState()
 	{
-		const auto filePath = _FilePaths.front();
+		const auto filePath = _DownloadList.front();
 		
 		FileTool::CreateDir(filePath.parent_path());
 
-
 		const auto url = Utility::FilePathToUrl(filePath);
 		const auto facade = _DownloadProvider.Start(url);
-		//Utility::FileWriter fileWriter(filePath.string());
+		
 		Utility::FileWriter fileWriter(filePath.string(),"wb");
 
-
 		auto dfs = new DownloadFileState(facade, fileWriter);
+
 		dfs->Enter();
 
 		dfs->OnProgressEvent([=](int total_size, int downloaded_size)
@@ -100,9 +98,9 @@ namespace UpdateLogic
 
 		dfs->OnDoneEvent([&]()
 		{
-			_FilePaths.pop();
+			_DownloadList.pop();
 
-			if (_FilePaths.empty())
+			if (_DownloadList.empty())
 			{
 				_ToUnZip();
 			}
@@ -111,35 +109,31 @@ namespace UpdateLogic
 				_ToDownloadFileState();
 			}
 		});
-
-		// const std::shared_ptr<Utility::IState> state(dfs);
-		// _StateMachine.Push(state);
 	}
 
 	void UpdateLauncher::_ToUnZip()
 	{
-		//unzipfile
-		while(!_FilePathTmp.empty())
+		for(auto it : _FilePaths)
 		{
-			const auto zipFilePath = _FilePathTmp.front();
+			FileTool::UnZipToDisk(it.second.string());
 
-			_ToParserFilelistState(zipFilePath);
-			_FilePathTmp.pop();
+			const auto path = Utility::FileListSavePath(it.first);
+			_ToParserFileListState(path);
 		}
-
+		
 		_ToUpdteLocalVer();
+		_RemoveDownloadPack();
 	}
 
-	void UpdateLauncher::_ToParserFilelistState(path file_path)
+	void UpdateLauncher::_ToParserFileListState(const path& file_path)
 	{
 		//auto fileList = Utility::DataParser::ParserFileList(file_path.parent_path().string());
 		auto fileList = Utility::DataParser::ParserFileListByFile(file_path.string());
 
 		_ToMerge(fileList, file_path);
-	
 	}
 
-	void UpdateLauncher::_ToMerge(Utility::FileList file_list, path file_path)
+	void UpdateLauncher::_ToMerge(const Utility::FileList& file_list, const path& file_path)
 	{
 		for(auto& file : file_list)
 		{
@@ -160,9 +154,13 @@ namespace UpdateLogic
 
 	void UpdateLauncher::_ToUpdteLocalVer()
 	{
-		Utility::LocalVerSavePath();
 		remove(Utility::LocalVerSavePath());
 		rename(Utility::NewestVerSavePath(), Utility::LocalVerSavePath());
+	}
+
+	void UpdateLauncher::_RemoveDownloadPack()
+	{
+		remove_all(Utility::PACKING_FOLDER_NAME);
 	}
 
 	void UpdateLauncher::Update()
