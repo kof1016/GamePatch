@@ -37,7 +37,13 @@ int main(int argc, char* argv[])
 
 	std::cout << "====================================" << std::endl;
 	std::cout << "remote update tool " << std::endl;
-	std::cout << "press any key to start update" << std::endl;
+	std::cout << "this tool feature" << std::endl;
+	
+	std::cout << "1:download remote resource zip to local." << std::endl;
+	std::cout << "2:unzip to resource folder" << std::endl;
+	std::cout << "3:check remote version diff with local " << std::endl;
+	std::cout << "4:delete download resource" << std::endl;
+	std::cout << "====================================" << std::endl;
 
 	_getch();
 

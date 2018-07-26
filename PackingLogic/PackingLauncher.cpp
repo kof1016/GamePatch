@@ -3,8 +3,7 @@
 #include "VersionUpdater.h"
 #include "ScanResourceFolder.h"
 #include "WriteToFile.h"
-#include "FilterDataToSave.h"
-
+#include "SaveDataAdapter.h"
 #include "../Utility/DataParser.h"
 #include "../Utility/FileTool.h"
 
@@ -45,7 +44,7 @@ namespace PackingLogic
 		CreateFileListFile(Utility::FileListSavePath(newestVer).string(), mergedList).Write();
 
 		//step9
-		const auto savelist = FilterDataToSave(mergedList, newestVer).Filter();
+		const auto savelist = SaveDataAdapter(mergedList, newestVer).Adapter();
 		
 		//step10
 		FileTool::CreateZipFromSaveList(savelist, Utility::ZipFileSavePath(newestVer).string());

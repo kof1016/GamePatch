@@ -14,7 +14,7 @@
     <ClCompile Include="WriteToFile.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="FilterDataToSave.cpp" />
+    <ClCompile Include="SaveDataAdapter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PackingLauncher.h" />
@@ -31,7 +31,7 @@
     <ClInclude Include="WriteToFile.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="FilterDataToSave.h" />
+    <ClInclude Include="SaveDataAdapter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Step">
