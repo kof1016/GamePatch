@@ -2,19 +2,39 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="PackingLauncher.cpp" />
-    <ClCompile Include="Step\MergeFileList.cpp" />
-    <ClCompile Include="Step\SaveDataAdapter.cpp" />
-    <ClCompile Include="Step\ScanResourceFolder.cpp" />
-    <ClCompile Include="Step\VersionUpdater.cpp" />
-    <ClCompile Include="Step\WriteToFile.cpp" />
+    <ClCompile Include="Step\MergeFileList.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="Step\SaveDataAdapter.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="Step\ScanResourceFolder.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="Step\VersionUpdater.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
+    <ClCompile Include="Step\WriteToFile.cpp">
+      <Filter>Step</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PackingLauncher.h" />
-    <ClInclude Include="Step\MergeFileList.h" />
-    <ClInclude Include="Step\SaveDataAdapter.h" />
-    <ClInclude Include="Step\ScanResourceFolder.h" />
-    <ClInclude Include="Step\VersionUpdater.h" />
-    <ClInclude Include="Step\WriteToFile.h" />
+    <ClInclude Include="Step\MergeFileList.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="Step\SaveDataAdapter.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="Step\ScanResourceFolder.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="Step\VersionUpdater.h">
+      <Filter>Step</Filter>
+    </ClInclude>
+    <ClInclude Include="Step\WriteToFile.h">
+      <Filter>Step</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Step">

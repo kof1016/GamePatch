@@ -7,17 +7,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UpdateLauncher.h" />
-    <ClInclude Include="State\DownloadDiffState.h" />
-    <ClInclude Include="State\DownloadFileState.h" />
-    <ClInclude Include="State\FindDiffState.h" />
-    <ClInclude Include="State\ParserFilelistState.h" />
+    <ClInclude Include="State\DownloadDiffState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="State\DownloadFileState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="State\FindDiffState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="State\ParserFilelistState.h">
+      <Filter>State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UpdateLauncher.cpp" />
-    <ClCompile Include="State\DownloadDiffState.cpp" />
-    <ClCompile Include="State\DownloadFileState.cpp" />
-    <ClCompile Include="State\FindDiffState.cpp" />
-    <ClCompile Include="State\ParserFilelistState.cpp" />
+    <ClCompile Include="State\DownloadDiffState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="State\DownloadFileState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="State\FindDiffState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="State\ParserFilelistState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
