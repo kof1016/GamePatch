@@ -1,7 +1,7 @@
 #include "CurlDebug.h"
 #include <string>
 
-namespace Utility
+namespace BZbee::Sandbox::Patch::Utility::Curl
 {
 	std::string CurlDebug::DebugInfo = "";
 

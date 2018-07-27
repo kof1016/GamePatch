@@ -1,7 +1,7 @@
 #include <iostream>
 #include "CurlHttp.h"
 
-namespace Utility
+namespace BZbee::Sandbox::Patch::Utility::Curl
 {
 	CurlHttp::CurlHttp()
 	{

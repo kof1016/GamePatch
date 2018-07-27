@@ -1,7 +1,7 @@
 #pragma once
 #include "../DataDefine.h"
 
-namespace Utility
+namespace BZbee::Sandbox::Patch::Utility::Curl
 {
 	class WriteDataAdapter final
 	{
@@ -11,10 +11,10 @@ namespace Utility
 
 		static size_t CurlCallback(char* buffer, size_t size, size_t nmemb, void* userdata);
 
-		void Bind(OnWriteData&& callback);
+		void Bind(::Utility::OnWriteData&& callback);
 		void Invoke(char* buffer, size_t nmemb) const;
 
 	private:
-		OnWriteData _OnWriteData;
+		::Utility::OnWriteData _OnWriteData;
 	};
 }

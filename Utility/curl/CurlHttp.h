@@ -6,7 +6,7 @@
 #include "CurlDebug.h"
 #include "../DataDefine.h"
 
-namespace Utility
+namespace BZbee::Sandbox::Patch::Utility::Curl
 {
 	struct CurlInitData;
 

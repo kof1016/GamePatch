@@ -1,6 +1,6 @@
 #include "WriteDataAdapter.h"
 
-namespace Utility
+namespace BZbee::Sandbox::Patch::Utility::Curl
 {
 	WriteDataAdapter::WriteDataAdapter()
 	{

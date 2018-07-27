@@ -1,7 +1,7 @@
 #include "ProgressAdapter.h"
 
 
-namespace Utility
+namespace BZbee::Sandbox::Patch::Utility::Curl
 {
 	ProgressAdapter::ProgressAdapter()
 	{
