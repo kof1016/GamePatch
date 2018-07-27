@@ -3,7 +3,7 @@
 #include "curl/curl.h"
 #include <string>
 
-namespace BZbee::Sandbox::Patch::Utility::Curl
+namespace BZbee::Sandbox::GamePatch::Utility::Curl
 {
 	class CurlDebug final
 	{

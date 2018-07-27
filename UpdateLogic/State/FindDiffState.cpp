@@ -1,9 +1,9 @@
 #include "FindDiffState.h"
 #include <utility>
 
-namespace UpdateLogic
+namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
 {
-	FindDiffState::FindDiffState(Utility::FileList& local, Utility::FileList& remote)
+	FindDiffState::FindDiffState(Utility::DataDefine::FileList& local, Utility::DataDefine::FileList& remote)
 		:_Local(std::move(local)),
 		_Remote(std::move(remote))
 	{

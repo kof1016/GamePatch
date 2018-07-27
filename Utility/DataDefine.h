@@ -8,7 +8,7 @@
 
 using namespace  std::experimental::filesystem;
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::DataDefine
 {
 	struct CurlInitData final
 	{

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Launcher
 {
 	class PackingLauncher final
 	{

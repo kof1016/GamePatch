@@ -1,17 +1,16 @@
-#include "pch.h"
 #include "catch.hpp"
 #include "../Utility/Receive/ReceiveProgress.h"
 #include "../Utility/Receive/ReceiveWriteData.h"
 #include "../Utility/Receive/ReceiveDone.h"
 
-
+using namespace BZbee::Sandbox::GamePatch::Utility;
 TEST_CASE("ReceiveProgress before bind", "[Receive]")
 {
 	//arrange
 	int total, downloaded;
 
 	//act
-	auto test = Utility::ReceiveProgress();
+	auto test = Receive::ReceiveProgress();
 	test.Bind([&](int t, int d)
 	{
 		total = t;
@@ -31,7 +30,7 @@ TEST_CASE("ReceiveProgress before invoke", "[Receive]")
 	int total, downloaded;
 
 	//act
-	auto test = Utility::ReceiveProgress();
+	auto test = Receive::ReceiveProgress();
 
 	test.Invoke(2, 1); //true 
 
@@ -48,7 +47,7 @@ TEST_CASE("ReceiveProgress before invoke", "[Receive]")
 
 TEST_CASE("ReceiveDone before bind", "[Receive]")
 {
-	auto test = Utility::ReceiveDone();
+	auto test = Receive::ReceiveDone();
 
 	bool done = false;
 	test.Bind([&](bool result)
@@ -63,7 +62,7 @@ TEST_CASE("ReceiveDone before bind", "[Receive]")
 
 TEST_CASE("ReceiveDone before invoke", "[Receive]")
 {
-	auto test = Utility::ReceiveDone();
+	auto test = Receive::ReceiveDone();
 
 	test.Invoke(true); //true 
 
@@ -83,7 +82,7 @@ TEST_CASE("ReceiveWriteData before bind", "[Receive]")
 	std::vector<char> target;
 
 	//act
-	auto test = Utility::ReceiveWriteData();
+	auto test = Receive::ReceiveWriteData();
 	test.Bind
 	(
 		[&](char* buffer, size_t total)
@@ -105,7 +104,7 @@ TEST_CASE("ReceiveWriteData before invoke", "[Receive]")
 	std::vector<char> target;
 
 	//act
-	auto test = Utility::ReceiveWriteData();
+	auto test = Receive::ReceiveWriteData();
 	test.Invoke(source, sizeof(source)); //true 
 
 	test.Bind

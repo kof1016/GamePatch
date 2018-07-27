@@ -1,6 +1,6 @@
 #include "StateMachine.h"
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::StateMachine
 {
 	StateMachine::StateMachine()
 	{
@@ -8,13 +8,13 @@ namespace Utility
 
 	StateMachine::~StateMachine()
 	{
-		std::queue<std::shared_ptr<Utility::IState>> empty;
+		std::queue<std::shared_ptr<IState>> empty;
 		std::swap(empty, _StandBys);
 
 		_CurrentState->Leave();
 	}
 
-	void StateMachine::Push(std::shared_ptr<Utility::IState> new_state)
+	void StateMachine::Push(std::shared_ptr<IState> new_state)
 	{
 		_StandBys.emplace(new_state);
 	}

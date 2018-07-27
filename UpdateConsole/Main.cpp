@@ -8,7 +8,7 @@
 
 int main(int argc, char* argv[])
 {
-	UpdateLogic::UpdateLauncher launcher;
+	BZbee::Sandbox::GamePatch::UpdateLogic::Launcher::UpdateLauncher launcher;
 
 	launcher.OnDownloadProgress([=](int total_size, int downloaded_size)
 	{

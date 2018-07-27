@@ -1,6 +1,6 @@
 #include "WriteDataAdapter.h"
 
-namespace BZbee::Sandbox::Patch::Utility::Curl
+namespace BZbee::Sandbox::GamePatch::Utility::Curl
 {
 	WriteDataAdapter::WriteDataAdapter()
 	{
@@ -10,7 +10,7 @@ namespace BZbee::Sandbox::Patch::Utility::Curl
 	{
 	}
 
-	void WriteDataAdapter::Bind(OnWriteData&& callback)
+	void WriteDataAdapter::Bind(DataDefine::OnWriteData&& callback)
 	{
 		_OnWriteData = callback;
 	}

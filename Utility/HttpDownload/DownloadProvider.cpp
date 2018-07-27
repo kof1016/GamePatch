@@ -3,7 +3,7 @@
 #include "HttpDownloadTask.h"
 #include <future>
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::HttpDownload
 {
 	//std::ofstream outfile;
 
@@ -24,16 +24,16 @@ namespace Utility
 		int i = 0;
 	}
 
-	std::shared_ptr<ReceiverFacade> DownloadProvider::Start(std::string url)
+	std::shared_ptr<Receive::ReceiverFacade> DownloadProvider::Start(std::string url)
 	{
-		const std::shared_ptr<ReceiverFacade> receiverFacade(new ReceiverFacade());
+		const std::shared_ptr<Receive::ReceiverFacade> receiverFacade(new Receive::ReceiverFacade());
 
 		auto task = new HttpDownloadTask(receiverFacade);
 		_Tasks.emplace_back(task);
 
 		task->BindDownloadDone
 		(
-			OnReceiveDownloadDone([=](bool result)
+			DataDefine::OnReceiveDownloadDone([=](bool result)
 			{
 				_Tasks.remove(task);
 				delete task;

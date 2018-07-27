@@ -1,6 +1,6 @@
 #include "VersionUpdater.h"
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	VersionUpdater::VersionUpdater(int current_ver)
 		: _NewtVer(current_ver + 1)

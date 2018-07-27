@@ -2,13 +2,13 @@
 #include "../../Utility/StateMachine/IState.h"
 #include "../../Utility/DataDefine.h"
 
-namespace UpdateLogic
+namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
 {
-	class ParserFilelistState final : public Utility::IState
+	class ParserFilelistState final : public Utility::StateMachine::IState
 	{
 	public:
 		
-		typedef std::function<void(Utility::FileData, Utility::FileData)> DoneEvent;
+		typedef std::function<void(Utility::DataDefine::FileData, Utility::DataDefine::FileData)> DoneEvent;
 		typedef std::function<void()> FailEvent;
 		
 		

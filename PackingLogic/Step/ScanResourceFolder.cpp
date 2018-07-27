@@ -4,14 +4,14 @@
 #include "../../Utility/File/FileTool.h"
 
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	ScanResourceFolder::ScanResourceFolder(std::string input_path)
 		: _InputPath(std::move(input_path))
 	{
 	}
 
-	Utility::FileList ScanResourceFolder::Make()
+	Utility::DataDefine::FileList ScanResourceFolder::Make()
 	{
 		for (auto& p : directory_iterator(_InputPath))
 		{
@@ -39,11 +39,11 @@ namespace PackingLogic
 	void ScanResourceFolder::_AddToList(const std::string& path)
 	{
 		std::vector<char> buffer;
-		FileTool::ReadFileToBuffer(path, buffer);
+		Utility::File::ReadFileToBuffer(path, buffer);
 
-		const auto md5 = FileTool::CreateMD5(buffer);
+		const auto md5 = Utility::File::CreateMD5(buffer);
 
-		const auto c = Utility::FileData{md5, path};
+		const auto c = Utility::DataDefine::FileData{md5, path};
 		_FileList.push_back(c);
 	}
 }

@@ -19,7 +19,7 @@ int main()
 
 	_getch();
 
-	PackingLogic::PackingLauncher launcer;
+	BZbee::Sandbox::GamePatch::PackingLogic::Launcher::PackingLauncher launcer;
 
 	launcer.Start();
     

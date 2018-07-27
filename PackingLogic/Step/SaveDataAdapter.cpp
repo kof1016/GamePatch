@@ -1,9 +1,9 @@
 #include "SaveDataAdapter.h"
 #include <utility>
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
-	SaveDataAdapter::SaveDataAdapter(Utility::FileList merge_list, int newest_ver)
+	SaveDataAdapter::SaveDataAdapter(Utility::DataDefine::FileList merge_list, int newest_ver)
 		:_MergeList(std::move(merge_list))
 		,_NewestVer(newest_ver)
 	{
@@ -13,9 +13,9 @@ namespace PackingLogic
 	{
 	}
 
-	Utility::SaveList SaveDataAdapter::Adapter()
+	Utility::DataDefine::SaveList SaveDataAdapter::Adapter()
 	{
-		auto path = Utility::FileListSavePath(_NewestVer);
+		auto path = Utility::DataDefine::FileListSavePath(_NewestVer);
 		_SaveList.push_back({path.string()});
 
 		for (auto& a : _MergeList)

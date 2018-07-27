@@ -7,7 +7,7 @@
 #include "../Utility/File/DataParser.h"
 #include "../Utility/File/FileTool.h"
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Launcher
 {
 	PackingLauncher::PackingLauncher()
 	{
@@ -20,33 +20,33 @@ namespace PackingLogic
 	void PackingLauncher::Start()
 	{
 		//step1
-		FileTool::CreateDir(Utility::PACKING_FOLDER_NAME);
+		Utility::File::CreateDir(Utility::DataDefine::PACKING_FOLDER_NAME);
 		
 		//step2
-		const auto currentVerNumber = Utility::DataParser::ParserVersionNumberByFile(Utility::NewestVerFilePath().string());
+		const auto currentVerNumber = Utility::File::DataParser::ParserVersionNumberByFile(Utility::DataDefine::NewestVerFilePath().string());
 
 		//step3
-		const auto currentVerFileList = Utility::DataParser::ParserFileListByFile(Utility::FileListSavePath(currentVerNumber).string());
+		const auto currentVerFileList = Utility::File::DataParser::ParserFileListByFile(Utility::DataDefine::FileListSavePath(currentVerNumber).string());
 
 		//step4
-		const auto resourceFileList = ScanResourceFolder(path(Utility::RESOURCE_FOLDER_NAME).string()).Make();
+		const auto resourceFileList = Step::ScanResourceFolder(path(Utility::DataDefine::RESOURCE_FOLDER_NAME).string()).Make();
 		
 		//step5		
-		const auto mergedList = MergeFileList(currentVerFileList, resourceFileList).Result();
+		const auto mergedList = Step::MergeFileList(currentVerFileList, resourceFileList).Result();
 
 		//step6
-		const auto newestVer = VersionUpdater(currentVerNumber).UpdateVer(); 
+		const auto newestVer = Step::VersionUpdater(currentVerNumber).UpdateVer(); 
 
 		//step7
-		CreateNewestVerFile(Utility::NewestVerFilePath().string(), "ver=" + std::to_string(newestVer)).Write();
+		Step::CreateNewestVerFile(Utility::DataDefine::NewestVerFilePath().string(), "ver=" + std::to_string(newestVer)).Write();
 		
 		//step8
-		CreateFileListFile(Utility::FileListSavePath(newestVer).string(), mergedList).Write();
+		Step::CreateFileListFile(Utility::DataDefine::FileListSavePath(newestVer).string(), mergedList).Write();
 
 		//step9
-		const auto savelist = SaveDataAdapter(mergedList, newestVer).Adapter();
+		const auto savelist = Step::SaveDataAdapter(mergedList, newestVer).Adapter();
 		
 		//step10
-		FileTool::CreateZipFromSaveList(savelist, Utility::ZipFileSavePath(newestVer).string());
+		Utility::File::CreateZipFromSaveList(savelist, Utility::DataDefine::ZipFileSavePath(newestVer).string());
 	}
 }

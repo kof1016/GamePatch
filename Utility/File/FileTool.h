@@ -10,7 +10,7 @@
 
 using namespace std::experimental::filesystem ;
 
-namespace FileTool
+namespace BZbee::Sandbox::GamePatch::Utility::File
 {
 	static _off_t GetFileSize_C(std::string& path)
 	{
@@ -99,7 +99,7 @@ namespace FileTool
 		}
 	}
 
-	static void CreateZipFromSaveList(Utility::SaveList save_list, const std::string& target_path)
+	static void CreateZipFromSaveList(DataDefine::SaveList save_list, const std::string& target_path)
 	{
 		const auto zFile = zipOpen(target_path.data(), APPEND_STATUS_CREATE);
 

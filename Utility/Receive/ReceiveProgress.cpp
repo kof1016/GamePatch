@@ -1,6 +1,6 @@
 #include "ReceiveProgress.h"
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::Receive
 {
 	ReceiveProgress::ReceiveProgress()
 	{
@@ -15,7 +15,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiveProgress::Bind(OnProgress&& callback)
+	void ReceiveProgress::Bind(DataDefine::OnProgress&& callback)
 	{
 		_OnProgress = callback;
 		

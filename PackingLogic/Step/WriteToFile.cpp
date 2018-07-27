@@ -1,6 +1,6 @@
 #include "WriteToFile.h"
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	
 	

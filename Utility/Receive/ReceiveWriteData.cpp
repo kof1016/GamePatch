@@ -2,7 +2,7 @@
 #include <vector>
 
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::Receive
 {
 	ReceiveWriteData::ReceiveWriteData()
 	{
@@ -12,7 +12,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiveWriteData::Bind(OnWriteData&& callback)
+	void ReceiveWriteData::Bind(DataDefine::OnWriteData&& callback)
 	{
 		_OnWriteData = callback;
 

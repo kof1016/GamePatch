@@ -1,5 +1,5 @@
 #pragma once
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::StateMachine
 {
 	class IState
 	{

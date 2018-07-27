@@ -2,19 +2,19 @@
 #include <vector>
 #include "../../Utility/DataDefine.h"
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	class SaveDataAdapter final
 	{
 
 	public:
 		SaveDataAdapter() = delete;
-		SaveDataAdapter(Utility::FileList merge_list, int newest_ver);
+		SaveDataAdapter(Utility::DataDefine::FileList merge_list, int newest_ver);
 		~SaveDataAdapter();
-		Utility::SaveList Adapter();
+		Utility::DataDefine::SaveList Adapter();
 	private:
-		Utility::FileList _MergeList;
+		Utility::DataDefine::FileList _MergeList;
 		int _NewestVer;
-		Utility::SaveList _SaveList;
+		Utility::DataDefine::SaveList _SaveList;
 	};
 }

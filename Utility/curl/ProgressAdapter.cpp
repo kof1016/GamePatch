@@ -1,7 +1,7 @@
 #include "ProgressAdapter.h"
 
 
-namespace BZbee::Sandbox::Patch::Utility::Curl
+namespace BZbee::Sandbox::GamePatch::Utility::Curl
 {
 	ProgressAdapter::ProgressAdapter()
 	{
@@ -13,7 +13,7 @@ namespace BZbee::Sandbox::Patch::Utility::Curl
 		
 	}
 
-	void ProgressAdapter::Bind(OnProgress&& callback)
+	void ProgressAdapter::Bind(DataDefine::OnProgress&& callback)
 	{
 		_OnProgress = callback;
 	}

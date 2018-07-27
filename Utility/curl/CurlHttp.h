@@ -6,10 +6,8 @@
 #include "CurlDebug.h"
 #include "../DataDefine.h"
 
-namespace BZbee::Sandbox::Patch::Utility::Curl
+namespace BZbee::Sandbox::GamePatch::Utility::Curl
 {
-	struct CurlInitData;
-
 	class CurlHttp final 
 	{
 	public:
@@ -18,12 +16,12 @@ namespace BZbee::Sandbox::Patch::Utility::Curl
 		
 		void GetRemoteFileSize(std::string url);
 
-		void Downloading(CurlInitData&& data);
+		void Downloading(DataDefine::CurlInitData&& data);
 
-		void BindWriteData(OnWriteData&& callback);
-		void BindReceiveDone(OnReceiveDownloadDone&& callback);
+		void BindWriteData(DataDefine::OnWriteData&& callback);
+		void BindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback);
 
-		void BindProgress(OnProgress&& callback);
+		void BindProgress(DataDefine::OnProgress&& callback);
 
 	private:
 		void _SetUrl(std::string&& url);
@@ -43,7 +41,7 @@ namespace BZbee::Sandbox::Patch::Utility::Curl
 		CURL* _pCurl{nullptr};
 		CURLcode _Result;
 
-		OnReceiveDownloadDone _OnReceiveDone;
+		DataDefine::OnReceiveDownloadDone _OnReceiveDone;
 		curl_off_t _RemoteFileSize{-1};
 	};
 }

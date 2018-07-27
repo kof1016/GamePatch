@@ -3,7 +3,7 @@
 #include "IDownloadable.h"
 #include <future>
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::HttpDownload
 {
 	class HttpDownloadTask;
 
@@ -13,7 +13,7 @@ namespace Utility
 		DownloadProvider();
 		virtual ~DownloadProvider();
 
-		std::shared_ptr<ReceiverFacade> Start(std::string url) override;
+		std::shared_ptr<Receive::ReceiverFacade> Start(std::string url) override;
 
 	private:
 		std::list<HttpDownloadTask*> _Tasks;

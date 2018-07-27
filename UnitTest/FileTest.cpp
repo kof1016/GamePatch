@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "catch.hpp"
 #include <fstream>
 
@@ -15,6 +14,9 @@
 #include "../Utility/File/FileTool.h"
 
 using namespace std;
+
+using namespace BZbee::Sandbox::GamePatch::Utility;
+using namespace BZbee::Sandbox::GamePatch::PackingLogic;
 
 TEST_CASE("Filesystem remove test", "[file]")
 {
@@ -44,12 +46,12 @@ TEST_CASE("FileList Parser Test", "[file]")
 
 	const std::string data_filelist = "+|9e107d9d372bb6826bd81d3542a419d6|actions/1.png";
 	//act
-	Utility::DataParser parser;
+	File::DataParser parser;
 
 
-	auto verNum = Utility::DataParser::ParserVersionNumber(data_ver);
+	auto verNum = File::DataParser::ParserVersionNumber(data_ver);
 
-	auto filelist = Utility::DataParser::ParserFileList(data_filelist);
+	auto filelist = File::DataParser::ParserFileList(data_filelist);
 
 	// assert
 	REQUIRE(verNum == 1);
@@ -62,12 +64,12 @@ TEST_CASE("FileList Parser Test", "[file]")
 TEST_CASE("FileList Parser by file Test", "[file]")
 {
 	//arrange
-	path filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
+	path filePath = DataDefine::PACKING_FOLDER_NAME / DataDefine::NEWESTVER_NAME;
 
 	//act
-	Utility::DataParser parser;
+	File::DataParser parser;
 
-	auto verNum = Utility::DataParser::ParserVersionNumberByFile(filePath.string());
+	auto verNum = File::DataParser::ParserVersionNumberByFile(filePath.string());
 
 	//auto filelist = Utility::DataParser::ParserFileList(data_filelist);
 
@@ -82,8 +84,8 @@ TEST_CASE("FileList Parser by file Test", "[file]")
 TEST_CASE("first config parser", "[file]")
 {
 	//act
-	auto verNum = Utility::DataParser::ParserVersionNumber("");
-	auto filelist = Utility::DataParser::ParserFileList("");
+	auto verNum = File::DataParser::ParserVersionNumber("");
+	auto filelist = File::DataParser::ParserFileList("");
 
 	// assert
 	REQUIRE(verNum == 0);
@@ -183,7 +185,7 @@ TEST_CASE("MD5 Test", "[file]")
 
  TEST_CASE("minizip-zip test", "[file]")
  {
- 	const auto fileList = PackingLogic::ScanResourceFolder("TestFolder").Make();
+ 	const auto fileList = Step::ScanResourceFolder("TestFolder").Make();
 
  	const auto zFile = zipOpen("testpack2.zip", APPEND_STATUS_CREATE);
  	
@@ -199,7 +201,7 @@ TEST_CASE("MD5 Test", "[file]")
  			return;
  		}
  		vector<char> buffer;
- 		FileTool::ReadFileToBufferToBinary(p.Path, buffer);
+		File::ReadFileToBufferToBinary(p.Path, buffer);
  		ret = zipWriteInFileInZip(zFile, buffer.data(), buffer.size());
  		
  		if (ret != ZIP_OK)
@@ -260,7 +262,7 @@ TEST_CASE("MD5 Test", "[file]")
  		// Check if this entry is a directory or file.  
  		if(!path(filename).has_extension())
  		{
- 			FileTool::CreateDir(path(filename));
+			BZbee::Sandbox::GamePatch::Utility::File::CreateDir(path(filename));
  		}
  		else
  		{
@@ -272,7 +274,7 @@ TEST_CASE("MD5 Test", "[file]")
  			}
 
  			// Open a file to write out the data.  
- 			FileTool::CreateDir(path(filename).parent_path());
+			File::CreateDir(path(filename).parent_path());
  			
  			FILE* out = fopen(filename, "wb");
  			if (out == nullptr)

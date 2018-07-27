@@ -4,7 +4,7 @@
 #include "../../Utility/DataDefine.h"
 #include <fstream>
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	template <typename T1>
 	class WriteToFile
@@ -42,12 +42,12 @@ namespace PackingLogic
 	typedef WriteFileFromString CreateNewestVerFile;
 
 	template <>
-	class WriteToFile<Utility::FileList>
+	class WriteToFile<Utility::DataDefine::FileList>
 	{
 	public:
 		WriteToFile() = delete;
 
-		WriteToFile(std::string path, Utility::FileList content)
+		WriteToFile(std::string path, Utility::DataDefine::FileList content)
 			: _Path(path)
 			, _FileList(std::move(content))
 
@@ -68,8 +68,8 @@ namespace PackingLogic
 
 	private:
 		std::string _Path;
-		Utility::FileList _FileList;
+		Utility::DataDefine::FileList _FileList;
 	};
-	typedef class WriteToFile<Utility::FileList> WriteFileFromList;
+	typedef class WriteToFile<Utility::DataDefine::FileList> WriteFileFromList;
 	typedef WriteFileFromList CreateFileListFile;
 }

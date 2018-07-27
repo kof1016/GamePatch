@@ -4,10 +4,10 @@
 #include <fstream>
 #include <utility>
 
-namespace UpdateLogic
+namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
 {
-	DownloadFileState::DownloadFileState(std::shared_ptr<Utility::ReceiverFacade> facade,
-										Utility::FileWriter& file_writer)
+	DownloadFileState::DownloadFileState(std::shared_ptr<Utility::Receive::ReceiverFacade> facade,
+										Utility::File::FileWriter& file_writer)
 		: _ReceiverFacade(facade),
 		_FileWriter(file_writer)
 	{
@@ -64,7 +64,7 @@ namespace UpdateLogic
 		_OnDone = callback;
 	}
 
-	void DownloadFileState::OnProgressEvent(Utility::OnProgress&& callback)
+	void DownloadFileState::OnProgressEvent(Utility::DataDefine::OnProgress&& callback)
 	{
 		_OnProgress = callback;
 	}

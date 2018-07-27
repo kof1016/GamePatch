@@ -1,22 +1,20 @@
-#include "pch.h"
 #include "catch.hpp"
 #include <filesystem>
 #include "../Utility/DataDefine.h"
 #include "../Utility/File/FileTool.h"
-#include "../Utility/Linq/cpplinq.hpp"
-
 #include "../PackingLogic/Step/ScanResourceFolder.h"
 #include "../PackingLogic/Step/MergeFileList.h"
 #include "../PackingLogic/Step/VersionUpdater.h"
 
 
-
+using namespace BZbee::Sandbox::GamePatch::PackingLogic;
+using namespace BZbee::Sandbox::GamePatch::Utility;
 TEST_CASE("merge tets", "[packing]")
 {
-	Utility::FileList current{};
+	DataDefine::FileList current{};
 	std::cout << "current size = " << current.size()<< std::endl;
 
-	Utility::FileList resource
+	DataDefine::FileList resource
 	{
 		{"md5-1", "path1"},
 		{"md5-2", "path2"},
@@ -26,7 +24,7 @@ TEST_CASE("merge tets", "[packing]")
 	};
 	std::cout << "resource size = " << resource.size() << std::endl;
 
-	auto mergedList = PackingLogic::MergeFileList(current, resource).Result();
+	auto mergedList = Step::MergeFileList(current, resource).Result();
 	
 	REQUIRE(mergedList.size() == 5);
 
@@ -41,9 +39,9 @@ TEST_CASE("merge tets", "[packing]")
 
 TEST_CASE("ScanResourceFolder test", "[packing]")
 {
-	const auto path = Utility::RESOURCE_FOLDER_NAME;
+	const auto path = DataDefine::RESOURCE_FOLDER_NAME;
 
-	PackingLogic::ScanResourceFolder maker(path);
+	Step::ScanResourceFolder maker(path);
 
 	const auto reuslt = maker.Make();
 
@@ -60,7 +58,7 @@ TEST_CASE("update ver test", "[packing]")
 
 	//test
 	auto currentVer = 0;
-	PackingLogic::VersionUpdater updater(currentVer);
+	Step::VersionUpdater updater(currentVer);
 	auto newestVer = updater.UpdateVer();
 
 	std::cout << "currentVer= " << currentVer << std::endl;
@@ -73,7 +71,7 @@ TEST_CASE("save filelist test", "[packing]")
 {
 	//arrange
 	int newestVer = 1;
-	Utility::FileList files
+	DataDefine::FileList files
 	{
 		{"+", "1", "path1"},
 		{"+", "2", "path2"},
@@ -82,10 +80,7 @@ TEST_CASE("save filelist test", "[packing]")
 		{"+", "5", "path5"},
 	};
 
-	auto saveTarget = Utility::FileListSavePath(newestVer);
-
-	auto aa = absolute(saveTarget);
-
+	auto saveTarget = DataDefine::FileListSavePath(newestVer);
 
 	if (!exists(saveTarget.parent_path()))
 	{
@@ -100,57 +95,4 @@ TEST_CASE("save filelist test", "[packing]")
 	}
 
 	outfile.close();
-}
-
-TEST_CASE("Create zip test", "[packing]")
-{
-	//arrange
-	Utility::FileList _FileList
-	{
-		{"-", "1", "resource/art/1.txt"},
-		{"+", "2", "resource/art/2.txt"},
-		// {"-", "3", "3.txt"},
-		// {"-", "4", "path4"},
-		// {"-", "5", "path5"},
-	};
-
-	namespace fs = std::experimental::filesystem;
-
-	path target(Utility::FileListSavePath(1));
-
-	for (auto& d : _FileList)
-	{
-		if (d.StateSymbol == "+")
-		{
-			auto sourceFile = path(d.Path);
-			const auto targetFolder = target.parent_path() / sourceFile.parent_path();
-
-			if (!exists(targetFolder))
-			{
-				create_directories(targetFolder);
-			}
-			copy_file(sourceFile, targetFolder / sourceFile.filename(), copy_options::overwrite_existing);
-		}
-	}
-}
-
-TEST_CASE("copy file", "[packing]")
-{
-	//arrangeMergeFileList
-	namespace fs = std::experimental::filesystem;
-
-	path sourceFile = "Resource/art/1.txt";
-	path targetParent = "ResourcePack/";
-
-	auto sourceParent = sourceFile.parent_path();
-
-	auto targetFolder = targetParent / sourceParent; // sourceFile.filename() returns "sourceFile.ext".
-
-	if (!exists(targetFolder))
-	{
-		create_directories(targetFolder);
-	}
-	copy_file(sourceFile, targetFolder / sourceFile.filename(), copy_options::overwrite_existing);
-
-	
 }

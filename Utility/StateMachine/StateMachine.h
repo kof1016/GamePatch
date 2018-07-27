@@ -3,7 +3,7 @@
 #include <queue>
 #include <memory>
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::StateMachine
 {
 	class StateMachine final
 	{

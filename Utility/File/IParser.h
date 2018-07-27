@@ -2,13 +2,13 @@
 #include "../DataDefine.h"
 
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::File
 {
 	class IParser
 	{
 	public:
 		IParser()=default;
 		virtual ~IParser() = default;
-		virtual FileList Parser(const std::string& data) = 0;
+		virtual DataDefine::FileList Parser(const std::string& data) = 0;
 	};
 }

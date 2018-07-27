@@ -3,18 +3,18 @@
 #include "../../Utility/Linq/cpplinq.hpp"
 
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	class MergeFileList
 	{
 	public:
-		MergeFileList(Utility::FileList current, Utility::FileList all_source);
+		MergeFileList(Utility::DataDefine::FileList current, Utility::DataDefine::FileList all_source);
 		~MergeFileList();
 
-		Utility::FileList Result();
+		Utility::DataDefine::FileList Result();
 
 	private:
-		Utility::FileList _Current;
-		Utility::FileList _AllSource;
+		Utility::DataDefine::FileList _Current;
+		Utility::DataDefine::FileList _AllSource;
 	};
 }

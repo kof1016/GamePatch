@@ -1,7 +1,7 @@
 #include <iostream>
 #include "CurlHttp.h"
 
-namespace BZbee::Sandbox::Patch::Utility::Curl
+namespace BZbee::Sandbox::GamePatch::Utility::Curl
 {
 	CurlHttp::CurlHttp()
 	{
@@ -51,7 +51,7 @@ namespace BZbee::Sandbox::Patch::Utility::Curl
 		curl_easy_cleanup(curl);
 	}
 
-	void CurlHttp::Downloading(CurlInitData&& data)
+	void CurlHttp::Downloading(DataDefine::CurlInitData&& data)
 	{
 		//GetRemoteFileSize(data.Url);
 		_pCurl = curl_easy_init();
@@ -73,17 +73,17 @@ namespace BZbee::Sandbox::Patch::Utility::Curl
 		_CheckResult(data.CheckResult);
 	}
 
-	void CurlHttp::BindWriteData(OnWriteData&& callback)
+	void CurlHttp::BindWriteData(DataDefine::OnWriteData&& callback)
 	{
 		_CurlWriteDataAdapter.Bind(std::move(callback));
 	}
 
-	void CurlHttp::BindReceiveDone(OnReceiveDownloadDone&& callback)
+	void CurlHttp::BindReceiveDone(DataDefine::OnReceiveDownloadDone&& callback)
 	{
 		_OnReceiveDone = callback;
 	}
 
-	void CurlHttp::BindProgress(OnProgress&& callback)
+	void CurlHttp::BindProgress(DataDefine::OnProgress&& callback)
 	{
 		_CurlProgressAdapter.Bind(std::move(callback));
 	}

@@ -13,17 +13,14 @@
     <Filter Include="File">
       <UniqueIdentifier>{fe274e20-8258-4997-8e9d-7d5b4aabc013}</UniqueIdentifier>
     </Filter>
-    <Filter Include="HttpDownload">
-      <UniqueIdentifier>{0cdfc199-ed9e-455a-9ea6-82a211df53cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Receive">
       <UniqueIdentifier>{7f13c31b-cd60-4efc-9b73-49ba8b0b31ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="linq">
       <UniqueIdentifier>{929d9cc3-9d28-4202-9eba-743c0c4be710}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zip">
-      <UniqueIdentifier>{7335464b-ba4b-4e37-85c7-c164e1c5a447}</UniqueIdentifier>
+    <Filter Include="HttpDownload123">
+      <UniqueIdentifier>{0cdfc199-ed9e-455a-9ea6-82a211df53cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

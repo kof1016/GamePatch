@@ -2,9 +2,9 @@
 #include <utility>
 #include "../../Utility/Linq/cpplinq.hpp"
 
-namespace PackingLogic
+namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
 {
-	MergeFileList::MergeFileList(Utility::FileList current, Utility::FileList all_source)
+	MergeFileList::MergeFileList(Utility::DataDefine::FileList current, Utility::DataDefine::FileList all_source)
 		: _Current(std::move(current))
 		, _AllSource(std::move(all_source))
 	{
@@ -15,7 +15,7 @@ namespace PackingLogic
 	{
 	}
 
-	Utility::FileList MergeFileList::Result()
+	Utility::DataDefine::FileList MergeFileList::Result()
 	{
 		using namespace cpplinq;
 

@@ -3,7 +3,7 @@
 
 
 
-namespace UpdateLogic
+namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
 {
 	ParserFilelistState::ParserFilelistState()
 	{

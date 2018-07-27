@@ -4,7 +4,7 @@
 #include "ReceiveWriteData.h"
 #include "ReceiveProgress.h"
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::Receive
 {
 
 	// template<typename T>
@@ -26,13 +26,13 @@ namespace Utility
 		ReceiverFacade();
 		~ReceiverFacade();
 
-		void BindReceiverDone(OnReceiveDownloadDone&& callback);
+		void BindReceiverDone(DataDefine::OnReceiveDownloadDone&& callback);
 		void InvokeDownloadDone(bool result);
 
-		void BindWriteData(OnWriteData&& callback);
+		void BindWriteData(DataDefine::OnWriteData&& callback);
 		void InvokeWriteData(char* buffer, size_t total);
 
-		void BindProgress(OnProgress&& callback);
+		void BindProgress(DataDefine::OnProgress&& callback);
 		void InvokeProgress(int total_size, int downloaded_size);
 
 	private:

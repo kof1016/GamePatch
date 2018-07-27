@@ -1,6 +1,6 @@
 #include "ReceiveDone.h"
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::Receive
 {
 	ReceiveDone::ReceiveDone()
 	{
@@ -12,7 +12,7 @@ namespace Utility
 	{
 	}
 
-	void ReceiveDone::Bind(OnReceiveDownloadDone&& callback)
+	void ReceiveDone::Bind(DataDefine::OnReceiveDownloadDone&& callback)
 	{
 		_OnDownloadDone = callback;
 

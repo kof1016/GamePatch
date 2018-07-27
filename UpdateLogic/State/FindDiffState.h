@@ -3,13 +3,13 @@
 #include "../../Utility/DataDefine.h"
 #include <queue>
 
-namespace UpdateLogic
+namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
 {
-	class FindDiffState final : public Utility::IState
+	class FindDiffState final : public Utility::StateMachine::IState
 	{
 	public:
 		typedef std::function<void(std::queue<std::string>)> OnDone;
-		FindDiffState(Utility::FileList& local, Utility::FileList& remote);
+		FindDiffState(Utility::DataDefine::FileList& local, Utility::DataDefine::FileList& remote);
 		~FindDiffState();
 		void Enter() override;
 		void Leave() override;
@@ -17,8 +17,8 @@ namespace UpdateLogic
 		void OnDoneEvent(OnDone&& callback);
 
 	private:
-		Utility::FileList _Local;
-		Utility::FileList _Remote;
+		Utility::DataDefine::FileList _Local;
+		Utility::DataDefine::FileList _Remote;
 		OnDone _OnDone;
 	};
 }

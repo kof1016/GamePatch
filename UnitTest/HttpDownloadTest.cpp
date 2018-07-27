@@ -1,5 +1,3 @@
-#include "pch.h"
-
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "../Utility/Receive/ReceiverFacade.h"
@@ -7,7 +5,9 @@
 #include "../Utility/File/FileTool.h"
 #include "../Utility/HttpDownload/DownloadProvider.h"
 
-class FakeDonwload : public Utility::IDownloadable
+using namespace BZbee::Sandbox::GamePatch::Utility;
+
+class FakeDonwload : public HttpDownload::IDownloadable
 {
 public:
 	FakeDonwload(int file_size) : _FileSize(file_size)
@@ -22,7 +22,7 @@ public:
 	{
 	}
 
-	std::shared_ptr<Utility::ReceiverFacade> Start(std::string url) override
+	std::shared_ptr<Receive::ReceiverFacade> Start(std::string url) override
 	{
 		return _ReceiverFacade;
 	}
@@ -41,7 +41,7 @@ public:
 	}
 
 private:
-	std::shared_ptr<Utility::ReceiverFacade> _ReceiverFacade{new Utility::ReceiverFacade()};
+	std::shared_ptr<Receive::ReceiverFacade> _ReceiverFacade{new Receive::ReceiverFacade()};
 	int _FileSize{0};
 	int _DownloadedSize{0};
 };
@@ -218,10 +218,10 @@ TEST_CASE("download one file", "[httpdownload]")
 	//arrange
 	//std::string url = "http://tpdb.speed2.hinet.net/test_040m.zip";
 
-	FileTool::CreateDir(Utility::PACKING_FOLDER_NAME);
+	File::CreateDir(DataDefine::PACKING_FOLDER_NAME);
 	
-	path filePath = Utility::PACKING_FOLDER_NAME / Utility::NEWESTVER_NAME;
-	const auto url = Utility::FilePathToUrl(filePath);
+	path filePath = DataDefine::PACKING_FOLDER_NAME / DataDefine::NEWESTVER_NAME;
+	const auto url = DataDefine::FilePathToUrl(filePath);
 	
 	
 	std::string filename = "NewestVer.txt";
@@ -230,9 +230,9 @@ TEST_CASE("download one file", "[httpdownload]")
 	fopen_s(&fp, filePath.string().data(), "w");
 
 	//act
-	Utility::DownloadProvider download; //user
-	auto size = FileTool::GetFileSize_C(filename);
-	auto size1 = FileTool::GetFileSize_CPlusPlus(filename);
+	HttpDownload::DownloadProvider download; //user
+	auto size = File::GetFileSize_C(filename);
+	auto size1 = File::GetFileSize_CPlusPlus(filename);
 
 	auto facade = download.Start(url);
 
@@ -282,7 +282,7 @@ SCENARIO("download muti file", "[httpdownload]")
 
 		WHEN("i ready download")
 		{
-			Utility::DownloadProvider download; //user
+			HttpDownload::DownloadProvider download; //user
 
 			THEN("i receive file in disk")
 			{

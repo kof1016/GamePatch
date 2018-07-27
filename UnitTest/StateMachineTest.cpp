@@ -1,10 +1,11 @@
-#include "pch.h"
 #include "catch.hpp"
 #include "../Utility/StateMachine/IState.h"
 #include "../Utility/StateMachine/StateMachine.h"
+#include <iostream>
 
+using namespace BZbee::Sandbox::GamePatch::Utility;
 
-class FakeState final : public Utility::IState
+class FakeState final : public StateMachine::IState
 {
 public:
 	FakeState()
@@ -36,7 +37,7 @@ public:
 
 TEST_CASE("state machine test", "[Utility]")
 {
-	 auto machine = new Utility::StateMachine;
+	 auto machine = new StateMachine::StateMachine;
  
 	 const auto fake = new FakeState;
 
@@ -47,7 +48,7 @@ TEST_CASE("state machine test", "[Utility]")
 		bDone = true;
 	 };
  
-	 const std::shared_ptr<Utility::IState> state(fake);
+	 const std::shared_ptr<StateMachine::IState> state(fake);
 	 machine->Push(state);
 	 machine->Update();
  

@@ -1,7 +1,7 @@
 #include "FileWriter.h"
 
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::File
 {
 	FileWriter::FileWriter(std::string save_path, std::string mode)
 	:_SavePath(std::move(save_path))

@@ -2,9 +2,9 @@
 #include <iostream>
 #include <memory>
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::HttpDownload
 {
-	HttpDownloadTask::HttpDownloadTask(std::shared_ptr<ReceiverFacade> receiver_facade)
+	HttpDownloadTask::HttpDownloadTask(std::shared_ptr<Receive::ReceiverFacade> receiver_facade)
 	{
 		_ReceiverFacade = receiver_facade;
 
@@ -41,7 +41,7 @@ namespace Utility
 
 		try
 		{
-			_CurlHttp.Downloading(CurlInitData
+			_CurlHttp.Downloading(DataDefine::CurlInitData
 				{
 					url, //url
 					false, //postMode
@@ -60,7 +60,7 @@ namespace Utility
 		}
 	}
 
-	void HttpDownloadTask::BindDownloadDone(OnReceiveDownloadDone&& callback)
+	void HttpDownloadTask::BindDownloadDone(DataDefine::OnReceiveDownloadDone&& callback)
 	{
 		_OnDownloadDone = callback;
 

@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <string>
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::File
 {
 	class FileWriter final
 	{

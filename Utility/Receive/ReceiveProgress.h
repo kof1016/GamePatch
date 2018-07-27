@@ -1,7 +1,7 @@
 #pragma once
 #include "../DataDefine.h"
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::Receive
 {
 	class ReceiveProgress
 	{
@@ -9,11 +9,11 @@ namespace Utility
 		ReceiveProgress();
 		~ReceiveProgress();
 
-		void Bind(OnProgress&& callback);
+		void Bind(DataDefine::OnProgress&& callback);
 		void Invoke(int total_size, int downloaded_size);
 
 	private:
-		OnProgress _OnProgress;
+		DataDefine::OnProgress _OnProgress;
 
 		int _Total{0};
 		int _Downloaded{0};

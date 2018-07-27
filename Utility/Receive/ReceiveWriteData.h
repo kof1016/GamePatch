@@ -3,7 +3,7 @@
 #include <vector>
 
 
-namespace Utility
+namespace BZbee::Sandbox::GamePatch::Utility::Receive
 {
 	class ReceiveWriteData final
 	{
@@ -11,10 +11,10 @@ namespace Utility
 		ReceiveWriteData();
 		~ReceiveWriteData();
 
-		void Bind(OnWriteData&& callback);
+		void Bind(DataDefine::OnWriteData&& callback);
 		void Invoke(char* buffer, size_t total);
 	private:
-		OnWriteData _OnWriteData;
+		DataDefine::OnWriteData _OnWriteData;
 		
 		std::vector<char> _Temp;
 	};
