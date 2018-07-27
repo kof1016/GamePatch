@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="State">
+      <UniqueIdentifier>{74ca40c8-cdc0-4bc6-b7b8-0e3ec2b12240}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="UpdateLauncher.h" />
+    <ClInclude Include="State\DownloadDiffState.h" />
+    <ClInclude Include="State\DownloadFileState.h" />
+    <ClInclude Include="State\FindDiffState.h" />
+    <ClInclude Include="State\ParserFilelistState.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="UpdateLauncher.cpp" />
+    <ClCompile Include="State\DownloadDiffState.cpp" />
+    <ClCompile Include="State\DownloadFileState.cpp" />
+    <ClCompile Include="State\FindDiffState.cpp" />
+    <ClCompile Include="State\ParserFilelistState.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

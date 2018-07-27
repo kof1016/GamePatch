@@ -3,16 +3,16 @@
 #include <fstream>
 
 #include <cassert>
-#include "../Utility/md5.h"
-#include "../Utility/DataParser.h"
+#include "../Utility/MD5/md5.h"
+#include "../Utility/File/DataParser.h"
 #include "curl/curl.h"
-#include "../Utility/CurlHttp.h"
+#include "../Utility/Curl/CurlHttp.h"
 #include <minizip/zip.h>
 #include <minizip/unzip.h>
 #include <iostream>
 #include <tchar.h>
-#include "../PackingLogic/ScanResourceFolder.h"
-#include "../Utility/FileTool.h"
+#include "../PackingLogic/Step/ScanResourceFolder.h"
+#include "../Utility/File/FileTool.h"
 
 using namespace std;
 

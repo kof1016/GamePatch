@@ -20,21 +20,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SaveDataAdapter.cpp" />
-    <ClCompile Include="MergeFileList.cpp" />
-    <ClCompile Include="ScanResourceFolder.cpp" />
     <ClCompile Include="PackingLauncher.cpp" />
-    <ClCompile Include="VersionUpdater.cpp" />
-    <ClCompile Include="WriteToFile.cpp" />
+    <ClCompile Include="Step\MergeFileList.cpp" />
+    <ClCompile Include="Step\SaveDataAdapter.cpp" />
+    <ClCompile Include="Step\ScanResourceFolder.cpp" />
+    <ClCompile Include="Step\VersionUpdater.cpp" />
+    <ClCompile Include="Step\WriteToFile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataDefine.h" />
-    <ClInclude Include="SaveDataAdapter.h" />
-    <ClInclude Include="MergeFileList.h" />
-    <ClInclude Include="ScanResourceFolder.h" />
     <ClInclude Include="PackingLauncher.h" />
-    <ClInclude Include="VersionUpdater.h" />
-    <ClInclude Include="WriteToFile.h" />
+    <ClInclude Include="Step\MergeFileList.h" />
+    <ClInclude Include="Step\SaveDataAdapter.h" />
+    <ClInclude Include="Step\ScanResourceFolder.h" />
+    <ClInclude Include="Step\VersionUpdater.h" />
+    <ClInclude Include="Step\WriteToFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utility\Utility.vcxproj">

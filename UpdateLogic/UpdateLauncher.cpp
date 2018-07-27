@@ -1,12 +1,11 @@
 #include "UpdateLauncher.h"
-#include "DownloadFileState.h"
-#include "ParserFilelistState.h"
-#include "FindDiffState.h"
-#include "DataDefine.h"
+#include "State/DownloadFileState.h"
+#include "State/ParserFilelistState.h"
+#include "State/FindDiffState.h"
 #include <filesystem>
 #include <iostream>
-#include "../Utility/FileTool.h"
-#include "../Utility/DataParser.h"
+#include "../Utility/File/FileTool.h"
+#include "../Utility/File/DataParser.h"
 
 namespace UpdateLogic
 {

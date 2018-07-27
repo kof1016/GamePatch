@@ -1,11 +1,11 @@
 #include "PackingLauncher.h"
-#include "MergeFileList.h"
-#include "VersionUpdater.h"
-#include "ScanResourceFolder.h"
-#include "WriteToFile.h"
-#include "SaveDataAdapter.h"
-#include "../Utility/DataParser.h"
-#include "../Utility/FileTool.h"
+#include "Step/MergeFileList.h"
+#include "Step/VersionUpdater.h"
+#include "Step/ScanResourceFolder.h"
+#include "Step/WriteToFile.h"
+#include "Step/SaveDataAdapter.h"
+#include "../Utility/File/DataParser.h"
+#include "../Utility/File/FileTool.h"
 
 namespace PackingLogic
 {

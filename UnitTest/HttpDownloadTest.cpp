@@ -2,10 +2,10 @@
 
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "../Utility/ReceiverFacade.h"
-#include "../Utility/IDownloadable.h"
-#include "../Utility/FileTool.h"
-#include "../Utility/DownloadProvider.h"
+#include "../Utility/Receive/ReceiverFacade.h"
+#include "../Utility/HttpDownload/IDownloadable.h"
+#include "../Utility/File/FileTool.h"
+#include "../Utility/HttpDownload/DownloadProvider.h"
 
 class FakeDonwload : public Utility::IDownloadable
 {

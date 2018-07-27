@@ -1,6 +1,6 @@
 #include "MergeFileList.h"
 #include <utility>
-#include "../Utility/cpplinq.hpp"
+#include "../../Utility/Linq/cpplinq.hpp"
 
 namespace PackingLogic
 {

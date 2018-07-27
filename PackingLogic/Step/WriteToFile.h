@@ -1,9 +1,7 @@
 #pragma once
 #include <string>
 #include <list>
-#include "../Utility/FileWriter.h"
-#include "../Utility/DataDefine.h"
-#include <iostream>
+#include "../../Utility/DataDefine.h"
 #include <fstream>
 
 namespace PackingLogic

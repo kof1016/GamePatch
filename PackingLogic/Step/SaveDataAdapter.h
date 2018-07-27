@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../Utility/DataDefine.h"
+#include "../../Utility/DataDefine.h"
 
 namespace PackingLogic
 {

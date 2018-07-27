@@ -1,7 +1,7 @@
 #include "ScanResourceFolder.h"
 #include <filesystem>
 #include <utility>
-#include "../Utility/FileTool.h"
+#include "../../Utility/File/FileTool.h"
 
 
 namespace PackingLogic

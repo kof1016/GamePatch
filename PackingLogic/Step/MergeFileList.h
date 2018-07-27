@@ -1,6 +1,6 @@
 #pragma once
-#include "../Utility/DataDefine.h"
-#include "../Utility/cpplinq.hpp"
+#include "../../Utility/DataDefine.h"
+#include "../../Utility/Linq/cpplinq.hpp"
 
 
 namespace PackingLogic

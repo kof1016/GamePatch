@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../Utility/IState.h"
-#include "../Utility/StateMachine.h"
+#include "../Utility/StateMachine/IState.h"
+#include "../Utility/StateMachine/StateMachine.h"
 
 
 class FakeState final : public Utility::IState

@@ -1,7 +1,8 @@
 #pragma once
-#include "../Utility/StateMachine.h"
-#include "../Utility/DownloadProvider.h"
+#include "../Utility/StateMachine/StateMachine.h"
+#include "../Utility/HttpDownload/DownloadProvider.h"
 #include <map>
+#include "../Utility/DataDefine.h"
 
 namespace UpdateLogic
 {

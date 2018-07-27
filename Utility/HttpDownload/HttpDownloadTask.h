@@ -1,7 +1,8 @@
 #pragma once
-#include "CurlHttp.h"
-#include "ReceiverFacade.h"
 #include <memory>
+#include "../Receive/ReceiverFacade.h"
+#include "../Curl/CurlHttp.h"
+
 
 namespace Utility
 {
@@ -12,7 +13,7 @@ namespace Utility
 		~HttpDownloadTask();
 
 		void Connect(std::string url);
-		void BindDownloadDone(OnReceiveDownloadDone&& callback);
+		void BindDownloadDone(Utility::OnReceiveDownloadDone&& callback);
 		//std::shared_ptr<ReceiverFacade> GetReceiver();
 
 	private:

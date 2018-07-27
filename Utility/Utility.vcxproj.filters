@@ -13,9 +13,6 @@
     <Filter Include="File">
       <UniqueIdentifier>{fe274e20-8258-4997-8e9d-7d5b4aabc013}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Curl">
-      <UniqueIdentifier>{18e6f488-2fd8-416c-9001-6d4276e0b2e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="HttpDownload">
       <UniqueIdentifier>{0cdfc199-ed9e-455a-9ea6-82a211df53cf}</UniqueIdentifier>
     </Filter>
@@ -30,124 +27,52 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StateMachine.h">
-      <Filter>StateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="IState.h">
-      <Filter>StateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="CurlHttp.h">
-      <Filter>Curl</Filter>
-    </ClInclude>
-    <ClInclude Include="CurlDebug.h">
-      <Filter>Curl</Filter>
-    </ClInclude>
-    <ClInclude Include="md5.h">
-      <Filter>MD5</Filter>
-    </ClInclude>
     <ClInclude Include="DataDefine.h">
       <Filter>DataDefine</Filter>
     </ClInclude>
-    <ClInclude Include="ReceiveDone.h">
-      <Filter>Receive</Filter>
-    </ClInclude>
-    <ClInclude Include="ReceiverFacade.h">
-      <Filter>Receive</Filter>
-    </ClInclude>
-    <ClInclude Include="IDownloadable.h">
-      <Filter>HttpDownload</Filter>
-    </ClInclude>
-    <ClInclude Include="ReceiveWriteData.h">
-      <Filter>Receive</Filter>
-    </ClInclude>
-    <ClInclude Include="ReceiveProgress.h">
-      <Filter>Receive</Filter>
-    </ClInclude>
-    <ClInclude Include="ProgressAdapter.h">
-      <Filter>Curl</Filter>
-    </ClInclude>
-    <ClInclude Include="WriteDataAdapter.h">
-      <Filter>Curl</Filter>
-    </ClInclude>
-    <ClInclude Include="FileTool.h">
-      <Filter>File</Filter>
-    </ClInclude>
-    <ClInclude Include="IParser.h">
-      <Filter>File</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpDownloadTask.h">
-      <Filter>HttpDownload</Filter>
-    </ClInclude>
-    <ClInclude Include="FileWriter.h">
-      <Filter>File</Filter>
-    </ClInclude>
-    <ClInclude Include="DownloadProvider.h">
-      <Filter>HttpDownload</Filter>
-    </ClInclude>
-    <ClInclude Include="cpplinq.hpp">
-      <Filter>linq</Filter>
-    </ClInclude>
-    <ClInclude Include="DataParser.h">
-      <Filter>File</Filter>
-    </ClInclude>
-    <ClInclude Include="unzip.h">
-      <Filter>Zip</Filter>
-    </ClInclude>
-    <ClInclude Include="zip.h">
-      <Filter>Zip</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="StateMachine.cpp">
-      <Filter>StateMachine</Filter>
-    </ClCompile>
-    <ClCompile Include="CurlHttp.cpp">
-      <Filter>Curl</Filter>
-    </ClCompile>
-    <ClCompile Include="CurlDebug.cpp">
-      <Filter>Curl</Filter>
-    </ClCompile>
-    <ClCompile Include="md5.cpp">
-      <Filter>MD5</Filter>
-    </ClCompile>
-    <ClCompile Include="ReceiveDone.cpp">
-      <Filter>Receive</Filter>
-    </ClCompile>
-    <ClCompile Include="ReceiverFacade.cpp">
-      <Filter>Receive</Filter>
-    </ClCompile>
-    <ClCompile Include="ReceiveWriteData.cpp">
-      <Filter>Receive</Filter>
-    </ClCompile>
-    <ClCompile Include="ReceiveProgress.cpp">
-      <Filter>Receive</Filter>
-    </ClCompile>
-    <ClCompile Include="ProgressAdapter.cpp">
-      <Filter>Curl</Filter>
-    </ClCompile>
-    <ClCompile Include="WriteDataAdapter.cpp">
-      <Filter>Curl</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpDownloadTask.cpp">
-      <Filter>HttpDownload</Filter>
-    </ClCompile>
-    <ClCompile Include="FileWriter.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
-    <ClCompile Include="DownloadProvider.cpp">
-      <Filter>HttpDownload</Filter>
-    </ClCompile>
-    <ClCompile Include="DataParser.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
-    <ClCompile Include="unzip.cpp">
-      <Filter>Zip</Filter>
-    </ClCompile>
-    <ClCompile Include="zip.cpp">
-      <Filter>Zip</Filter>
-    </ClCompile>
+    <ClInclude Include="Curl\CurlDebug.h" />
+    <ClInclude Include="Curl\CurlHttp.h" />
+    <ClInclude Include="Curl\ProgressAdapter.h" />
+    <ClInclude Include="Curl\WriteDataAdapter.h" />
+    <ClInclude Include="File\DataParser.h" />
+    <ClInclude Include="File\FileTool.h" />
+    <ClInclude Include="File\FileWriter.h" />
+    <ClInclude Include="File\IParser.h" />
+    <ClInclude Include="HttpDownload\DownloadProvider.h" />
+    <ClInclude Include="HttpDownload\HttpDownloadTask.h" />
+    <ClInclude Include="HttpDownload\IDownloadable.h" />
+    <ClInclude Include="Linq\cpplinq.hpp" />
+    <ClInclude Include="MD5\md5.h" />
+    <ClInclude Include="Receive\ReceiveDone.h" />
+    <ClInclude Include="Receive\ReceiveProgress.h" />
+    <ClInclude Include="Receive\ReceiverFacade.h" />
+    <ClInclude Include="Receive\ReceiveWriteData.h" />
+    <ClInclude Include="StateMachine\IState.h" />
+    <ClInclude Include="StateMachine\StateMachine.h" />
+    <ClInclude Include="Xml\tinyxml2.h" />
+    <ClInclude Include="ZipUtil\unzip.h" />
+    <ClInclude Include="ZipUtil\zip.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Curl\CurlDebug.cpp" />
+    <ClCompile Include="Curl\CurlHttp.cpp" />
+    <ClCompile Include="Curl\ProgressAdapter.cpp" />
+    <ClCompile Include="Curl\WriteDataAdapter.cpp" />
+    <ClCompile Include="File\DataParser.cpp" />
+    <ClCompile Include="File\FileWriter.cpp" />
+    <ClCompile Include="HttpDownload\DownloadProvider.cpp" />
+    <ClCompile Include="HttpDownload\HttpDownloadTask.cpp" />
+    <ClCompile Include="MD5\md5.cpp" />
+    <ClCompile Include="Receive\ReceiveDone.cpp" />
+    <ClCompile Include="Receive\ReceiveProgress.cpp" />
+    <ClCompile Include="Receive\ReceiverFacade.cpp" />
+    <ClCompile Include="Receive\ReceiveWriteData.cpp" />
+    <ClCompile Include="StateMachine\StateMachine.cpp" />
+    <ClCompile Include="Xml\tinyxml2.cpp" />
+    <ClCompile Include="ZipUtil\unzip.cpp" />
+    <ClCompile Include="ZipUtil\zip.cpp" />
   </ItemGroup>
 </Project>

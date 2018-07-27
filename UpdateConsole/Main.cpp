@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <conio.h>
-#include "../Logic/UpdateLauncher.h"
+#include "../UpdateLogic/UpdateLauncher.h"
 
 
 int main(int argc, char* argv[])

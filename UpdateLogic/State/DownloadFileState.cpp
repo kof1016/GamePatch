@@ -1,5 +1,5 @@
 #include "DownloadFileState.h"
-#include "../Utility/IDownloadable.h"
+#include "../../Utility/HttpDownload/IDownloadable.h"
 #include <iostream>
 #include <fstream>
 #include <utility>

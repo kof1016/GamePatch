@@ -163,49 +163,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DataParser.h" />
-    <ClInclude Include="cpplinq.hpp" />
-    <ClInclude Include="CurlDebug.h" />
-    <ClInclude Include="FileWriter.h" />
-    <ClInclude Include="IParser.h" />
-    <ClInclude Include="ProgressAdapter.h" />
+    <ClInclude Include="Curl\CurlDebug.h" />
+    <ClInclude Include="Curl\CurlHttp.h" />
+    <ClInclude Include="Curl\ProgressAdapter.h" />
+    <ClInclude Include="Curl\WriteDataAdapter.h" />
     <ClInclude Include="DataDefine.h" />
-    <ClInclude Include="unzip.h" />
-    <ClInclude Include="WriteDataAdapter.h" />
-    <ClInclude Include="CurlHttp.h" />
-    <ClInclude Include="FileTool.h" />
-    <ClInclude Include="HttpDownloadTask.h" />
-    <ClInclude Include="IDownloadable.h" />
-    <ClInclude Include="IState.h" />
-    <ClInclude Include="DownloadProvider.h" />
-    <ClInclude Include="md5.h" />
-    <ClInclude Include="ReceiveDone.h" />
-    <ClInclude Include="ReceiveProgress.h" />
-    <ClInclude Include="ReceiveWriteData.h" />
-    <ClInclude Include="ReceiverFacade.h" />
-    <ClInclude Include="StateMachine.h" />
-    <ClInclude Include="zip.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DataParser.cpp" />
-    <ClCompile Include="FileWriter.cpp" />
-    <ClCompile Include="unzip.cpp" />
-    <ClCompile Include="WriteDataAdapter.cpp" />
-    <ClCompile Include="CurlDebug.cpp" />
-    <ClCompile Include="ProgressAdapter.cpp" />
-    <ClCompile Include="CurlHttp.cpp" />
-    <ClCompile Include="DownloadProvider.cpp" />
-    <ClCompile Include="HttpDownloadTask.cpp" />
-    <ClCompile Include="md5.cpp" />
-    <ClCompile Include="ReceiveDone.cpp" />
-    <ClCompile Include="ReceiveProgress.cpp" />
-    <ClCompile Include="ReceiveWriteData.cpp" />
-    <ClCompile Include="ReceiverFacade.cpp" />
-    <ClCompile Include="StateMachine.cpp" />
-    <ClCompile Include="zip.cpp" />
+    <ClInclude Include="File\DataParser.h" />
+    <ClInclude Include="File\FileTool.h" />
+    <ClInclude Include="File\FileWriter.h" />
+    <ClInclude Include="File\IParser.h" />
+    <ClInclude Include="HttpDownload\DownloadProvider.h" />
+    <ClInclude Include="HttpDownload\HttpDownloadTask.h" />
+    <ClInclude Include="HttpDownload\IDownloadable.h" />
+    <ClInclude Include="Linq\cpplinq.hpp" />
+    <ClInclude Include="MD5\md5.h" />
+    <ClInclude Include="Receive\ReceiveDone.h" />
+    <ClInclude Include="Receive\ReceiveProgress.h" />
+    <ClInclude Include="Receive\ReceiverFacade.h" />
+    <ClInclude Include="Receive\ReceiveWriteData.h" />
+    <ClInclude Include="StateMachine\IState.h" />
+    <ClInclude Include="StateMachine\StateMachine.h" />
+    <ClInclude Include="Xml\tinyxml2.h" />
+    <ClInclude Include="ZipUtil\unzip.h" />
+    <ClInclude Include="ZipUtil\zip.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Curl\CurlDebug.cpp" />
+    <ClCompile Include="Curl\CurlHttp.cpp" />
+    <ClCompile Include="Curl\ProgressAdapter.cpp" />
+    <ClCompile Include="Curl\WriteDataAdapter.cpp" />
+    <ClCompile Include="File\DataParser.cpp" />
+    <ClCompile Include="File\FileWriter.cpp" />
+    <ClCompile Include="HttpDownload\DownloadProvider.cpp" />
+    <ClCompile Include="HttpDownload\HttpDownloadTask.cpp" />
+    <ClCompile Include="MD5\md5.cpp" />
+    <ClCompile Include="Receive\ReceiveDone.cpp" />
+    <ClCompile Include="Receive\ReceiveProgress.cpp" />
+    <ClCompile Include="Receive\ReceiverFacade.cpp" />
+    <ClCompile Include="Receive\ReceiveWriteData.cpp" />
+    <ClCompile Include="StateMachine\StateMachine.cpp" />
+    <ClCompile Include="Xml\tinyxml2.cpp" />
+    <ClCompile Include="ZipUtil\unzip.cpp" />
+    <ClCompile Include="ZipUtil\zip.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

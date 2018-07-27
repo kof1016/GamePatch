@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../Utility/ReceiveProgress.h"
-#include "../Utility/ReceiveWriteData.h"
-#include "../Utility/ReceiveDone.h"
+#include "../Utility/Receive/ReceiveProgress.h"
+#include "../Utility/Receive/ReceiveWriteData.h"
+#include "../Utility/Receive/ReceiveDone.h"
 
 
 TEST_CASE("ReceiveProgress before bind", "[Receive]")

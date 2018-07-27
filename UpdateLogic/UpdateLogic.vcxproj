@@ -21,7 +21,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{C0A6241D-6530-401C-9036-5DC6A726C735}</ProjectGuid>
+    <ProjectGuid>{EDF6A57F-BA79-4A30-8530-282238A9D0E3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Logic</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -151,18 +151,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DataDefine.h" />
-    <ClInclude Include="DownloadDiffState.h" />
-    <ClInclude Include="FindDiffState.h" />
-    <ClInclude Include="ParserFilelistState.h" />
-    <ClInclude Include="DownloadFileState.h" />
+    <ClInclude Include="State\DownloadDiffState.h" />
+    <ClInclude Include="State\DownloadFileState.h" />
+    <ClInclude Include="State\FindDiffState.h" />
+    <ClInclude Include="State\ParserFilelistState.h" />
     <ClInclude Include="UpdateLauncher.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DownloadDiffState.cpp" />
-    <ClCompile Include="FindDiffState.cpp" />
-    <ClCompile Include="ParserFilelistState.cpp" />
-    <ClCompile Include="DownloadFileState.cpp" />
+    <ClCompile Include="State\DownloadDiffState.cpp" />
+    <ClCompile Include="State\DownloadFileState.cpp" />
+    <ClCompile Include="State\FindDiffState.cpp" />
+    <ClCompile Include="State\ParserFilelistState.cpp" />
     <ClCompile Include="UpdateLauncher.cpp" />
   </ItemGroup>
   <ItemGroup>

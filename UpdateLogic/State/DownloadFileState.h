@@ -1,9 +1,9 @@
 #pragma once
-#include "../Utility/IState.h"
+#include "../../Utility/StateMachine/IState.h"
 #include <functional>
 #include <memory>
-#include "../Utility/FileWriter.h"
-#include "../Utility/ProgressAdapter.h"
+#include "../../Utility/File/FileWriter.h"
+#include "../../Utility/Curl/ProgressAdapter.h"
 
 namespace Utility {
 	class IDownloadable;

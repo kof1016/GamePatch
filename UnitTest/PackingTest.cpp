@@ -2,12 +2,12 @@
 #include "catch.hpp"
 #include <filesystem>
 #include "../Utility/DataDefine.h"
-#include "../Utility/FileTool.h"
-#include "../Utility/cpplinq.hpp"
+#include "../Utility/File/FileTool.h"
+#include "../Utility/Linq/cpplinq.hpp"
 
-#include "../PackingLogic/ScanResourceFolder.h"
-#include "../PackingLogic/MergeFileList.h"
-#include "../PackingLogic/VersionUpdater.h"
+#include "../PackingLogic/Step/ScanResourceFolder.h"
+#include "../PackingLogic/Step/MergeFileList.h"
+#include "../PackingLogic/Step/VersionUpdater.h"
 
 
 

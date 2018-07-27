@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "catch.hpp"
-#include "../PackingLogic/ScanResourceFolder.h"
-#include "../Utility/cpplinq.hpp"
-#include "../Utility/DataParser.h"
+#include "../PackingLogic/Step/ScanResourceFolder.h"
+#include "../Utility/Linq/cpplinq.hpp"
+#include "../Utility/File/DataParser.h"
 
 
 TEST_CASE("linq test", "[linq]")

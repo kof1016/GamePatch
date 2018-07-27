@@ -1,6 +1,6 @@
 #pragma once
-#include "../Utility/IState.h"
-#include "../Utility/DataDefine.h"
+#include "../../Utility/StateMachine/IState.h"
+#include "../../Utility/DataDefine.h"
 #include <queue>
 
 namespace UpdateLogic

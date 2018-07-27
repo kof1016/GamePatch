@@ -1,5 +1,5 @@
 #pragma once
-#include "DataDefine.h"
+#include "../DataDefine.h"
 
 
 namespace Utility

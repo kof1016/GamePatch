@@ -1,6 +1,6 @@
 #include "ParserFilelistState.h"
-#include "DataDefine.h"
-#include "../Utility/DataParser.h"
+#include "../../Utility/DataDefine.h"
+
 
 
 namespace UpdateLogic
