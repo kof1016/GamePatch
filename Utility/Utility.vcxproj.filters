@@ -48,9 +48,6 @@
     <ClInclude Include="DataDefine.h">
       <Filter>DataDefine</Filter>
     </ClInclude>
-    <ClInclude Include="ReadLocalVersionFile.h" />
-    <ClInclude Include="IReadable.h" />
-    <ClInclude Include="Reader.h" />
     <ClInclude Include="ReceiveDone.h">
       <Filter>Receive</Filter>
     </ClInclude>
@@ -113,8 +110,6 @@
     <ClCompile Include="md5.cpp">
       <Filter>MD5</Filter>
     </ClCompile>
-    <ClCompile Include="ReadLocalVersionFile.cpp" />
-    <ClCompile Include="Reader.cpp" />
     <ClCompile Include="ReceiveDone.cpp">
       <Filter>Receive</Filter>
     </ClCompile>

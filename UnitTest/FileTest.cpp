@@ -5,7 +5,7 @@
 #include <cassert>
 #include "../Utility/md5.h"
 #include "../Utility/DataParser.h"
-#include "../curl/curl.h"
+#include "curl/curl.h"
 #include "../Utility/CurlHttp.h"
 #include <minizip/zip.h>
 #include <minizip/unzip.h>
