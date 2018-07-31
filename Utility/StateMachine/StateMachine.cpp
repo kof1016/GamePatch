@@ -1,6 +1,6 @@
 #include "StateMachine.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::StateMachine
+namespace bZbee::Sandbox::GamePatch::Utility::StateMachine
 {
 	StateMachine::StateMachine()
 	{

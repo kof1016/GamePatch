@@ -2,7 +2,7 @@
 #include <regex>
 #include "FileTool.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::File
+namespace bZbee::Sandbox::GamePatch::Utility::File
 {
 	int DataParser::ParserVersionNumberByFile(const std::string& file_path)
 	{

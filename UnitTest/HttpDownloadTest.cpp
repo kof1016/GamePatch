@@ -5,7 +5,7 @@
 #include "../Utility/File/FileTool.h"
 #include "../Utility/HttpDownload/DownloadProvider.h"
 
-using namespace BZbee::Sandbox::GamePatch::Utility;
+using namespace bZbee::Sandbox::GamePatch::Utility;
 
 class FakeDonwload : public HttpDownload::IDownloadable
 {

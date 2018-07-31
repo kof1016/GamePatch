@@ -3,7 +3,7 @@
 #include "../../Utility/Linq/cpplinq.hpp"
 
 
-namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
+namespace bZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	class MergeFileList
 	{

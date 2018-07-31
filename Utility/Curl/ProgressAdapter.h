@@ -1,7 +1,7 @@
 #pragma once
 #include "../DataDefine.h"
 #include "curl/curl.h"
-namespace BZbee::Sandbox::GamePatch::Utility::Curl
+namespace bZbee::Sandbox::GamePatch::Utility::Curl
 {
 	class ProgressAdapter final
 	{

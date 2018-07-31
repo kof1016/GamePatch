@@ -6,7 +6,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UpdateLauncher.h" />
     <ClInclude Include="State\DownloadDiffState.h">
       <Filter>State</Filter>
     </ClInclude>
@@ -19,9 +18,9 @@
     <ClInclude Include="State\ParserFilelistState.h">
       <Filter>State</Filter>
     </ClInclude>
+    <ClInclude Include="DownloadLauncher.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UpdateLauncher.cpp" />
     <ClCompile Include="State\DownloadDiffState.cpp">
       <Filter>State</Filter>
     </ClCompile>
@@ -34,6 +33,7 @@
     <ClCompile Include="State\ParserFilelistState.cpp">
       <Filter>State</Filter>
     </ClCompile>
+    <ClCompile Include="DownloadLauncher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

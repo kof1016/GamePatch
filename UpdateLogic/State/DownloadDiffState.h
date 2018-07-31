@@ -3,7 +3,7 @@
 #include "../../Utility/DataDefine.h"
 #include "../../Utility/StateMachine/IState.h"
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::State
 {
 	class DownloadDiffState final : public Utility::StateMachine::IState
 	{

@@ -10,7 +10,7 @@
 
 using namespace std::experimental::filesystem ;
 
-namespace BZbee::Sandbox::GamePatch::Utility::File
+namespace bZbee::Sandbox::GamePatch::Utility::File
 {
 	static _off_t GetFileSize_C(std::string& path)
 	{

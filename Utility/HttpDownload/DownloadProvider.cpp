@@ -3,7 +3,7 @@
 #include "HttpDownloadTask.h"
 #include <future>
 
-namespace BZbee::Sandbox::GamePatch::Utility::HttpDownload
+namespace bZbee::Sandbox::GamePatch::Utility::HttpDownload
 {
 	//std::ofstream outfile;
 

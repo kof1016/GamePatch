@@ -2,7 +2,7 @@
 #include "../DataDefine.h"
 
 
-namespace BZbee::Sandbox::GamePatch::Utility::File
+namespace bZbee::Sandbox::GamePatch::Utility::File
 {
 	class IParser
 	{

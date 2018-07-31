@@ -3,7 +3,7 @@
 #include "../../Utility/DataDefine.h"
 #include <filesystem>
 
-namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
+namespace bZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	class ScanResourceFolder final
 	{

@@ -2,7 +2,7 @@
 #include "../DataDefine.h"
 
 
-namespace BZbee::Sandbox::GamePatch::Utility::Receive
+namespace bZbee::Sandbox::GamePatch::Utility::Receive
 {
 	class ReceiveDone final
 	{

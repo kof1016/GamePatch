@@ -4,13 +4,13 @@
 #include <map>
 #include "../Utility/DataDefine.h"
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::Launcher
 {
-	class UpdateLauncher final
+	class DownloadLauncher final
 	{
 	public:
-		UpdateLauncher();
-		~UpdateLauncher();
+		DownloadLauncher();
+		~DownloadLauncher();
 		void Start();
 		void OnDownloadProgress(Utility::DataDefine::OnProgress&& callback);
 		void OnUpdateSuccessEvent(Utility::DataDefine::OnSuccess&& callback);

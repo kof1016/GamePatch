@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 
-namespace BZbee::Sandbox::GamePatch::Utility::HttpDownload
+namespace bZbee::Sandbox::GamePatch::Utility::HttpDownload
 {
 	HttpDownloadTask::HttpDownloadTask(std::shared_ptr<Receive::ReceiverFacade> receiver_facade)
 	{

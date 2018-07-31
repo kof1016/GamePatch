@@ -4,7 +4,7 @@
 #include "../../Utility/DataDefine.h"
 #include <fstream>
 
-namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
+namespace bZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	template <typename T1>
 	class WriteToFile

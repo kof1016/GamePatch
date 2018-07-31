@@ -1,7 +1,7 @@
 #pragma once
 #include "IParser.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::File
+namespace bZbee::Sandbox::GamePatch::Utility::File
 {
 	class DataParser
 	{

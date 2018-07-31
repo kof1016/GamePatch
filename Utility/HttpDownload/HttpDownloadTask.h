@@ -5,7 +5,7 @@
 #include "../../UpdateLogic/State/DownloadFileState.h"
 
 
-namespace BZbee::Sandbox::GamePatch::Utility::HttpDownload
+namespace bZbee::Sandbox::GamePatch::Utility::HttpDownload
 {
 	class HttpDownloadTask final
 	{

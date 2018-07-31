@@ -1,6 +1,6 @@
 #include "ReceiverFacade.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::Receive
+namespace bZbee::Sandbox::GamePatch::Utility::Receive
 {
 	ReceiverFacade::ReceiverFacade()
 	{

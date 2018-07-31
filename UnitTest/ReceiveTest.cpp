@@ -3,7 +3,7 @@
 #include "../Utility/Receive/ReceiveWriteData.h"
 #include "../Utility/Receive/ReceiveDone.h"
 
-using namespace BZbee::Sandbox::GamePatch::Utility;
+using namespace bZbee::Sandbox::GamePatch::Utility;
 TEST_CASE("ReceiveProgress before bind", "[Receive]")
 {
 	//arrange

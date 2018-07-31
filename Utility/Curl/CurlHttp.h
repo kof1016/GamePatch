@@ -6,7 +6,7 @@
 #include "CurlDebug.h"
 #include "../DataDefine.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::Curl
+namespace bZbee::Sandbox::GamePatch::Utility::Curl
 {
 	class CurlHttp final 
 	{

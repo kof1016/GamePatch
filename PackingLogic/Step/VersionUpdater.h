@@ -1,5 +1,5 @@
 #pragma once
-namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
+namespace bZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	class VersionUpdater
 	{

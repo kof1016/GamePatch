@@ -7,7 +7,7 @@
 #include "../Utility/File/DataParser.h"
 #include "../Utility/File/FileTool.h"
 
-namespace BZbee::Sandbox::GamePatch::PackingLogic::Launcher
+namespace bZbee::Sandbox::GamePatch::PackingLogic::Launcher
 {
 	PackingLauncher::PackingLauncher()
 	{

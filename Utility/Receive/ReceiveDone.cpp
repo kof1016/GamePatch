@@ -1,6 +1,6 @@
 #include "ReceiveDone.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::Receive
+namespace bZbee::Sandbox::GamePatch::Utility::Receive
 {
 	ReceiveDone::ReceiveDone()
 	{

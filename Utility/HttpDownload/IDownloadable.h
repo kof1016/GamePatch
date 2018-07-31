@@ -3,7 +3,7 @@
 #include <future>
 #include "../Receive/ReceiverFacade.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::HttpDownload
+namespace bZbee::Sandbox::GamePatch::Utility::HttpDownload
 {
 	class IDownloadable
 	{

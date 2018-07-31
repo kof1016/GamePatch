@@ -15,8 +15,8 @@
 
 using namespace std;
 
-using namespace BZbee::Sandbox::GamePatch::Utility;
-using namespace BZbee::Sandbox::GamePatch::PackingLogic;
+using namespace bZbee::Sandbox::GamePatch::Utility;
+using namespace bZbee::Sandbox::GamePatch::PackingLogic;
 
 TEST_CASE("Filesystem remove test", "[file]")
 {
@@ -262,7 +262,7 @@ TEST_CASE("MD5 Test", "[file]")
  		// Check if this entry is a directory or file.  
  		if(!path(filename).has_extension())
  		{
-			BZbee::Sandbox::GamePatch::Utility::File::CreateDir(path(filename));
+			bZbee::Sandbox::GamePatch::Utility::File::CreateDir(path(filename));
  		}
  		else
  		{

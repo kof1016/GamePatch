@@ -4,7 +4,7 @@
 #include "ReceiveWriteData.h"
 #include "ReceiveProgress.h"
 
-namespace BZbee::Sandbox::GamePatch::Utility::Receive
+namespace bZbee::Sandbox::GamePatch::Utility::Receive
 {
 
 	// template<typename T>

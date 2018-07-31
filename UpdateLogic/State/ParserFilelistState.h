@@ -2,7 +2,7 @@
 #include "../../Utility/StateMachine/IState.h"
 #include "../../Utility/DataDefine.h"
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::State
 {
 	class ParserFilelistState final : public Utility::StateMachine::IState
 	{

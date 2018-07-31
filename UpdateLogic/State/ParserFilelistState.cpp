@@ -3,7 +3,7 @@
 
 
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::State
 {
 	ParserFilelistState::ParserFilelistState()
 	{

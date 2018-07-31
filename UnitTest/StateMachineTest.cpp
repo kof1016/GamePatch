@@ -3,7 +3,7 @@
 #include "../Utility/StateMachine/StateMachine.h"
 #include <iostream>
 
-using namespace BZbee::Sandbox::GamePatch::Utility;
+using namespace bZbee::Sandbox::GamePatch::Utility;
 
 class FakeState final : public StateMachine::IState
 {

@@ -3,7 +3,7 @@
 #include "../../Utility/DataDefine.h"
 #include <queue>
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::State
 {
 	class FindDiffState final : public Utility::StateMachine::IState
 	{

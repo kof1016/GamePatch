@@ -1,7 +1,7 @@
 #include "SaveDataAdapter.h"
 #include <utility>
 
-namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
+namespace bZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	SaveDataAdapter::SaveDataAdapter(Utility::DataDefine::FileList merge_list, int newest_ver)
 		:_MergeList(std::move(merge_list))

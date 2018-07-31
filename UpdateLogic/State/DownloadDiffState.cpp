@@ -1,6 +1,6 @@
 #include "DownloadDiffState.h"
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::State
 {
 	DownloadDiffState::DownloadDiffState(Utility::DataDefine::FileList file_list)
 		:_FileList(std::move(file_list))

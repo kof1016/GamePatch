@@ -11,7 +11,7 @@
 // 	class ReceiverFacade;
 // }
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::State
 {
 	class DownloadFileState final : public Utility::StateMachine::IState
 	{

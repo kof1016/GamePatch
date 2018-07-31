@@ -2,7 +2,7 @@
 #include <vector>
 
 
-namespace BZbee::Sandbox::GamePatch::Utility::Receive
+namespace bZbee::Sandbox::GamePatch::Utility::Receive
 {
 	ReceiveWriteData::ReceiveWriteData()
 	{

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <utility>
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::State
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::State
 {
 	DownloadFileState::DownloadFileState(std::shared_ptr<Utility::Receive::ReceiverFacade> facade,
 										Utility::File::FileWriter& file_writer)

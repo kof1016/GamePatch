@@ -4,7 +4,7 @@
 #include "../../Utility/File/FileTool.h"
 
 
-namespace BZbee::Sandbox::GamePatch::PackingLogic::Step
+namespace bZbee::Sandbox::GamePatch::PackingLogic::Step
 {
 	ScanResourceFolder::ScanResourceFolder(std::string input_path)
 		: _InputPath(std::move(input_path))

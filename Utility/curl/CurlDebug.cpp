@@ -1,7 +1,7 @@
 #include "CurlDebug.h"
 #include <string>
 
-namespace BZbee::Sandbox::GamePatch::Utility::Curl
+namespace bZbee::Sandbox::GamePatch::Utility::Curl
 {
 	std::string CurlDebug::DebugInfo = "";
 

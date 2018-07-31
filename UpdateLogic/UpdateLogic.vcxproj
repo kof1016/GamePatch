@@ -25,7 +25,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Logic</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-    <ProjectName>UpdateLogic</ProjectName>
+    <ProjectName>DownloadLogic</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -156,14 +156,14 @@
     <ClInclude Include="State\DownloadFileState.h" />
     <ClInclude Include="State\FindDiffState.h" />
     <ClInclude Include="State\ParserFilelistState.h" />
-    <ClInclude Include="UpdateLauncher.h" />
+    <ClInclude Include="DownloadLauncher.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="State\DownloadDiffState.cpp" />
     <ClCompile Include="State\DownloadFileState.cpp" />
     <ClCompile Include="State\FindDiffState.cpp" />
     <ClCompile Include="State\ParserFilelistState.cpp" />
-    <ClCompile Include="UpdateLauncher.cpp" />
+    <ClCompile Include="DownloadLauncher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utility\Utility.vcxproj">

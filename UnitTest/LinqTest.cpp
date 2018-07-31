@@ -6,14 +6,14 @@
 
 TEST_CASE("linq test", "[linq]")
  {
- 	BZbee::Sandbox::GamePatch::Utility::DataDefine::FileList currentdata =
+ 	bZbee::Sandbox::GamePatch::Utility::DataDefine::FileList currentdata =
  	{
  		{"1", "path1"},
  		{"2", "path2"},
  		{"3", "path3"},
  	};
 
- 	BZbee::Sandbox::GamePatch::Utility::DataDefine::FileList sourcedata =
+ 	bZbee::Sandbox::GamePatch::Utility::DataDefine::FileList sourcedata =
  	{
  		{"1", "path1"},
  		{"2", "path2"},

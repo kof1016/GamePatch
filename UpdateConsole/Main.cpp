@@ -3,12 +3,12 @@
 
 #include <iostream>
 #include <conio.h>
-#include "../UpdateLogic/UpdateLauncher.h"
+#include "../UpdateLogic/DownloadLauncher.h"
 
 
 int main(int argc, char* argv[])
 {
-	BZbee::Sandbox::GamePatch::UpdateLogic::Launcher::UpdateLauncher launcher;
+	bZbee::Sandbox::GamePatch::DownloadLogic::Launcher::DownloadLauncher launcher;
 
 	launcher.OnDownloadProgress([=](int total_size, int downloaded_size)
 	{

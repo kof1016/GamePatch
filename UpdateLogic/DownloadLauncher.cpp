@@ -1,4 +1,4 @@
-#include "UpdateLauncher.h"
+#include "DownloadLauncher.h"
 #include "State/DownloadFileState.h"
 #include "State/ParserFilelistState.h"
 #include "State/FindDiffState.h"
@@ -7,25 +7,25 @@
 #include "../Utility/File/FileTool.h"
 #include "../Utility/File/DataParser.h"
 
-namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
+namespace bZbee::Sandbox::GamePatch::DownloadLogic::Launcher
 {
-	UpdateLauncher::UpdateLauncher()
+	DownloadLauncher::DownloadLauncher()
 	{
 	}
 
 
-	UpdateLauncher::~UpdateLauncher()
+	DownloadLauncher::~DownloadLauncher()
 	{
 	}
 
-	void UpdateLauncher::Start()
+	void DownloadLauncher::Start()
 	{
 		Utility::File::CreateDir(Utility::DataDefine::PACKING_FOLDER_NAME);
 
 		_ToDownloadNewestVer();
 	}
 
-	void UpdateLauncher::_ToDownloadNewestVer()
+	void DownloadLauncher::_ToDownloadNewestVer()
 	{
 		path filePath = Utility::DataDefine::NewestVerSavePath();;
 		const auto url = Utility::DataDefine::FilePathToUrl(filePath);
@@ -47,7 +47,7 @@ namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
 		});
 	}
 
-	void UpdateLauncher::_ToParserVerNumberState(path file_path)
+	void DownloadLauncher::_ToParserVerNumberState(path file_path)
 	{
 		const auto newestVer = Utility::File::DataParser::ParserVersionNumberByFile(file_path.string());
 
@@ -64,7 +64,7 @@ namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
 		}
 	}
 
-	void UpdateLauncher::_ToDiffVerNumberState(int local_ver, int newest_ver)
+	void DownloadLauncher::_ToDiffVerNumberState(int local_ver, int newest_ver)
 	{
 		for (int i = local_ver + 1; i <= newest_ver; ++i)
 		{
@@ -76,7 +76,7 @@ namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
 		_ToDownloadFileState();
 	}
 
-	void UpdateLauncher::_ToDownloadFileState()
+	void DownloadLauncher::_ToDownloadFileState()
 	{
 		const auto filePath = _DownloadList.front();
 
@@ -111,7 +111,7 @@ namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
 		});
 	}
 
-	void UpdateLauncher::_ToUnZip()
+	void DownloadLauncher::_ToUnZip()
 	{
 		for(auto it : _FilePaths)
 		{
@@ -126,14 +126,14 @@ namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
 		_OnSuccess();
 	}
 
-	void UpdateLauncher::_ToParserFileListState(const path& file_path)
+	void DownloadLauncher::_ToParserFileListState(const path& file_path)
 	{
 		const auto fileList = Utility::File::DataParser::ParserFileListByFile(file_path.string());
 
 		_ToMerge(fileList, file_path);
 	}
 
-	void UpdateLauncher::_ToMerge(const Utility::DataDefine::FileList& file_list, const path& file_path)
+	void DownloadLauncher::_ToMerge(const Utility::DataDefine::FileList& file_list, const path& file_path)
 	{
 		for(auto& file : file_list)
 		{
@@ -152,28 +152,28 @@ namespace BZbee::Sandbox::GamePatch::UpdateLogic::Launcher
 		}
 	}
 
-	void UpdateLauncher::_ToUpdteLocalVer()
+	void DownloadLauncher::_ToUpdteLocalVer()
 	{
 		remove(Utility::DataDefine::LocalVerSavePath());
 		rename(Utility::DataDefine::NewestVerSavePath(), Utility::DataDefine::LocalVerSavePath());
 	}
 
-	void UpdateLauncher::_RemoveDownloadPack()
+	void DownloadLauncher::_RemoveDownloadPack()
 	{
 		remove_all(Utility::DataDefine::PACKING_FOLDER_NAME);
 	}
 
-	void UpdateLauncher::OnDownloadProgress(Utility::DataDefine::OnProgress&& callback)
+	void DownloadLauncher::OnDownloadProgress(Utility::DataDefine::OnProgress&& callback)
 	{
 		_OnProgress = callback;
 	}
 
-	void UpdateLauncher::OnUpdateSuccessEvent(Utility::DataDefine::OnSuccess&& callback)
+	void DownloadLauncher::OnUpdateSuccessEvent(Utility::DataDefine::OnSuccess&& callback)
 	{
 		_OnSuccess = callback;
 	}
 
-	void UpdateLauncher::OnNotNeedEvent(Utility::DataDefine::OnNotNeed&& callback)
+	void DownloadLauncher::OnNotNeedEvent(Utility::DataDefine::OnNotNeed&& callback)
 	{
 		_OnNotNeed = callback;
 	}

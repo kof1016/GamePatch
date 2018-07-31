@@ -7,8 +7,8 @@
 #include "../PackingLogic/Step/VersionUpdater.h"
 
 
-using namespace BZbee::Sandbox::GamePatch::PackingLogic;
-using namespace BZbee::Sandbox::GamePatch::Utility;
+using namespace bZbee::Sandbox::GamePatch::PackingLogic;
+using namespace bZbee::Sandbox::GamePatch::Utility;
 TEST_CASE("merge tets", "[packing]")
 {
 	DataDefine::FileList current{};
